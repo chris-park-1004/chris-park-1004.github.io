@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Chris (Honggyu) Park — DevOps Engineer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure." />
+
+<meta property="og:title" content="Chris (Honggyu) Park — DevOps Engineer" />
+<meta property="og:description" content="Mech-Eng turned Software, building CI/CD pipelines on Azure. Based in Waterloo, ON." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2214%22>%E2%9A%99%EF%B8%8F</text></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-deep: #08090c;
+    --panel: #161b22;
+    --panel-hi: #1c2230;
+    --border: #30363d;
+    --border-soft: #21262d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --text-faint: #6e7681;
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --yellow: #d29922;
+    --purple: #a371f7;
+    --red: #f85149;
+    --shadow: 0 0 0 transparent;
+  }
+  [data-theme="light"] {
+    --bg: #ffffff;
+    --bg-deep: #f6f8fa;
+    --panel: #ffffff;
+    --panel-hi: #f6f8fa;
+    --border: #d0d7de;
+    --border-soft: #d8dee4;
+    --text: #1f2328;
+    --text-dim: #59636e;
+    --text-faint: #818b98;
+    --green: #1a7f37;
+    --blue: #0969da;
+    --yellow: #9a6700;
+    --purple: #8250df;
+    --red: #cf222e;
+    --shadow: 0 1px 3px rgba(31, 35, 40, 0.04), 0 8px 24px rgba(66, 74, 83, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .2s, color .2s;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+
+  /* top window chrome */
+  .chrome {
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg-deep) 92%, transparent);
+  }
+  .chrome-dots { display: flex; gap: 7px; flex-shrink: 0; }
+  .chrome-dots span { width: 12px; height: 12px; border-radius: 50%; }
+  .chrome-path { display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; }
+  .chrome-path .faint { color: var(--text-faint); }
+  .chrome-path .strong { color: var(--text); font-weight: 500; }
+  .chrome-spacer { flex: 1; }
+  .chrome-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.2px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  .b-green { color: var(--green); border-color: color-mix(in srgb, var(--green) 40%, transparent); background: color-mix(in srgb, var(--green) 10%, transparent); }
+  .b-green .badge-dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .b-blue { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 40%, transparent); background: color-mix(in srgb, var(--blue) 10%, transparent); }
+  .b-blue .badge-dot { background: var(--blue); box-shadow: 0 0 8px var(--blue); }
+  .b-yellow { color: var(--yellow); border-color: color-mix(in srgb, var(--yellow) 40%, transparent); background: color-mix(in srgb, var(--yellow) 10%, transparent); }
+  .b-yellow .badge-dot { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+  .b-purple { color: var(--purple); border-color: color-mix(in srgb, var(--purple) 40%, transparent); background: color-mix(in srgb, var(--purple) 10%, transparent); }
+  .b-dim { color: var(--text-dim); border-color: var(--border); background: var(--panel-hi); }
+  .b-dim .badge-dot { background: var(--text-dim); }
+
+  /* theme toggle button */
+  .icon-btn {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    width: 30px; height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: color .15s, border-color .15s, background .15s;
+    padding: 0;
+  }
+  .icon-btn:hover { color: var(--text); border-color: var(--text-faint); }
+
+  /* layout */
+  .container { max-width: 1280px; margin: 0 auto; padding: 40px 56px 56px; }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .prompt { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); margin-bottom: 10px; }
+  h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spacing: -1.5px; line-height: 1.05; }
+  .subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--text-dim); margin-top: 10px; font-weight: 400; }
+  .header-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .header-meta .row { color: var(--text-dim); }
+  .header-meta .row b { color: var(--text); font-weight: 500; }
+
+  /* summary bar */
+  .summary {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 32px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .summary .k { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; }
+  .summary .v { font-size: 22px; font-weight: 600; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+  .v.blue { color: var(--blue); } .v.purple { color: var(--purple); } .v.green { color: var(--green); } .v.yellow { color: var(--yellow); }
+
+  /* main grid */
+  .grid { display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
+  .section-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+
+  /* stage card */
+  .stage {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    border-left: 3px solid var(--accent, var(--text-dim));
+    box-shadow: var(--shadow);
+  }
+  .stage-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+  .stage-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .stage-meta .id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); }
+  .stage-name { font-size: 19px; font-weight: 600; letter-spacing: -0.2px; }
+  .stage-sub { font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-top: 6px; }
+  .stage-dur { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); text-align: right; white-space: nowrap; }
+  .stage-body { margin-top: 12px; }
+  .stage-body p { margin: 0; font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .stage-body ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .stage-body li { display: flex; gap: 10px; font-size: 13px; color: var(--text); line-height: 1.5; }
+  .stage-body li .check { font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+
+  .edge {
+    display: flex; justify-content: center; padding: 6px 0;
+    color: var(--border);
+  }
+
+  .chip {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 3px 9px; background: var(--panel-hi);
+    border: 1px solid var(--border); border-radius: 5px;
+    color: var(--text-dim);
+  }
+
+  /* right rail */
+  .rail { display: flex; flex-direction: column; gap: 20px; }
+  .rail > .section-label { margin-bottom: -6px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .stack-group { margin-bottom: 12px; }
+  .stack-group:last-child { margin-bottom: 0; }
+  .stack-group + .stack-group { padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .stack-group .cat { font-size: 11.5px; color: var(--text-dim); margin-bottom: 6px; }
+  .stack-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .stack-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 3px 8px; background: var(--panel-hi);
+    border: 1px solid var(--border-soft); border-radius: 4px;
+    color: var(--text);
+  }
+
+  /* console */
+  .console {
+    background: var(--bg-deep);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .console-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .log { display: flex; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.7; color: var(--text-dim); }
+  .log .ts { color: var(--text-faint); flex-shrink: 0; }
+  .log .lvl { width: 42px; flex-shrink: 0; }
+  .log .lvl.OK { color: var(--green); } .log .lvl.INFO { color: var(--blue); } .log .lvl.WARN { color: var(--yellow); }
+
+  /* awards */
+  .award { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .award:last-child { margin-bottom: 0; }
+  .award .icon { font-size: 14px; flex-shrink: 0; }
+  .award .text { font-size: 12.5px; line-height: 1.4; }
+  .award .year { font-size: 11px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+
+  /* contact */
+  .contact-row { font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-bottom: 8px; }
+  .contact-row:last-child { margin-bottom: 0; }
+  .contact-row .verb { color: var(--purple); }
+  .contact-row .path { color: var(--text); }
+  .contact-row .val {
+    color: var(--text-dim); padding-left: 36px; font-size: 11px;
+    display: block; margin-top: 2px;
+    word-break: break-all;
+    transition: color .15s;
+  }
+  .contact-row a:hover .val { color: var(--blue); }
+
+  /* footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 56px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .container { padding: 28px 20px 40px; }
+    .grid { grid-template-columns: 1fr; gap: 20px; }
+    .summary { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .header-meta { align-items: flex-start; }
+    .chrome { padding: 10px 16px; gap: 8px; font-size: 11px; }
+    .chrome-path span:not(.strong):not(.faint) { display: none; }
+    /* surface contact info before timeline on mobile */
+    .rail { order: -1; }
+    .endpoints-card { order: -1; }
+  }
+  @media (max-width: 540px) {
+    .summary { grid-template-columns: 1fr 1fr; }
+    .stage-head { flex-direction: column; }
+    .stage-dur { text-align: left; }
+    footer { padding: 20px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="chrome">
+  <div class="chrome-dots">
+    <span style="background:#ff5f57"></span>
+    <span style="background:#febc2e"></span>
+    <span style="background:#28c840"></span>
+  </div>
+  <div class="chrome-path">
+    <span class="faint">~/pipelines/</span>
+    <span class="strong">chris-park-1004</span>
+    <span class="faint">· main</span>
+  </div>
+  <div class="chrome-spacer"></div>
+  <div class="chrome-actions">
+    <span class="badge b-green"><span class="badge-dot"></span>build #247 · passing</span>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg aria-hidden="true" id="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg aria-hidden="true" id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- header -->
+  <div class="header">
+    <div>
+      <div class="prompt">$ kubectl describe engineer/chris-park</div>
+      <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ Honggyu</span></h1>
+      <div class="subtitle">DevOps Engineer · Mech-Eng turned Software · Waterloo, ON</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">since: <b>2023-09</b></div>
+      <div class="row">region: <b>canadacentral</b></div>
+      <div class="row">status: <b style="color:var(--green)">● open to work</b></div>
+    </div>
+  </div>
+
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Pipelines built</div><div class="v blue">12+</div></div>
+    <div><div class="k">Stack migrated</div><div class="v purple">Win → Linux</div></div>
+    <div><div class="k">Years in CI/CD</div><div class="v green">1y+</div></div>
+    <div><div class="k">Awards</div><div class="v yellow">5</div></div>
+  </div>
+
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+      <div class="section-label">── career.pipeline.yml</div>
+
+      <div class="stage" style="--accent: var(--purple)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_01</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">B.Eng — Mechanical Engineering</div>
+            <div class="stage-sub">Jeonju University · 2015–2022</div>
+          </div>
+          <div class="stage-dur">7y</div>
+        </div>
+        <div class="stage-body">
+          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--green)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_02</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">DevOps Engineer @ VARLab</div>
+            <div class="stage-sub">Conestoga College · May 2024 – May 2025</div>
+          </div>
+          <div class="stage-dur">12mo</div>
+        </div>
+        <div class="stage-body">
+          <ul>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_03</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">Software Engineer @ Smart Centre</div>
+            <div class="stage-sub">Conestoga College · May 2025 – Sep 2025</div>
+          </div>
+          <div class="stage-dur">5mo</div>
+        </div>
+        <div class="stage-body">
+          <ul>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></li>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--green)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_04</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">Adv. Diploma — Software Engineering Tech.</div>
+            <div class="stage-sub">Conestoga College · 2023 – 2026</div>
+          </div>
+          <div class="stage-dur">3y</div>
+        </div>
+        <div class="stage-body">
+          <div class="stack-tags">
+            <span class="chip">CI/CD</span>
+            <span class="chip">Cloud</span>
+            <span class="chip">Full-Stack</span>
+            <span class="chip">Containers</span>
+          </div>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_05</span>
+              <span class="badge b-blue"><span class="badge-dot"></span>running</span>
+            </div>
+            <div class="stage-name">Next: Full-Time DevOps / SRE</div>
+            <div class="stage-sub">Open to opportunities · Canada · Remote</div>
+          </div>
+          <div class="stage-dur">in progress</div>
+        </div>
+        <div class="stage-body">
+          <p style="font-style: italic;">Deployment in progress · accepting offers ▶</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+      <div class="section-label">── ./modules</div>
+      <div class="card">
+        <div class="card-label">stack</div>
+
+        <div class="stack-group">
+          <div class="cat">CI/CD</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins</span>
+            <span class="stack-tag">GitHub Actions</span>
+            <span class="stack-tag">Bitbucket</span>
+            <span class="stack-tag">Azure DevOps</span>
+            <span class="stack-tag">SonarQube</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Cloud / Infra</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Azure</span>
+            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">Container Apps</span>
+            <span class="stack-tag">Nginx</span>
+            <span class="stack-tag">Apache</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Languages</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">C++</span>
+            <span class="stack-tag">Groovy</span>
+            <span class="stack-tag">Bash</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Data</div>
+          <div class="stack-tags">
+            <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">MySQL</span>
+            <span class="stack-tag">MongoDB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="console">
+        <div class="console-head">
+          <div class="card-label" style="margin: 0;">console</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="log"><span class="ts">14:02:11</span><span class="lvl INFO">[INFO]</span><span>git pull origin main</span></div>
+        <div class="log"><span class="ts">14:02:12</span><span class="lvl OK">[OK]</span><span>build · 12.4s · cached</span></div>
+        <div class="log"><span class="ts">14:02:14</span><span class="lvl INFO">[INFO]</span><span>docker push azurecr.io/app:v2.1</span></div>
+        <div class="log"><span class="ts">14:02:31</span><span class="lvl OK">[OK]</span><span>sonarqube · A · 0 issues</span></div>
+        <div class="log"><span class="ts">14:02:33</span><span class="lvl INFO">[INFO]</span><span>deploy → container-app/prod</span></div>
+        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>healthcheck · 200 OK</span></div>
+        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>pipeline complete</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">achievements</div>
+        <div class="award"><span class="icon">🥇</span><div><div class="text">University Capstone Design Competition</div><div class="year">2021</div></div></div>
+        <div class="award"><span class="icon">🎓</span><div><div class="text">National Science Scholarship · sole recipient</div><div class="year">2019</div></div></div>
+        <div class="award"><span class="icon">🎖</span><div><div class="text">Korean Official Invention Scholarship</div><div class="year">2014</div></div></div>
+        <div class="award"><span class="icon">🥈</span><div><div class="text">Korean National Invention Competition</div><div class="year">2012–14</div></div></div>
+        <div class="award"><span class="icon">🏆</span><div><div class="text">LG Student Invention Contest</div><div class="year">2011</div></div></div>
+      </div>
+
+      <div class="card endpoints-card">
+        <div class="card-label">endpoints</div>
+        <a href="mailto:honggyupark1004@gmail.com">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/email</span>
+            <span class="val">honggyupark1004@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/linkedin</span>
+            <span class="val">/in/honggyu-park-b68627249</span>
+          </div>
+        </a>
+        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/github</span>
+            <span class="val">github.com/chris-park-1004</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Chris (Honggyu) Park · Built with HTML, deployed on GitHub Pages
+</footer>
+
+<script>
+  // theme toggle with localStorage persistence
+  (function () {
+    const KEY = 'hp-theme';
+    const body = document.body;
+    const btn = document.getElementById('theme-toggle');
+    const sun = document.getElementById('icon-sun');
+    const moon = document.getElementById('icon-moon');
+
+    function apply(theme) {
+      body.setAttribute('data-theme', theme);
+      sun.style.display = theme === 'dark' ? 'block' : 'none';
+      moon.style.display = theme === 'light' ? 'block' : 'none';
+    }
+
+    const saved = localStorage.getItem(KEY) || 'dark';
+    apply(saved);
+
+    btn.addEventListener('click', () => {
+      const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(KEY, next);
+      apply(next);
+    });
+  })();
+</script>
+
+</body>
+</html>
