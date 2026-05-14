@@ -130,47 +130,19 @@
   .container { max-width: 1280px; margin: 0 auto; padding: 40px 56px 56px; }
 
   .header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
-    align-items: end;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 24px;
     margin-bottom: 36px;
+    flex-wrap: wrap;
   }
   .prompt { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); margin-bottom: 10px; }
   h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spacing: -1.5px; line-height: 1.05; }
   .subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--text-dim); margin-top: 10px; font-weight: 400; }
-  .header-meta {
-    min-width: min(100%, 340px);
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-    box-shadow: var(--shadow);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-  }
-  .contact-label {
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin-bottom: 9px;
-  }
-  .header-meta .row {
-    display: grid;
-    grid-template-columns: 62px minmax(0, 1fr);
-    gap: 8px;
-    color: var(--text-dim);
-    align-items: baseline;
-  }
-  .header-meta .row + .row { margin-top: 6px; }
-  .header-meta .key { color: var(--purple); }
-  .header-meta .row a {
-    color: var(--text);
-    font-weight: 500;
-    transition: color .15s;
-    overflow-wrap: anywhere;
-  }
-  .header-meta .row a:hover { color: var(--blue); }
+  .header-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .header-meta .row { color: var(--text-dim); }
+  .header-meta .row b { color: var(--text); font-weight: 500; }
 
   /* summary bar */
   .summary {
@@ -196,7 +168,7 @@
     border-left: 3px solid var(--accent, var(--text-dim));
     box-shadow: var(--shadow);
   }
-  .stage + .stage { margin-top: 10px; }
+  .stage + .stage { margin-top: 16px; }
   .stage-head {
     display: flex; justify-content: flex-start; align-items: flex-start; gap: 12px;
     width: 100%;
@@ -312,8 +284,8 @@
     .container { padding: 28px 20px 40px; }
     .grid { grid-template-columns: 1fr; gap: 20px; }
     .summary { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .header { grid-template-columns: 1fr; align-items: start; }
-    .header-meta { width: 100%; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .header-meta { align-items: flex-start; }
     .chrome { padding: 10px 16px; gap: 8px; font-size: 11px; }
     .chrome-path span:not(.strong):not(.faint) { display: none; }
     /* surface contact info before timeline on mobile */
@@ -360,10 +332,9 @@
       <div class="subtitle">DevOps Engineer · Mech-Eng turned Software · Waterloo, ON</div>
     </div>
     <div class="header-meta">
-      <div class="contact-label">contact</div>
-      <div class="row"><span class="key">email</span><a href="mailto:honggyupark1004@gmail.com">honggyupark1004@gmail.com</a></div>
-      <div class="row"><span class="key">linkedin</span><a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">/in/honggyu-park-b68627249</a></div>
-      <div class="row"><span class="key">github</span><a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">chris-park-1004</a></div>
+      <div class="row">since: <b>2023-01</b></div>
+      <div class="row">region: <b>canadacentral</b></div>
+      <div class="row">status: <b style="color:var(--green)">● open to work</b></div>
     </div>
   </div>
 
@@ -372,7 +343,7 @@
     <div><div class="k">Pipelines built</div><div class="v blue">12+</div></div>
     <div><div class="k">Stack migrated</div><div class="v purple">Win → Linux</div></div>
     <div><div class="k">Years in CI/CD</div><div class="v green">1y+</div></div>
-    <div><div class="k">Awards</div><div class="v yellow">5</div></div>
+    <div><div class="k">Awards</div><div class="v yellow">6</div></div>
   </div>
 
   <!-- main grid -->
@@ -393,9 +364,17 @@
           <span class="stage-dur">in progress</span>
         </div>
         <div class="stage-body" id="career-01-details" hidden>
-          <p style="font-style: italic;">Deployment in progress · accepting offers ▶</p>
+          <div class="console">
+            <div class="console-head">
+              <div class="card-label" style="margin: 0;">$ deploy stage/next</div>
+              <span class="live-dot"></span>
+            </div>
+            <div class="log"><span class="lvl INFO">[INFO]</span><span>deployment in progress · accepting offers</span></div>
+            <div class="log"><span class="lvl INFO">[INFO]</span><span>target: DevOps · SRE · QA · Software Developer (full-time)</span></div>
+            <div class="log"><span class="lvl INFO">[INFO]</span><span>location: anywhere in Canada · remote-friendly</span></div>
+          </div>
         </div>
-        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-01-details"><span>View details</span></button>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-01-details"><span>Build Log</span></button>
       </div>
       <div class="stage" style="--accent: var(--blue)">
         <div class="stage-head">
@@ -410,12 +389,16 @@
           <span class="stage-dur">5mo</span>
         </div>
         <div class="stage-body" id="career-02-details" hidden>
-          <ul>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></li>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></li>
-          </ul>
+          <div class="console">
+            <div class="console-head">
+              <div class="card-label" style="margin: 0;">$ kubectl logs stage/smart-centre</div>
+              <span class="live-dot"></span>
+            </div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></div>
+          </div>
         </div>
-        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-02-details"><span>View details</span></button>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-02-details"><span>Build Log</span></button>
       </div>
       <div class="stage" style="--accent: var(--blue)">
         <div class="stage-head">
@@ -430,14 +413,18 @@
           <span class="stage-dur">12mo</span>
         </div>
         <div class="stage-body" id="career-03-details" hidden>
-          <ul>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
-          </ul>
+          <div class="console">
+            <div class="console-head">
+              <div class="card-label" style="margin: 0;">$ kubectl logs stage/varlab</div>
+              <span class="live-dot"></span>
+            </div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Integrated SonarQube and authored usage guidelines for the team</span></div>
+          </div>
         </div>
-        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-03-details"><span>View details</span></button>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-03-details"><span>Build Log</span></button>
       </div>
 
       <div class="section-label" style="margin-top: 28px;">── education.yml</div>
@@ -455,14 +442,21 @@
           <span class="stage-dur">3y</span>
         </div>
         <div class="stage-body" id="edu-01-details" hidden>
-          <div class="stack-tags">
-            <span class="chip">CI/CD</span>
-            <span class="chip">Cloud</span>
-            <span class="chip">Full-Stack</span>
-            <span class="chip">Containers</span>
+          <div class="console">
+            <div class="console-head">
+              <div class="card-label" style="margin: 0;">$ cat stage/conestoga.yml</div>
+            </div>
+            <div class="log"><span class="lvl INFO">[INFO]</span><span>Adv. Diploma · Software Engineering Tech.</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>GPA · 3.72 / 4.00 · 85.12% weighted avg</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>4 co-op work terms · 1,680 hrs</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Systems · OS, Architecture, System Programming</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Software Quality · QA + Advanced QA</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Security · Advanced Computer Security (A+ 93%)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Programming · C/C++, OOP, Mobile (A+ 95%)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Data &amp; Math · DB, Statistics (A+ 92%)</span></div>
           </div>
         </div>
-        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-01-details"><span>View details</span></button>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-01-details"><span>Build Log</span></button>
       </div>
       <div class="stage" style="--accent: var(--purple)">
         <div class="stage-head">
@@ -477,9 +471,21 @@
           <span class="stage-dur">7y</span>
         </div>
         <div class="stage-body" id="edu-02-details" hidden>
-          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
+          <div class="console">
+            <div class="console-head">
+              <div class="card-label" style="margin: 0;">$ cat stage/jeonju.yml</div>
+            </div>
+            <div class="log"><span class="lvl INFO">[INFO]</span><span>B.Eng · Mechanical &amp; Automotive Engineering</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>GPA · 4.28 / 4.50 · 128 credits (Korean 4.5-scale)</span></div>
+            <div class="log"><span class="lvl OK">[OK]</span><span>Capstone winner — waste-energy recovery generator ★</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Mechanical Core · Statics, Dynamics, Materials (A+)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Thermo &amp; Fluids · Thermodynamics, Fluid Mech, Heat Transfer (A+)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Hydraulics · Oil Hydraulics, Turbomachinery (A+)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Design &amp; CAD · Mechanical Design, CAD, Capstone (A+)</span></div>
+            <div class="log"><span class="lvl INFO">[MOD]</span><span>Programming · Languages 1+2 (A+), Big Data</span></div>
+          </div>
         </div>
-        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-02-details"><span>View details</span></button>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-02-details"><span>Build Log</span></button>
       </div>
     </div>
 
@@ -497,6 +503,7 @@
             <span class="stack-tag">Bitbucket</span>
             <span class="stack-tag">Azure DevOps</span>
             <span class="stack-tag">SonarQube</span>
+            <span class="stack-tag">Grafana</span>
           </div>
         </div>
         <div class="stack-group">
@@ -515,6 +522,7 @@
             <span class="stack-tag">Python</span>
             <span class="stack-tag">TypeScript</span>
             <span class="stack-tag">C++</span>
+            <span class="stack-tag">C#</span>
             <span class="stack-tag">Groovy</span>
             <span class="stack-tag">Bash</span>
           </div>
@@ -529,23 +537,10 @@
         </div>
       </div>
 
-      <div class="console">
-        <div class="console-head">
-          <div class="card-label" style="margin: 0;">console</div>
-          <span class="live-dot"></span>
-        </div>
-        <div class="log"><span class="ts">14:02:11</span><span class="lvl INFO">[INFO]</span><span>git pull origin main</span></div>
-        <div class="log"><span class="ts">14:02:12</span><span class="lvl OK">[OK]</span><span>build · 12.4s · cached</span></div>
-        <div class="log"><span class="ts">14:02:14</span><span class="lvl INFO">[INFO]</span><span>docker push azurecr.io/app:v2.1</span></div>
-        <div class="log"><span class="ts">14:02:31</span><span class="lvl OK">[OK]</span><span>sonarqube · A · 0 issues</span></div>
-        <div class="log"><span class="ts">14:02:33</span><span class="lvl INFO">[INFO]</span><span>deploy → container-app/prod</span></div>
-        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>healthcheck · 200 OK</span></div>
-        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>pipeline complete</span></div>
-      </div>
-
       <div class="card">
         <div class="card-label">achievements</div>
-        <div class="award"><span class="icon">🥇</span><div><div class="text">University Capstone Design Competition</div><div class="year">2021</div></div></div>
+        <div class="award"><span class="icon">🏅</span><div><div class="text">Graduated with Distinction · Conestoga College</div><div class="year">2026</div></div></div>
+        <div class="award"><span class="icon">🥇</span><div><div class="text">University Capstone Design Competition · Winner</div><div class="year">2021</div></div></div>
         <div class="award"><span class="icon">🎓</span><div><div class="text">National Science Scholarship · sole recipient</div><div class="year">2019</div></div></div>
         <div class="award"><span class="icon">🎖</span><div><div class="text">Korean Official Invention Scholarship</div><div class="year">2014</div></div></div>
         <div class="award"><span class="icon">🥈</span><div><div class="text">Korean National Invention Competition</div><div class="year">2012–14</div></div></div>
@@ -613,7 +608,7 @@
 
         stageBtn.setAttribute('aria-expanded', String(!isExpanded));
         detail.hidden = isExpanded;
-        label.textContent = isExpanded ? 'View details' : 'Hide details';
+        label.textContent = isExpanded ? 'Build Log' : 'Hide Log';
       });
     });
   })();
