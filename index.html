@@ -130,19 +130,47 @@
   .container { max-width: 1280px; margin: 0 auto; padding: 40px 56px 56px; }
 
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+    align-items: end;
     gap: 24px;
     margin-bottom: 36px;
-    flex-wrap: wrap;
   }
   .prompt { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); margin-bottom: 10px; }
   h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spacing: -1.5px; line-height: 1.05; }
   .subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--text-dim); margin-top: 10px; font-weight: 400; }
-  .header-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-  .header-meta .row { color: var(--text-dim); }
-  .header-meta .row b { color: var(--text); font-weight: 500; }
+  .header-meta {
+    min-width: min(100%, 340px);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .contact-label {
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 9px;
+  }
+  .header-meta .row {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 8px;
+    color: var(--text-dim);
+    align-items: baseline;
+  }
+  .header-meta .row + .row { margin-top: 6px; }
+  .header-meta .key { color: var(--purple); }
+  .header-meta .row a {
+    color: var(--text);
+    font-weight: 500;
+    transition: color .15s;
+    overflow-wrap: anywhere;
+  }
+  .header-meta .row a:hover { color: var(--blue); }
 
   /* summary bar */
   .summary {
@@ -164,26 +192,45 @@
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 18px;
+    padding: 14px 16px;
     border-left: 3px solid var(--accent, var(--text-dim));
     box-shadow: var(--shadow);
   }
-  .stage-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
-  .stage-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .stage + .stage { margin-top: 10px; }
+  .stage-head {
+    display: flex; justify-content: flex-start; align-items: flex-start; gap: 12px;
+    width: 100%;
+  }
+  .stage-main { flex: 1; min-width: 0; }
+  .stage-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
   .stage-meta .id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); }
-  .stage-name { font-size: 19px; font-weight: 600; letter-spacing: -0.2px; }
-  .stage-sub { font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-top: 6px; }
+  .stage-name { display: block; font-size: 19px; font-weight: 600; letter-spacing: -0.2px; }
+  .stage-sub { display: block; font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-top: 6px; }
   .stage-dur { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); text-align: right; white-space: nowrap; }
-  .stage-body { margin-top: 12px; }
+  .stage-body { margin-top: 10px; }
+  .stage-body[hidden] { display: none; }
   .stage-body p { margin: 0; font-size: 13px; color: var(--text-dim); line-height: 1.6; }
   .stage-body ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .stage-body li { display: flex; gap: 10px; font-size: 13px; color: var(--text); line-height: 1.5; }
   .stage-body li .check { font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
-
-  .edge {
-    display: flex; justify-content: center; padding: 6px 0;
-    color: var(--border);
+  .stage-toggle {
+    margin-top: 10px;
+    width: 100%;
+    min-height: 30px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel-hi);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
   }
+  .stage-toggle::before { content: "+"; font-size: 14px; line-height: 1; }
+  .stage-toggle[aria-expanded="true"]::before { content: "-"; }
+  .stage-toggle:hover { color: var(--text); border-color: var(--text-faint); }
+  .stage-toggle:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
   .chip {
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -265,8 +312,8 @@
     .container { padding: 28px 20px 40px; }
     .grid { grid-template-columns: 1fr; gap: 20px; }
     .summary { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .header { flex-direction: column; align-items: flex-start; }
-    .header-meta { align-items: flex-start; }
+    .header { grid-template-columns: 1fr; align-items: start; }
+    .header-meta { width: 100%; }
     .chrome { padding: 10px 16px; gap: 8px; font-size: 11px; }
     .chrome-path span:not(.strong):not(.faint) { display: none; }
     /* surface contact info before timeline on mobile */
@@ -275,8 +322,8 @@
   }
   @media (max-width: 540px) {
     .summary { grid-template-columns: 1fr 1fr; }
-    .stage-head { flex-direction: column; }
-    .stage-dur { text-align: left; }
+    .stage-head { gap: 10px; }
+    .stage-dur { text-align: right; }
     footer { padding: 20px; }
   }
 </style>
@@ -313,9 +360,10 @@
       <div class="subtitle">DevOps Engineer · Mech-Eng turned Software · Waterloo, ON</div>
     </div>
     <div class="header-meta">
-      <div class="row">since: <b>2023-09</b></div>
-      <div class="row">region: <b>canadacentral</b></div>
-      <div class="row">status: <b style="color:var(--green)">● open to work</b></div>
+      <div class="contact-label">contact</div>
+      <div class="row"><span class="key">email</span><a href="mailto:honggyupark1004@gmail.com">honggyupark1004@gmail.com</a></div>
+      <div class="row"><span class="key">linkedin</span><a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">/in/honggyu-park-b68627249</a></div>
+      <div class="row"><span class="key">github</span><a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">chris-park-1004</a></div>
     </div>
   </div>
 
@@ -332,87 +380,81 @@
     <div>
       <div class="section-label">── career.pipeline.yml</div>
 
-      <div class="stage" style="--accent: var(--purple)">
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">stage_01</span>
-              <span class="badge b-green"><span class="badge-dot"></span>success</span>
-            </div>
-            <div class="stage-name">B.Eng — Mechanical Engineering</div>
-            <div class="stage-sub">Jeonju University · 2015–2022</div>
-          </div>
-          <div class="stage-dur">7y</div>
-        </div>
-        <div class="stage-body">
-          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
-        </div>
-      </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stage" style="--accent: var(--green)">
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">stage_02</span>
-              <span class="badge b-green"><span class="badge-dot"></span>success</span>
-            </div>
-            <div class="stage-name">DevOps Engineer @ VARLab</div>
-            <div class="stage-sub">Conestoga College · May 2024 – May 2025</div>
-          </div>
-          <div class="stage-dur">12mo</div>
-        </div>
-        <div class="stage-body">
-          <ul>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </div>
-
       <div class="stage" style="--accent: var(--blue)">
         <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">stage_03</span>
-              <span class="badge b-green"><span class="badge-dot"></span>success</span>
-            </div>
-            <div class="stage-name">Software Engineer @ Smart Centre</div>
-            <div class="stage-sub">Conestoga College · May 2025 – Sep 2025</div>
-          </div>
-          <div class="stage-dur">5mo</div>
+          <span class="stage-main">
+            <span class="stage-meta">
+              <span class="id">career_01</span>
+              <span class="badge b-blue"><span class="badge-dot"></span>running</span>
+            </span>
+            <span class="stage-name">Next: Full-Time DevOps / SRE</span>
+            <span class="stage-sub">Open to opportunities · Canada · Remote</span>
+          </span>
+          <span class="stage-dur">in progress</span>
         </div>
-        <div class="stage-body">
+        <div class="stage-body" id="career-01-details" hidden>
+          <p style="font-style: italic;">Deployment in progress · accepting offers ▶</p>
+        </div>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-01-details"><span>View details</span></button>
+      </div>
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <span class="stage-main">
+            <span class="stage-meta">
+              <span class="id">career_02</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </span>
+            <span class="stage-name">Software Engineer @ Smart Centre</span>
+            <span class="stage-sub">Conestoga College · May 2025 – Sep 2025</span>
+          </span>
+          <span class="stage-dur">5mo</span>
+        </div>
+        <div class="stage-body" id="career-02-details" hidden>
           <ul>
             <li><span class="check" style="color:var(--blue)">✓</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></li>
             <li><span class="check" style="color:var(--blue)">✓</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></li>
           </ul>
         </div>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-02-details"><span>View details</span></button>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <span class="stage-main">
+            <span class="stage-meta">
+              <span class="id">career_03</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </span>
+            <span class="stage-name">DevOps Engineer @ VARLab</span>
+            <span class="stage-sub">Conestoga College · May 2024 – May 2025</span>
+          </span>
+          <span class="stage-dur">12mo</span>
+        </div>
+        <div class="stage-body" id="career-03-details" hidden>
+          <ul>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
+          </ul>
+        </div>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="career-03-details"><span>View details</span></button>
       </div>
+
+      <div class="section-label" style="margin-top: 28px;">── education.yml</div>
 
       <div class="stage" style="--accent: var(--green)">
         <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">stage_04</span>
+          <span class="stage-main">
+            <span class="stage-meta">
+              <span class="id">edu_01</span>
               <span class="badge b-green"><span class="badge-dot"></span>success</span>
-            </div>
-            <div class="stage-name">Adv. Diploma — Software Engineering Tech.</div>
-            <div class="stage-sub">Conestoga College · 2023 – 2026</div>
-          </div>
-          <div class="stage-dur">3y</div>
+            </span>
+            <span class="stage-name">Adv. Diploma — Software Engineering Tech.</span>
+            <span class="stage-sub">Conestoga College · 2023 – 2026</span>
+          </span>
+          <span class="stage-dur">3y</span>
         </div>
-        <div class="stage-body">
+        <div class="stage-body" id="edu-01-details" hidden>
           <div class="stack-tags">
             <span class="chip">CI/CD</span>
             <span class="chip">Cloud</span>
@@ -420,26 +462,24 @@
             <span class="chip">Containers</span>
           </div>
         </div>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-01-details"><span>View details</span></button>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stage" style="--accent: var(--blue)">
+      <div class="stage" style="--accent: var(--purple)">
         <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">stage_05</span>
-              <span class="badge b-blue"><span class="badge-dot"></span>running</span>
-            </div>
-            <div class="stage-name">Next: Full-Time DevOps / SRE</div>
-            <div class="stage-sub">Open to opportunities · Canada · Remote</div>
-          </div>
-          <div class="stage-dur">in progress</div>
+          <span class="stage-main">
+            <span class="stage-meta">
+              <span class="id">edu_02</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </span>
+            <span class="stage-name">B.Eng — Mechanical Engineering</span>
+            <span class="stage-sub">Jeonju University · 2015–2022</span>
+          </span>
+          <span class="stage-dur">7y</span>
         </div>
-        <div class="stage-body">
-          <p style="font-style: italic;">Deployment in progress · accepting offers ▶</p>
+        <div class="stage-body" id="edu-02-details" hidden>
+          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
         </div>
+        <button class="stage-toggle" type="button" aria-expanded="false" aria-controls="edu-02-details"><span>View details</span></button>
       </div>
     </div>
 
@@ -563,6 +603,18 @@
       const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       localStorage.setItem(KEY, next);
       apply(next);
+    });
+
+    document.querySelectorAll('.stage-toggle[aria-controls]').forEach((stageBtn) => {
+      stageBtn.addEventListener('click', () => {
+        const detail = document.getElementById(stageBtn.getAttribute('aria-controls'));
+        const label = stageBtn.querySelector('span');
+        const isExpanded = stageBtn.getAttribute('aria-expanded') === 'true';
+
+        stageBtn.setAttribute('aria-expanded', String(!isExpanded));
+        detail.hidden = isExpanded;
+        label.textContent = isExpanded ? 'View details' : 'Hide details';
+      });
     });
   })();
 </script>
