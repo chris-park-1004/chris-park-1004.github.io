@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger on every push to main (production deployment)
+  push:
+    branches: [main]
+  # Allow manual trigger from the Actions tab (useful for testing)
+  workflow_dispatch:
+
+# Permissions required for actions/deploy-pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time. Cancel in-progress runs that have not finished.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install, build, and upload Astro site
+        uses: withastro/action@v3
+        # Defaults:
+        #   path:           ./
+        #   node-version:   20
+        #   package-manager: pnpm@latest, yarn, or npm (auto-detected from lockfile)
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
