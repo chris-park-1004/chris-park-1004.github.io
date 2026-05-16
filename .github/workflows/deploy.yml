@@ -28,10 +28,8 @@ jobs:
 
       - name: Install, build, and upload Astro site
         uses: withastro/action@v3
-        # Defaults:
-        #   path:           ./
-        #   node-version:   20
-        #   package-manager: pnpm@latest, yarn, or npm (auto-detected from lockfile)
+        with:
+          node-version: 22
 
   deploy:
     name: Deploy
