@@ -1,0 +1,75 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'prometheus' },
+];
+---
+
+<Default
+  title="Prometheus — CI/CD Pipeline (planned)"
+  description="Planned Prometheus integration: scrape Jenkins metrics and feed a public Grafana dashboard."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat plan.md</div>
+      <h1>Prometheus</h1>
+      <div class="subtitle">Metrics scraping from Jenkins · feeds Grafana public dashboard</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--text-dim)">● planning</b></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="section-label">── ./plan</div>
+
+      <div class="stage" style="--accent: var(--text-dim)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">todo</span>
+              <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
+            </div>
+            <div class="stage-name">Not implemented yet</div>
+            <div class="stage-sub">Captures the design before building, so the architecture is documented up-front.</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Prometheus will scrape Jenkins via the Prometheus plugin, exposing metrics on a private internal endpoint. The scraping target is the Jenkins controller; build agents emit their own metrics through the controller.</p>
+          <ul style="margin-top: 12px;">
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Install Jenkins Prometheus plugin; expose <code>/prometheus</code> endpoint</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Run Prometheus on the home PC (Docker), keep it private</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Drop sensitive labels (host names, IPs, paths) at scrape time</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Push curated metrics to Grafana Cloud (so the public dashboard stays up even when the home PC is off)</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Target metrics: build duration trend, success rate, queue depth, DORA-style indicators</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div class="section-label">── ./context</div>
+
+      <div class="card">
+        <div class="card-label">why prometheus</div>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+          Prometheus is the standard for pull-based metrics in CI/CD and SRE. Easier to demo observability practices than home-grown logging.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">related</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          <a href="/projects/ci-cd/grafana/" style="color: var(--blue);">→ Grafana component (also planned)</a>
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Default>

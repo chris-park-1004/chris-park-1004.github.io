@@ -1,0 +1,55 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'jenkins', href: '/projects/ci-cd/jenkins/' },
+  { label: 'installation' },
+];
+---
+
+<Default
+  title="Jenkins / Installation — CI/CD Pipeline"
+  description="Installing Jenkins LTS on Windows 11 Home with Java 25 LTS."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat installation.md</div>
+      <h1>Installation</h1>
+      <div class="subtitle">Jenkins LTS on Windows 11 Home · Java 25 LTS · MSI installer</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+        <div class="stage-sub">This page will be expanded with screenshots and commands.</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Java 25 LTS (Eclipse Temurin) install via MSI</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span><code>JAVA_HOME</code> setup and verification</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Jenkins LTS via Windows MSI installer</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Suggested plugins set vs. minimal plugins</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Initial admin user + password (the unlock step)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Common pitfalls: WinSW double-restart race, port 8080 occupied, etc.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/jenkins/" style="color: var(--text-dim);">← back to Jenkins</a>
+  </div>
+</Default>

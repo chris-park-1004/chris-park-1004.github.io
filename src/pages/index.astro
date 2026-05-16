@@ -1,0 +1,165 @@
+---
+import Default from '../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004' },
+];
+---
+
+<Default
+  title="Chris (Honggyu) Park — DevOps Portfolio"
+  description="Personal DevOps portfolio. Career timeline + hands-on CI/CD project documentation."
+  breadcrumbs={breadcrumbs}
+>
+
+  <!-- header -->
+  <div class="header">
+    <div>
+      <div class="prompt">$ whoami</div>
+      <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ Portfolio</span></h1>
+      <div class="subtitle">DevOps Engineer · Waterloo, ON · <span style="color:var(--green)">● open to work</span></div>
+    </div>
+  </div>
+
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+
+      <!-- ABOUT ME -->
+      <div class="section-label">── about me</div>
+
+      <a href="/career" class="stage-link">
+        <div class="stage" style="--accent: var(--purple)">
+          <div class="stage-head">
+            <div>
+              <div class="stage-meta">
+                <span class="id">profile_01</span>
+                <span class="badge b-green"><span class="badge-dot"></span>active</span>
+              </div>
+              <div class="stage-name">Mech-Eng turned DevOps Engineer</div>
+              <div class="stage-sub">12+ pipelines built · Win → Linux migration · 1y+ in CI/CD</div>
+            </div>
+            <div class="stage-dur">since 2023</div>
+          </div>
+          <div class="stage-body">
+            <p>I build CI/CD pipelines for JS, Unity, and containerized web apps. Hands-on experience designing automated pipelines from scratch, migrating CI/CD stacks from Windows to Linux for better stability, integrating code-quality tools like SonarQube with team usage guidelines, and containerizing services with Docker and Azure Container Registry.</p>
+            <div class="stack-tags" style="margin-top: 12px;">
+              <span class="chip">Jenkins</span>
+              <span class="chip">Azure DevOps</span>
+              <span class="chip">Docker</span>
+              <span class="chip">SonarQube</span>
+              <span class="chip">GitHub Actions</span>
+              <span class="chip">Bitbucket</span>
+            </div>
+            <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue);">
+              view full career timeline →
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- ABOUT MY PROJECTS -->
+      <div class="section-label" style="margin-top: 28px;">── about my projects</div>
+
+      <a href="/projects/ci-cd/" class="stage-link">
+        <div class="stage" style="--accent: var(--green)">
+          <div class="stage-head">
+            <div>
+              <div class="stage-meta">
+                <span class="id">project_01</span>
+                <span class="badge b-green"><span class="badge-dot"></span>deployed</span>
+              </div>
+              <div class="stage-name">CI/CD Pipeline</div>
+              <div class="stage-sub">Self-hosted Jenkins · Cloudflare Tunnel · GitHub App · Prometheus + Grafana (planned)</div>
+            </div>
+            <div class="stage-dur">5 components</div>
+          </div>
+          <div class="stage-body">
+            <p>A personal Jenkins-based CI/CD pipeline running on a home PC, exposed securely via Cloudflare Tunnel + Access. GitHub App auth, Multibranch Pipeline with rich PR Checks, and a planned public Grafana dashboard for portfolio viewers.</p>
+            <div class="stack-tags" style="margin-top: 12px;">
+              <span class="chip">Jenkins</span>
+              <span class="chip">GitHub</span>
+              <span class="chip">Cloudflare</span>
+              <span class="chip">Prometheus</span>
+              <span class="chip">Grafana</span>
+            </div>
+            <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue);">
+              view project →
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- placeholder for future projects -->
+      <div class="stage" style="--accent: var(--border); border-style: dashed; opacity: 0.6; margin-top: 14px;">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">project_02</span>
+              <span class="badge b-dim"><span class="badge-dot"></span>idle</span>
+            </div>
+            <div class="stage-name">Future project</div>
+            <div class="stage-sub">Slot reserved · stay tuned</div>
+          </div>
+          <div class="stage-dur">—</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+      <div class="section-label">── ./contact</div>
+
+      <div class="card endpoints-card">
+        <div class="card-label">endpoints</div>
+        <a href="mailto:honggyupark1004@gmail.com">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/email</span>
+            <span class="val">honggyupark1004@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/linkedin</span>
+            <span class="val">/in/honggyu-park-b68627249</span>
+          </div>
+        </a>
+        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/github</span>
+            <span class="val">github.com/chris-park-1004</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="console">
+        <div class="console-head">
+          <div class="card-label" style="margin: 0;">recent activity</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="log"><span class="ts">today</span><span class="lvl INFO">[INFO]</span><span>migrated portfolio to Astro</span></div>
+        <div class="log"><span class="ts">today</span><span class="lvl OK">[OK]</span><span>jenkins · checks-api integrated</span></div>
+        <div class="log"><span class="ts">-1d</span><span class="lvl OK">[OK]</span><span>github-app · auth configured</span></div>
+        <div class="log"><span class="ts">-2d</span><span class="lvl OK">[OK]</span><span>cloudflare-tunnel · access gate up</span></div>
+        <div class="log"><span class="ts">-3d</span><span class="lvl OK">[OK]</span><span>jenkins · multibranch pipeline live</span></div>
+        <div class="log"><span class="ts">soon</span><span class="lvl WARN">[TODO]</span><span>prometheus + grafana dashboard</span></div>
+      </div>
+    </div>
+  </div>
+
+</Default>
+
+<style>
+  /* Make stage cards on overview behave as clickable links */
+  .stage-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .15s, border-color .15s;
+  }
+  .stage-link:hover .stage {
+    border-color: var(--text-faint);
+    transform: translateY(-1px);
+  }
+</style>

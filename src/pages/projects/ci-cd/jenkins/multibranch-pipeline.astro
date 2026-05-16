@@ -1,0 +1,54 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'jenkins', href: '/projects/ci-cd/jenkins/' },
+  { label: 'multibranch-pipeline' },
+];
+---
+
+<Default
+  title="Jenkins / Multibranch Pipeline — CI/CD Pipeline"
+  description="Auto-discover branches and PRs; build against the target-branch merge."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat multibranch-pipeline.md</div>
+      <h1>Multibranch Pipeline</h1>
+      <div class="subtitle">Auto-discovers branches + PRs · uses "Merging with target branch" strategy · driven by Jenkinsfile in each branch</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Multibranch Pipeline vs. single Pipeline vs. Freestyle</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Branch Sources configuration with GitHub App credential</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>"Merging with target branch" vs. "current PR revision" trade-offs</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Excluding fork PRs (security trade-off)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Orphaned-item retention strategy</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Sample Jenkinsfile with stage breakdown</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/jenkins/" style="color: var(--text-dim);">← back to Jenkins</a>
+  </div>
+</Default>

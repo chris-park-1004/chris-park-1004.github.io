@@ -1,0 +1,118 @@
+---
+import '../styles/global.css';
+
+export interface BreadcrumbSegment {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: BreadcrumbSegment[];
+  buildBadge?: string;
+}
+
+const {
+  title,
+  description = "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure.",
+  breadcrumbs = [{ label: 'chris-park-1004', href: '/' }],
+  buildBadge = 'build #247 · passing',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content={description} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2214%22>%E2%9A%99%EF%B8%8F</text></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script is:inline>
+  // Apply theme BEFORE first paint to avoid flash
+  (function () {
+    const saved = localStorage.getItem('hp-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="chrome-dots">
+    <span style="background:#ff5f57"></span>
+    <span style="background:#febc2e"></span>
+    <span style="background:#28c840"></span>
+  </div>
+  <div class="chrome-path">
+    <span class="faint">~/portfolio/</span>
+    {breadcrumbs.map((seg, i) => (
+      <>
+        {i > 0 && <span class="faint">/</span>}
+        {seg.href ? (
+          <a href={seg.href}><span class="strong">{seg.label}</span></a>
+        ) : (
+          <span class="strong">{seg.label}</span>
+        )}
+      </>
+    ))}
+  </div>
+  <div class="chrome-spacer"></div>
+  <div class="chrome-actions">
+    <span class="badge b-green"><span class="badge-dot"></span>{buildBadge}</span>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg aria-hidden="true" id="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg aria-hidden="true" id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <slot />
+</div>
+
+<footer>
+  © 2026 Chris (Honggyu) Park · Built with Astro, deployed on GitHub Pages
+</footer>
+
+<script is:inline>
+  // Theme toggle button behavior
+  (function () {
+    const KEY = 'hp-theme';
+    const body = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    const sun = document.getElementById('icon-sun');
+    const moon = document.getElementById('icon-moon');
+
+    function apply(theme) {
+      body.setAttribute('data-theme', theme);
+      if (sun) sun.style.display = theme === 'dark' ? 'block' : 'none';
+      if (moon) moon.style.display = theme === 'light' ? 'block' : 'none';
+    }
+
+    apply(body.getAttribute('data-theme') || 'dark');
+
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(KEY, next);
+        apply(next);
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

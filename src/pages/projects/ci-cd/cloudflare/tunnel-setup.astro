@@ -1,0 +1,55 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'cloudflare', href: '/projects/ci-cd/cloudflare/' },
+  { label: 'tunnel-setup' },
+];
+---
+
+<Default
+  title="Cloudflare / Tunnel Setup — CI/CD Pipeline"
+  description="Setting up `cloudflared` on a Windows home PC to create an outbound-only tunnel to Cloudflare, with zero inbound ports."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat tunnel-setup.md</div>
+      <h1>Tunnel Setup</h1>
+      <div class="subtitle">`cloudflared` as a Windows service · outbound-only QUIC connection · DNS routing</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Reverse-proxy concept: how Tunnel inverts the connection direction</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Installing <code>cloudflared</code> on Windows</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Authenticating + creating a named tunnel</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>DNS routing: pointing a hostname at the tunnel</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Running <code>cloudflared</code> as a Windows service</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Verifying zero inbound ports with <code>netstat -an</code></span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Routing the webhook path correctly (<code>/github-webhook/*</code>)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/cloudflare/" style="color: var(--text-dim);">← back to Cloudflare</a>
+  </div>
+</Default>

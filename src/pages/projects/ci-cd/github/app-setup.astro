@@ -1,0 +1,55 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'github', href: '/projects/ci-cd/github/' },
+  { label: 'app-setup' },
+];
+---
+
+<Default
+  title="GitHub / App Setup — CI/CD Pipeline"
+  description="Creating a GitHub App, setting permissions, installing on the repo, and converting the private key from PKCS#1 to PKCS#8 for Jenkins."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat app-setup.md</div>
+      <h1>App Setup</h1>
+      <div class="subtitle">Create the App · install on repo · convert private key PKCS#1 → PKCS#8</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Creating a GitHub App from a personal account</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Setting minimum permissions (Contents: read, Pull requests: read, Checks: write, Commit statuses: write)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Subscribing to events (push, pull_request, check_run)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Installing the App on the target repository</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>The PKCS#1 vs. PKCS#8 conversion gotcha (Jenkins requires PKCS#8)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span><code>openssl pkcs8 -topk8 -inform PEM -outform PEM -in in.pem -out out.pem -nocrypt</code></span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Registering the GitHub App credential in Jenkins</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/github/" style="color: var(--text-dim);">← back to GitHub</a>
+  </div>
+</Default>

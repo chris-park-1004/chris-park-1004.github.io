@@ -1,0 +1,204 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'jenkins' },
+];
+
+interface SubPage {
+  id: string;
+  name: string;
+  href: string;
+  accent: string;
+  summary: string;
+  bullets: string[];
+}
+
+const subPages: SubPage[] = [
+  {
+    id: 'doc_01',
+    name: 'Installation',
+    href: '/projects/ci-cd/jenkins/installation',
+    accent: 'green',
+    summary: 'Jenkins LTS on Windows 11 Home with Java 25 LTS.',
+    bullets: [
+      'Java 25 LTS (Eclipse Temurin)',
+      'Jenkins LTS via Windows MSI installer',
+      'Suggested plugins set',
+      'Initial admin user + password setup',
+    ],
+  },
+  {
+    id: 'doc_02',
+    name: 'Service Account',
+    href: '/projects/ci-cd/jenkins/service-account',
+    accent: 'yellow',
+    summary: 'Dedicated `jenkins` local user with minimal privileges.',
+    bullets: [
+      'Why a dedicated service account (privilege isolation)',
+      'Creating local user without admin rights',
+      'Granting `SeServiceLogonRight` via `secedit` (Windows 11 Home has no `secpol.msc`)',
+      'Configuring Jenkins service to run as that user',
+    ],
+  },
+  {
+    id: 'doc_03',
+    name: 'Multibranch Pipeline',
+    href: '/projects/ci-cd/jenkins/multibranch-pipeline',
+    accent: 'blue',
+    summary: 'Auto-discover branches and PRs; build with target-branch merge strategy.',
+    bullets: [
+      'Why Multibranch Pipeline over single Pipeline',
+      'Branch Sources with GitHub App credential',
+      '"Merging with target branch" strategy (catches integration issues)',
+      'Excluding fork PRs (security trade-off)',
+      'Orphaned-item retention policy',
+    ],
+  },
+  {
+    id: 'doc_04',
+    name: 'Checks API',
+    href: '/projects/ci-cd/jenkins/checks-api',
+    accent: 'purple',
+    summary: 'Per-stage check results pushed to GitHub PR (rich UI, beyond simple ✓/✗).',
+    bullets: [
+      'Checks API plugin + GitHub Checks plugin',
+      'Why basic commit-statuses are insufficient',
+      '`publishChecks` per stage with summary + Markdown body',
+      'Branch protection for required checks (planned)',
+    ],
+  },
+  {
+    id: 'doc_05',
+    name: 'Agents',
+    href: '/projects/ci-cd/jenkins/agents',
+    accent: 'red',
+    summary: 'Controller / executor separation. Builds run on labeled sub-agent.',
+    bullets: [
+      'Why separate controller from build executors',
+      'Setting up a Windows sub-agent (windows-agent)',
+      'Label-restricted execution (`agent { label \'windows-agent\' }`)',
+      'Future: containerized Linux agent for parallel builds',
+    ],
+  },
+];
+---
+
+<Default
+  title="Jenkins — CI/CD Pipeline"
+  description="Jenkins setup notes: installation, dedicated service account, Multibranch Pipeline, GitHub Checks API integration, and multi-agent architecture."
+  breadcrumbs={breadcrumbs}
+>
+
+  <!-- header -->
+  <div class="header">
+    <div>
+      <div class="prompt">$ systemctl status jenkins</div>
+      <h1>Jenkins</h1>
+      <div class="subtitle">CI/CD orchestrator · Multibranch Pipeline · GitHub App auth · multi-agent</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">version: <b>LTS 2.555.1+</b></div>
+      <div class="row">runtime: <b>Java 25 LTS</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
+    </div>
+  </div>
+
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Sub-pages</div><div class="v blue">{subPages.length}</div></div>
+    <div><div class="k">Agents</div><div class="v green">2</div></div>
+    <div><div class="k">Service user</div><div class="v purple">jenkins</div></div>
+    <div><div class="k">Inbound ports</div><div class="v yellow">0</div></div>
+  </div>
+
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+
+      <div class="section-label">── ./docs</div>
+
+      {subPages.map((doc) => (
+        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
+          <div class="stage" style={`--accent: var(--${doc.accent})`}>
+            <div class="stage-head">
+              <div>
+                <div class="stage-meta">
+                  <span class="id">{doc.id}</span>
+                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
+                </div>
+                <div class="stage-name">{doc.name}</div>
+                <div class="stage-sub">{doc.summary}</div>
+              </div>
+              <div class="stage-dur">read →</div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                {doc.bullets.map((b) => (
+                  <li><span class="check" style="color:var(--text-faint)">•</span><span set:html={b}></span></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </a>
+      ))}
+
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+
+      <div class="section-label">── ./context</div>
+
+      <div class="card">
+        <div class="card-label">why jenkins</div>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+          Jenkins is the industry standard for self-hosted CI/CD. Full control, rich plugin ecosystem, and the same tool used at most enterprises with on-prem pipelines.
+        </p>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+          This setup is portfolio-grade: deliberately self-hosted on a home PC, secured by Cloudflare, and documented to mirror an enterprise architecture.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-group">
+          <div class="cat">Core</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins LTS</span>
+            <span class="stack-tag">Java 25 LTS</span>
+            <span class="stack-tag">Groovy DSL</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Key plugins</div>
+          <div class="stack-tags">
+            <span class="stack-tag">GitHub Branch Source</span>
+            <span class="stack-tag">Checks API</span>
+            <span class="stack-tag">GitHub Checks</span>
+            <span class="stack-tag">Pipeline</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">OS</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Windows 11 Home</span>
+            <span class="stack-tag">WinSW service</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">related</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          <a href="/projects/ci-cd/github/" style="color: var(--blue);">→ GitHub component</a>
+          <a href="/projects/ci-cd/cloudflare/" style="color: var(--blue);">→ Cloudflare component</a>
+          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</Default>
