@@ -1,0 +1,54 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'github', href: '/projects/ci-cd/github/' },
+  { label: 'webhook' },
+];
+---
+
+<Default
+  title="GitHub / Webhook — CI/CD Pipeline"
+  description="GitHub App webhook (vs. repo-level), HMAC-SHA256 signature verification, and how Jenkins consumes the events."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat webhook.md</div>
+      <h1>Webhook</h1>
+      <div class="subtitle">App-level webhook · HMAC secret · trailing slash on `/github-webhook/`</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>GitHub App webhook vs. repo-level webhook</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>HMAC-SHA256 signature verification (X-Hub-Signature-256)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Why the webhook secret must NOT be a public key</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Jenkins endpoint <code>/github-webhook/</code> (trailing slash required)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Cloudflare route matching the path</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Debugging from "Recent Deliveries" tab on the GitHub side</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/github/" style="color: var(--text-dim);">← back to GitHub</a>
+  </div>
+</Default>

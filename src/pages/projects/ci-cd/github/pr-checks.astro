@@ -1,0 +1,53 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'github', href: '/projects/ci-cd/github/' },
+  { label: 'pr-checks' },
+];
+---
+
+<Default
+  title="GitHub / PR Checks — CI/CD Pipeline"
+  description="What the PR page actually shows when Jenkins publishes per-stage checks via the GitHub Checks API."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat pr-checks.md</div>
+      <h1>PR Checks</h1>
+      <div class="subtitle">Per-stage check rows · Markdown summaries · branch protection gating</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>What the PR Checks tab looks like with multiple per-stage checks</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Mapping from Jenkins stages to GitHub check rows</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Re-run all checks button vs. per-check re-run</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Branch protection: requiring checks to pass before merge</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Where check Details links point (publicly-accessible Jenkins URL behind Access)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/github/" style="color: var(--text-dim);">← back to GitHub</a>
+  </div>
+</Default>

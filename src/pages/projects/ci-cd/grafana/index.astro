@@ -1,0 +1,79 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'grafana' },
+];
+---
+
+<Default
+  title="Grafana — CI/CD Pipeline (planned)"
+  description="Planned public Grafana Cloud dashboard with curated Jenkins metrics for portfolio viewers."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat plan.md</div>
+      <h1>Grafana</h1>
+      <div class="subtitle">Public dashboard · Grafana Cloud free tier · sanitized metrics for portfolio viewers</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--text-dim)">● planning</b></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="section-label">── ./plan</div>
+
+      <div class="stage" style="--accent: var(--text-dim)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">todo</span>
+              <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
+            </div>
+            <div class="stage-name">Not implemented yet</div>
+            <div class="stage-sub">The public-facing surface of the whole pipeline — keep it lean and reviewer-friendly.</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Grafana Cloud free tier hosts a public dashboard. Recruiters / reviewers click a link in the README and see real-time-ish CI/CD metrics without logging in.</p>
+          <ul style="margin-top: 12px;">
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Sign up for Grafana Cloud free tier</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Push Prometheus metrics to Grafana Cloud (so the dashboard survives home-PC downtime)</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Strip sensitive labels at the Prometheus side (no IPs, no hostnames)</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Build a single, focused dashboard: build success rate, build duration trend, recent builds, DORA-style indicators</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Anonymous role: Viewer only; disable direct datasource querying</span></li>
+            <li><span class="check" style="color:var(--text-faint)">○</span><span>Embed link in the portfolio site overview</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div class="section-label">── ./context</div>
+
+      <div class="card">
+        <div class="card-label">why grafana cloud</div>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+          Self-hosted Grafana would also need to be exposed via Cloudflare Tunnel, adding attack surface. Grafana Cloud hosts the public dashboard externally — the home PC only pushes metrics out.
+        </p>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+          The dashboard is the only public surface of the pipeline. The Jenkins UI itself stays behind Cloudflare Access.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">related</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus component (also planned)</a>
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Default>

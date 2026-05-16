@@ -1,0 +1,100 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'cloudflare' },
+];
+
+const subPages = [
+  {
+    id: 'doc_01',
+    name: 'Tunnel Setup',
+    href: '/projects/ci-cd/cloudflare/tunnel-setup',
+    accent: 'yellow',
+    summary: 'cloudflared installation + outbound-only secure tunnel to a home PC.',
+  },
+  {
+    id: 'doc_02',
+    name: 'Access Gate',
+    href: '/projects/ci-cd/cloudflare/access-gate',
+    accent: 'purple',
+    summary: 'OAuth-based authentication gate in front of the Jenkins UI for admin access.',
+  },
+];
+---
+
+<Default
+  title="Cloudflare — CI/CD Pipeline"
+  description="Cloudflare integration notes: Tunnel for outbound-only connectivity, Access gate for admin authentication."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cloudflared --version</div>
+      <h1>Cloudflare</h1>
+      <div class="subtitle">Outbound-only tunnel · Zero inbound ports · OAuth-based admin gate</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">inbound ports: <b>0</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="section-label">── ./docs</div>
+
+      {subPages.map((doc) => (
+        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
+          <div class="stage" style={`--accent: var(--${doc.accent})`}>
+            <div class="stage-head">
+              <div>
+                <div class="stage-meta">
+                  <span class="id">{doc.id}</span>
+                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
+                </div>
+                <div class="stage-name">{doc.name}</div>
+                <div class="stage-sub">{doc.summary}</div>
+              </div>
+              <div class="stage-dur">read →</div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="rail">
+      <div class="section-label">── ./context</div>
+
+      <div class="card">
+        <div class="card-label">why tunnel</div>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+          A home PC behind NAT can't accept inbound connections without port forwarding and DDNS, both of which expose attack surface. Cloudflare Tunnel reverses the direction: the home PC opens an outbound socket to Cloudflare and keeps it alive.
+        </p>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+          Result: zero inbound ports on the home PC, home IP never exposed, HTTPS terminated at Cloudflare.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-tags">
+          <span class="stack-tag">cloudflared</span>
+          <span class="stack-tag">QUIC / HTTP/3</span>
+          <span class="stack-tag">TLS edge termination</span>
+          <span class="stack-tag">Cloudflare Access</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">related</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Default>

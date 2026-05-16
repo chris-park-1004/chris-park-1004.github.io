@@ -218,6 +218,38 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .award .text { font-size: 12.5px; line-height: 1.4; }
 .award .year { font-size: 11px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
 
+/* flow diagram (used inside .console for data-flow widgets) */
+.flow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.flow-step {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.flow-name {
+  flex: 0 0 96px;
+  font-weight: 500;
+}
+.flow-action {
+  color: var(--text-dim);
+}
+.flow-line,
+.flow-arrow {
+  color: var(--text-faint);
+  padding-left: 16px;
+  white-space: nowrap;
+}
+.flow-line {
+  line-height: 1.2;
+}
+.flow-arrow {
+  font-size: 11px;
+}
+
 /* contact */
 .contact-row { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 .contact-row .verb { color: var(--purple); }

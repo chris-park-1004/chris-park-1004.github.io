@@ -1,0 +1,104 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'github' },
+];
+
+const subPages = [
+  {
+    id: 'doc_01',
+    name: 'App Setup',
+    href: '/projects/ci-cd/github/app-setup',
+    accent: 'green',
+    summary: 'Create a GitHub App, set permissions, install on the repo, convert key from PKCS#1 to PKCS#8.',
+  },
+  {
+    id: 'doc_02',
+    name: 'Webhook',
+    href: '/projects/ci-cd/github/webhook',
+    accent: 'blue',
+    summary: 'GitHub App webhook (vs repo-level) with HMAC secret verification.',
+  },
+  {
+    id: 'doc_03',
+    name: 'PR Checks',
+    href: '/projects/ci-cd/github/pr-checks',
+    accent: 'purple',
+    summary: 'Rich per-stage check results on the PR page via the Checks API.',
+  },
+];
+---
+
+<Default
+  title="GitHub — CI/CD Pipeline"
+  description="GitHub integration notes: App-based auth, webhook, and PR Checks API."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat README.md</div>
+      <h1>GitHub</h1>
+      <div class="subtitle">Source control · GitHub App auth · Checks API for rich PR feedback</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">auth: <b>GitHub App (JWT)</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="section-label">── ./docs</div>
+
+      {subPages.map((doc) => (
+        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
+          <div class="stage" style={`--accent: var(--${doc.accent})`}>
+            <div class="stage-head">
+              <div>
+                <div class="stage-meta">
+                  <span class="id">{doc.id}</span>
+                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
+                </div>
+                <div class="stage-name">{doc.name}</div>
+                <div class="stage-sub">{doc.summary}</div>
+              </div>
+              <div class="stage-dur">read →</div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="rail">
+      <div class="section-label">── ./context</div>
+
+      <div class="card">
+        <div class="card-label">why github app</div>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+          Personal Access Tokens (PATs) are user-bound and have a fixed 5,000 req/hr rate limit. GitHub Apps scale with installation, are account-independent, and issue short-lived 1-hour tokens auto-refreshed by Jenkins.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-tags">
+          <span class="stack-tag">GitHub App</span>
+          <span class="stack-tag">RSA / JWT (RS256)</span>
+          <span class="stack-tag">Webhook (HMAC-SHA256)</span>
+          <span class="stack-tag">Checks API</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">related</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Default>

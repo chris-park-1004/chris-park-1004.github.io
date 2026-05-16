@@ -1,0 +1,201 @@
+---
+import Default from '../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd' },
+];
+
+interface Component {
+  id: string;
+  name: string;
+  href: string;
+  status: 'deployed' | 'planning';
+  accent: string;
+  description: string;
+  subPages?: string[];
+  meta?: string;
+}
+
+const components: Component[] = [
+  {
+    id: 'component_01',
+    name: 'Jenkins',
+    href: '/projects/ci-cd/jenkins/',
+    status: 'deployed',
+    accent: 'green',
+    description: 'CI/CD orchestrator on home PC. Java 25 LTS, Multibranch Pipeline, multi-agent (controller + windows-agent).',
+    subPages: ['installation', 'service-account', 'multibranch-pipeline', 'checks-api', 'agents'],
+    meta: '5 docs',
+  },
+  {
+    id: 'component_02',
+    name: 'GitHub',
+    href: '/projects/ci-cd/github/',
+    status: 'deployed',
+    accent: 'blue',
+    description: 'Source control + App-based authentication. Webhook-driven builds with rich PR status feedback via Checks API.',
+    subPages: ['app-setup', 'webhook', 'pr-checks'],
+    meta: '3 docs',
+  },
+  {
+    id: 'component_03',
+    name: 'Cloudflare',
+    href: '/projects/ci-cd/cloudflare/',
+    status: 'deployed',
+    accent: 'yellow',
+    description: 'Tunnel for secure outbound-only connection. Access gate for admin authentication. Zero inbound ports exposed.',
+    subPages: ['tunnel-setup', 'access-gate'],
+    meta: '2 docs',
+  },
+  {
+    id: 'component_04',
+    name: 'Prometheus',
+    href: '/projects/ci-cd/prometheus/',
+    status: 'planning',
+    accent: 'text-dim',
+    description: 'Metrics scraping from Jenkins (planned). Will collect build duration, success rate, DORA metrics.',
+    meta: 'TODO',
+  },
+  {
+    id: 'component_05',
+    name: 'Grafana',
+    href: '/projects/ci-cd/grafana/',
+    status: 'planning',
+    accent: 'text-dim',
+    description: 'Public CI/CD dashboard (planned). Grafana Cloud free tier with curated, sanitized metrics for portfolio viewers.',
+    meta: 'TODO',
+  },
+];
+
+const deployedCount = components.filter(c => c.status === 'deployed').length;
+const planningCount = components.filter(c => c.status === 'planning').length;
+---
+
+<Default
+  title="CI/CD Pipeline — Chris (Honggyu) Park"
+  description="Personal CI/CD pipeline project: Jenkins on home PC, Cloudflare Tunnel, GitHub App authentication, planned Prometheus + Grafana dashboard."
+  breadcrumbs={breadcrumbs}
+>
+
+  <!-- header -->
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat README.md</div>
+      <h1>CI/CD Pipeline</h1>
+      <div class="subtitle">Self-hosted Jenkins on home PC · GitHub App auth · Cloudflare Tunnel + Access</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">stack: <b>5 components</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
+    </div>
+  </div>
+
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Components</div><div class="v blue">{components.length}</div></div>
+    <div><div class="k">Deployed</div><div class="v green">{deployedCount}</div></div>
+    <div><div class="k">Planned</div><div class="v yellow">{planningCount}</div></div>
+    <div><div class="k">Inbound ports</div><div class="v purple">0</div></div>
+  </div>
+
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+
+      <div class="section-label">── ./components</div>
+
+      {components.map((comp) => (
+        <a href={comp.href} class="stage-link" style="display: block; margin-bottom: 14px;">
+          <div class="stage" style={`--accent: var(--${comp.accent})`}>
+            <div class="stage-head">
+              <div>
+                <div class="stage-meta">
+                  <span class="id">{comp.id}</span>
+                  {comp.status === 'deployed' ? (
+                    <span class="badge b-green"><span class="badge-dot"></span>deployed</span>
+                  ) : (
+                    <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
+                  )}
+                </div>
+                <div class="stage-name">{comp.name}</div>
+              </div>
+              <div class="stage-dur">{comp.meta}</div>
+            </div>
+            <div class="stage-body">
+              <p>{comp.description}</p>
+              {comp.subPages && (
+                <div class="stack-tags" style="margin-top: 12px;">
+                  {comp.subPages.map((sub) => (
+                    <span class="chip">{sub}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </a>
+      ))}
+
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+
+      <div class="section-label">── ./architecture</div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-group">
+          <div class="cat">CI</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins LTS</span>
+            <span class="stack-tag">Java 25</span>
+            <span class="stack-tag">Groovy</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Auth & Network</div>
+          <div class="stack-tags">
+            <span class="stack-tag">GitHub App</span>
+            <span class="stack-tag">JWT (RS256)</span>
+            <span class="stack-tag">Cloudflare Tunnel</span>
+            <span class="stack-tag">Cloudflare Access</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Observability (planned)</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Prometheus</span>
+            <span class="stack-tag">Grafana Cloud</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="console">
+        <div class="console-head">
+          <div class="card-label" style="margin: 0;">data flow</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="flow">
+          <div class="flow-step"><span class="flow-name" style="color: var(--blue)">GitHub</span><span class="flow-action">push / pr event</span></div>
+          <div class="flow-line">│</div>
+          <div class="flow-arrow">▼ webhook</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--green)">Cloudflare</span><span class="flow-action">tunnel + access</span></div>
+          <div class="flow-line">│</div>
+          <div class="flow-arrow">▼ secure tunnel</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--green)">Jenkins</span><span class="flow-action">multibranch pipeline</span></div>
+          <div class="flow-line">│</div>
+          <div class="flow-arrow">▼ checks api</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--green)">GitHub PR</span><span class="flow-action">status display</span></div>
+          <div class="flow-line">│</div>
+          <div class="flow-arrow">▼ metrics (planned)</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--yellow)">Prometheus</span><span class="flow-action">scrape</span></div>
+          <div class="flow-line">│</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--yellow)">Grafana</span><span class="flow-action">public dashboard</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</Default>

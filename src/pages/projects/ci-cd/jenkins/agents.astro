@@ -1,0 +1,54 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'jenkins', href: '/projects/ci-cd/jenkins/' },
+  { label: 'agents' },
+];
+---
+
+<Default
+  title="Jenkins / Agents — CI/CD Pipeline"
+  description="Multi-agent architecture: orchestration controller + dedicated build executor."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat agents.md</div>
+      <h1>Agents</h1>
+      <div class="subtitle">Controller-only orchestration · `windows-agent` for builds · mirrors enterprise pattern</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Why separate controller from build executors (security + isolation)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Restricting the controller node ("Only build jobs with matching label")</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Setting up a Windows sub-agent (<code>windows-agent</code>)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Label-restricted execution: <code>agent &#123; label 'windows-agent' &#125;</code></span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>The "<code>agent any</code> waits forever" gotcha when labels mismatch</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Future: containerized Linux agent for parallel builds</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/jenkins/" style="color: var(--text-dim);">← back to Jenkins</a>
+  </div>
+</Default>

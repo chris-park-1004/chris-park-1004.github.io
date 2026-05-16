@@ -1,0 +1,53 @@
+---
+import Default from '../../../../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'cloudflare', href: '/projects/ci-cd/cloudflare/' },
+  { label: 'access-gate' },
+];
+---
+
+<Default
+  title="Cloudflare / Access Gate — CI/CD Pipeline"
+  description="OAuth-based authentication gate in front of the Jenkins UI; keeps Jenkins private while the metrics dashboard stays public."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="header">
+    <div>
+      <div class="prompt">$ cat access-gate.md</div>
+      <h1>Access Gate</h1>
+      <div class="subtitle">OAuth login required to reach Jenkins UI · public dashboard stays open</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">status: <b style="color:var(--yellow)">● writing</b></div>
+    </div>
+  </div>
+
+  <div class="stage" style="--accent: var(--yellow)">
+    <div class="stage-head">
+      <div>
+        <div class="stage-meta">
+          <span class="id">draft</span>
+          <span class="badge b-yellow"><span class="badge-dot"></span>writing</span>
+        </div>
+        <div class="stage-name">Documentation in progress</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <p>Planned content:</p>
+      <ul style="margin-top: 12px;">
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Why gate the Jenkins UI but not the dashboard (recruiters can't / won't log in)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Setting up a Cloudflare Access application for the Jenkins hostname</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Identity provider config (email-OTP or Google / GitHub OAuth)</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Allowing only the owner's email</span></li>
+        <li><span class="check" style="color:var(--yellow)">○</span><span>Bypassing Access for the webhook path so GitHub can POST events</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/cloudflare/" style="color: var(--text-dim);">← back to Cloudflare</a>
+  </div>
+</Default>
