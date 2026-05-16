@@ -1,0 +1,247 @@
+---
+import Default from '../layouts/Default.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'career' },
+];
+---
+
+<Default
+  title="Career — Chris (Honggyu) Park"
+  description="Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure."
+  breadcrumbs={breadcrumbs}
+>
+
+  <!-- header -->
+  <div class="header">
+    <div>
+      <div class="prompt">$ kubectl describe engineer/chris-park</div>
+      <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ Honggyu</span></h1>
+      <div class="subtitle">DevOps Engineer · Mech-Eng turned Software · Waterloo, ON</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">since: <b>2023-09</b></div>
+      <div class="row">region: <b>canadacentral</b></div>
+      <div class="row">status: <b style="color:var(--green)">● open to work</b></div>
+    </div>
+  </div>
+
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Pipelines built</div><div class="v blue">12+</div></div>
+    <div><div class="k">Stack migrated</div><div class="v purple">Win → Linux</div></div>
+    <div><div class="k">Years in CI/CD</div><div class="v green">1y+</div></div>
+    <div><div class="k">Awards</div><div class="v yellow">5</div></div>
+  </div>
+
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+      <div class="section-label">── career.pipeline.yml</div>
+
+      <div class="stage" style="--accent: var(--purple)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_01</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">B.Eng — Mechanical Engineering</div>
+            <div class="stage-sub">Jeonju University · 2015–2022</div>
+          </div>
+          <div class="stage-dur">7y</div>
+        </div>
+        <div class="stage-body">
+          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--green)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_02</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">DevOps Engineer @ VARLab</div>
+            <div class="stage-sub">Conestoga College · May 2024 – May 2025</div>
+          </div>
+          <div class="stage-dur">12mo</div>
+        </div>
+        <div class="stage-body">
+          <ul>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_03</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">Software Engineer @ Smart Centre</div>
+            <div class="stage-sub">Conestoga College · May 2025 – Sep 2025</div>
+          </div>
+          <div class="stage-dur">5mo</div>
+        </div>
+        <div class="stage-body">
+          <ul>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></li>
+            <li><span class="check" style="color:var(--blue)">✓</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--green)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_04</span>
+              <span class="badge b-green"><span class="badge-dot"></span>success</span>
+            </div>
+            <div class="stage-name">Adv. Diploma — Software Engineering Tech.</div>
+            <div class="stage-sub">Conestoga College · 2023 – 2026</div>
+          </div>
+          <div class="stage-dur">3y</div>
+        </div>
+        <div class="stage-body">
+          <div class="stack-tags">
+            <span class="chip">CI/CD</span>
+            <span class="chip">Cloud</span>
+            <span class="chip">Full-Stack</span>
+            <span class="chip">Containers</span>
+          </div>
+        </div>
+      </div>
+      <div class="edge">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="stage" style="--accent: var(--blue)">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">stage_05</span>
+              <span class="badge b-blue"><span class="badge-dot"></span>running</span>
+            </div>
+            <div class="stage-name">Next: Full-Time DevOps / SRE</div>
+            <div class="stage-sub">Open to opportunities · Canada · Remote</div>
+          </div>
+          <div class="stage-dur">in progress</div>
+        </div>
+        <div class="stage-body">
+          <p style="font-style: italic;">Deployment in progress · accepting offers ▶</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+      <div class="section-label">── ./modules</div>
+      <div class="card">
+        <div class="card-label">stack</div>
+
+        <div class="stack-group">
+          <div class="cat">CI/CD</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins</span>
+            <span class="stack-tag">GitHub Actions</span>
+            <span class="stack-tag">Bitbucket</span>
+            <span class="stack-tag">Azure DevOps</span>
+            <span class="stack-tag">SonarQube</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Cloud / Infra</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Azure</span>
+            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">Container Apps</span>
+            <span class="stack-tag">Nginx</span>
+            <span class="stack-tag">Apache</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Languages</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">C++</span>
+            <span class="stack-tag">Groovy</span>
+            <span class="stack-tag">Bash</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Data</div>
+          <div class="stack-tags">
+            <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">MySQL</span>
+            <span class="stack-tag">MongoDB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="console">
+        <div class="console-head">
+          <div class="card-label" style="margin: 0;">console</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="log"><span class="ts">14:02:11</span><span class="lvl INFO">[INFO]</span><span>git pull origin main</span></div>
+        <div class="log"><span class="ts">14:02:12</span><span class="lvl OK">[OK]</span><span>build · 12.4s · cached</span></div>
+        <div class="log"><span class="ts">14:02:14</span><span class="lvl INFO">[INFO]</span><span>docker push azurecr.io/app:v2.1</span></div>
+        <div class="log"><span class="ts">14:02:31</span><span class="lvl OK">[OK]</span><span>sonarqube · A · 0 issues</span></div>
+        <div class="log"><span class="ts">14:02:33</span><span class="lvl INFO">[INFO]</span><span>deploy → container-app/prod</span></div>
+        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>healthcheck · 200 OK</span></div>
+        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>pipeline complete</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">achievements</div>
+        <div class="award"><span class="icon">🥇</span><div><div class="text">University Capstone Design Competition</div><div class="year">2021</div></div></div>
+        <div class="award"><span class="icon">🎓</span><div><div class="text">National Science Scholarship · sole recipient</div><div class="year">2019</div></div></div>
+        <div class="award"><span class="icon">🎖</span><div><div class="text">Korean Official Invention Scholarship</div><div class="year">2014</div></div></div>
+        <div class="award"><span class="icon">🥈</span><div><div class="text">Korean National Invention Competition</div><div class="year">2012–14</div></div></div>
+        <div class="award"><span class="icon">🏆</span><div><div class="text">LG Student Invention Contest</div><div class="year">2011</div></div></div>
+      </div>
+
+      <div class="card endpoints-card">
+        <div class="card-label">endpoints</div>
+        <a href="mailto:honggyupark1004@gmail.com">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/email</span>
+            <span class="val">honggyupark1004@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/linkedin</span>
+            <span class="val">/in/honggyu-park-b68627249</span>
+          </div>
+        </a>
+        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/github</span>
+            <span class="val">github.com/chris-park-1004</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</Default>

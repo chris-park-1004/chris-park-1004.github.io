@@ -41,40 +41,42 @@ Any new page must compose from these primitives, not reinvent them.
 
 ## Information Architecture
 
+The Overview landing is split into two clean sections — **About Me** and **About My Projects** — rather than dumping every component on the front page. Components live inside their parent project, so URLs express that hierarchy.
+
 ```
-/
-├── index.html        → Overview hub (component cards + brief about + nav)
-├── career.html       → Career timeline (current landing, kept as-is content)
-└── components/
-    ├── jenkins/
-    │   ├── index.html              → Component overview + sub-page index
-    │   ├── installation.html
-    │   ├── service-account.html
-    │   ├── multibranch-pipeline.html
-    │   ├── checks-api.html
-    │   └── agents.html
-    ├── github/
-    │   ├── index.html
-    │   ├── app-setup.html
-    │   ├── webhook.html
-    │   └── pr-checks.html
-    ├── cloudflare/
-    │   ├── index.html
-    │   ├── tunnel-setup.html
-    │   └── access-gate.html
-    ├── prometheus/
-    │   └── index.html              → TODO: plan only (not implemented yet)
-    └── grafana/
-        └── index.html              → TODO: plan only (not implemented yet)
+/                                       → Overview (About Me + About Projects)
+/career                                 → Career timeline (full detail)
+/projects/ci-cd/                        → CI/CD Pipeline project hub
+                                          (project description + component cards)
+/projects/ci-cd/jenkins/                → Jenkins component overview + sub-page index
+/projects/ci-cd/jenkins/installation
+/projects/ci-cd/jenkins/service-account
+/projects/ci-cd/jenkins/multibranch-pipeline
+/projects/ci-cd/jenkins/checks-api
+/projects/ci-cd/jenkins/agents
+/projects/ci-cd/github/                 → GitHub component overview
+/projects/ci-cd/github/app-setup
+/projects/ci-cd/github/webhook
+/projects/ci-cd/github/pr-checks
+/projects/ci-cd/cloudflare/             → Cloudflare component overview
+/projects/ci-cd/cloudflare/tunnel-setup
+/projects/ci-cd/cloudflare/access-gate
+/projects/ci-cd/prometheus/             → TODO (plan only, not implemented yet)
+/projects/ci-cd/grafana/                → TODO (plan only, not implemented yet)
 ```
 
-After Astro migration, each `.html` above corresponds to a `.astro` or `.md` file under `src/pages/...`.
+After Astro migration, each path above corresponds to an `.astro` or `.md` file under `src/pages/...` (e.g. `src/pages/projects/ci-cd/jenkins/installation.astro`).
+
+Future projects (e.g. a deployable web app, a learning project) get their own folder under `/projects/`.
 
 ## What Visitors See
 
-- Land on `/` → component cards grid → click into a component → see deep-dive sub-pages.
-- Career timeline reachable from a card or from the chrome breadcrumb.
+- Land on `/` → two clear sections: a brief **About Me** card (with link to full career) and an **About My Projects** section with one big project card (CI/CD Pipeline) plus a dashed-border placeholder for future projects.
+- Clicking the CI/CD project card → `/projects/ci-cd/` shows the project's components (Jenkins, GitHub, Cloudflare, Prometheus, Grafana) as cards.
+- Clicking a component card → component overview with sub-page index.
+- Clicking a sub-page → deep-dive doc.
 - Cross-cutting topics handled with "Related pages" links at the bottom of each page (e.g. "GitHub App auth" lives under `github/app-setup` but is cross-linked from `jenkins/multibranch-pipeline`).
+- Career timeline reachable from the About Me card on `/` or via the chrome breadcrumb.
 
 ## Migration Plan: vanilla HTML → Astro
 
