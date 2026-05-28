@@ -52,24 +52,26 @@ const components: Component[] = [
     id: 'component_04',
     name: 'Prometheus',
     href: '/projects/ci-cd/prometheus/',
-    status: 'planning',
-    accent: 'text-dim',
-    description: 'Metrics scraping from Jenkins (planned). Will collect build duration, success rate, DORA metrics.',
-    meta: 'TODO',
+    status: 'deployed',
+    accent: 'red',
+    description: 'Docker container on the Jenkins host. Scrapes Jenkins via the Prometheus plugin every 120s and remote-writes to Grafana Cloud Mimir.',
+    subPages: ['installation', 'scrape-config', 'metrics-reference'],
+    meta: '3 docs',
   },
   {
     id: 'component_05',
     name: 'Grafana',
     href: '/projects/ci-cd/grafana/',
-    status: 'planning',
-    accent: 'text-dim',
-    description: 'Public CI/CD dashboard (planned). Grafana Cloud free tier with curated, sanitized metrics for portfolio viewers.',
-    meta: 'TODO',
+    status: 'deployed',
+    accent: 'purple',
+    description: 'Grafana Cloud free tier hosts the dashboards. Two boards: Jenkins Overview (CI/CD) and Server Resources (JVM/system).',
+    subPages: ['installation', 'query-patterns', 'dashboard-jenkins-overview', 'dashboard-server-resources'],
+    meta: '4 docs',
   },
 ];
 
 const deployedCount = components.filter(c => c.status === 'deployed').length;
-const planningCount = components.filter(c => c.status === 'planning').length;
+const totalSubPages = components.reduce((sum, c) => sum + (c.subPages?.length ?? 0), 0);
 ---
 
 <Default
@@ -95,7 +97,7 @@ const planningCount = components.filter(c => c.status === 'planning').length;
   <div class="summary">
     <div><div class="k">Components</div><div class="v blue">{components.length}</div></div>
     <div><div class="k">Deployed</div><div class="v green">{deployedCount}</div></div>
-    <div><div class="k">Planned</div><div class="v yellow">{planningCount}</div></div>
+    <div><div class="k">Sub-pages</div><div class="v yellow">{totalSubPages}</div></div>
     <div><div class="k">Inbound ports</div><div class="v purple">0</div></div>
   </div>
 
@@ -163,7 +165,7 @@ const planningCount = components.filter(c => c.status === 'planning').length;
           </div>
         </div>
         <div class="stack-group">
-          <div class="cat">Observability (planned)</div>
+          <div class="cat">Observability</div>
           <div class="stack-tags">
             <span class="stack-tag">Prometheus</span>
             <span class="stack-tag">Grafana Cloud</span>
@@ -188,10 +190,11 @@ const planningCount = components.filter(c => c.status === 'planning').length;
           <div class="flow-arrow">▼ checks api</div>
           <div class="flow-step"><span class="flow-name" style="color: var(--green)">GitHub PR</span><span class="flow-action">status display</span></div>
           <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ metrics (planned)</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--yellow)">Prometheus</span><span class="flow-action">scrape</span></div>
+          <div class="flow-arrow">▼ /prometheus scrape</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--red)">Prometheus</span><span class="flow-action">docker, 120s scrape</span></div>
           <div class="flow-line">│</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--yellow)">Grafana</span><span class="flow-action">public dashboard</span></div>
+          <div class="flow-arrow">▼ remote_write</div>
+          <div class="flow-step"><span class="flow-name" style="color: var(--purple)">Grafana Cloud</span><span class="flow-action">dashboards</span></div>
         </div>
       </div>
 
