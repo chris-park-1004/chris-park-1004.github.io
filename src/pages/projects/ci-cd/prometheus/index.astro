@@ -6,70 +6,173 @@ const breadcrumbs = [
   { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
   { label: 'prometheus' },
 ];
+
+interface SubPage {
+  id: string;
+  name: string;
+  href: string;
+  accent: string;
+  summary: string;
+  bullets: string[];
+}
+
+const subPages: SubPage[] = [
+  {
+    id: 'doc_01',
+    name: 'Installation',
+    href: '/projects/ci-cd/prometheus/installation',
+    accent: 'green',
+    summary: 'Prometheus in Docker on the Jenkins host, with remote_write to Grafana Cloud Mimir.',
+    bullets: [
+      'Docker container on the Jenkins host (port 9090, local bind only)',
+      '<code>prometheus.yml</code> skeleton: <code>global</code> / <code>scrape_configs</code> / <code>remote_write</code>',
+      'remote_write block targeting Grafana Cloud Mimir endpoint',
+      'Queue tuning: <code>capacity: 10000</code>, <code>max_samples_per_send: 2000</code>',
+      'Endpoint left unauthenticated — bound to localhost, never exposed externally',
+    ],
+  },
+  {
+    id: 'doc_02',
+    name: 'Scrape Config',
+    href: '/projects/ci-cd/prometheus/scrape-config',
+    accent: 'blue',
+    summary: 'Jenkins Prometheus plugin setup and the scrape job that reaches the host via host.docker.internal.',
+    bullets: [
+      'Install the Jenkins Prometheus plugin',
+      'Plugin config: path <code>prometheus</code>, namespace <code>default</code>, job attribute <code>jenkins_job</code>, 120s period',
+      'Collectors enabled: build duration with <code>status</code> label, test results, per-run counters, disk usage, node status',
+      'Collectors disabled: build parameter labels (cardinality), disabled jobs',
+      'Scrape job in <code>prometheus.yml</code> targeting <code>host.docker.internal:8080/prometheus/</code>',
+    ],
+  },
+  {
+    id: 'doc_03',
+    name: 'Metrics Reference',
+    href: '/projects/ci-cd/prometheus/metrics-reference',
+    accent: 'purple',
+    summary: 'Catalog of metrics actually consumed by the Grafana dashboards, plus status-label and cardinality notes.',
+    bullets: [
+      '<code>default_jenkins_up</code> — controller liveness gauge',
+      '<code>default_jenkins_builds_health_score</code> — per-job weather score (0–100)',
+      '<code>default_jenkins_builds_duration_milliseconds_summary_count</code> — counter, split by <code>status</code> label',
+      '<code>default_jenkins_builds_available_builds_count</code> — gauge for registered pipelines',
+      '<code>jenkins_runs_{success,failure,unstable,aborted}_total</code> — global result counters',
+      'Filter old un-labeled series with <code>{status!=""}</code> when status fragmenting is enabled',
+    ],
+  },
+];
 ---
 
 <Default
-  title="Prometheus — CI/CD Pipeline (planned)"
-  description="Planned Prometheus integration: scrape Jenkins metrics and feed a public Grafana dashboard."
+  title="Prometheus — CI/CD Pipeline"
+  description="Prometheus in Docker on the Jenkins host. Scrapes Jenkins via the Prometheus plugin every 120s and remote-writes to Grafana Cloud Mimir."
   breadcrumbs={breadcrumbs}
 >
+
+  <!-- header -->
   <div class="header">
     <div>
-      <div class="prompt">$ cat plan.md</div>
+      <div class="prompt">$ docker ps | grep prometheus</div>
       <h1>Prometheus</h1>
-      <div class="subtitle">Metrics scraping from Jenkins · feeds Grafana public dashboard</div>
+      <div class="subtitle">Pull-based metrics · Docker on Jenkins host · remote_write to Grafana Cloud Mimir</div>
     </div>
     <div class="header-meta">
-      <div class="row">status: <b style="color:var(--text-dim)">● planning</b></div>
+      <div class="row">runtime: <b>Docker</b></div>
+      <div class="row">scrape: <b>120s</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
     </div>
   </div>
 
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Sub-pages</div><div class="v blue">{subPages.length}</div></div>
+    <div><div class="k">Scrape period</div><div class="v green">120s</div></div>
+    <div><div class="k">Remote write</div><div class="v purple">mimir</div></div>
+    <div><div class="k">Inbound ports</div><div class="v yellow">0</div></div>
+  </div>
+
+  <!-- main grid -->
   <div class="grid">
     <div>
-      <div class="section-label">── ./plan</div>
 
-      <div class="stage" style="--accent: var(--text-dim)">
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">todo</span>
-              <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
+      <div class="section-label">── ./docs</div>
+
+      {subPages.map((doc) => (
+        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
+          <div class="stage" style={`--accent: var(--${doc.accent})`}>
+            <div class="stage-head">
+              <div>
+                <div class="stage-meta">
+                  <span class="id">{doc.id}</span>
+                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
+                </div>
+                <div class="stage-name">{doc.name}</div>
+                <div class="stage-sub">{doc.summary}</div>
+              </div>
+              <div class="stage-dur">read →</div>
             </div>
-            <div class="stage-name">Not implemented yet</div>
-            <div class="stage-sub">Captures the design before building, so the architecture is documented up-front.</div>
+            <div class="stage-body">
+              <ul>
+                {doc.bullets.map((b) => (
+                  <li><span class="check" style="color:var(--text-faint)">•</span><span set:html={b}></span></li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div class="stage-body">
-          <p>Prometheus will scrape Jenkins via the Prometheus plugin, exposing metrics on a private internal endpoint. The scraping target is the Jenkins controller; build agents emit their own metrics through the controller.</p>
-          <ul style="margin-top: 12px;">
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Install Jenkins Prometheus plugin; expose <code>/prometheus</code> endpoint</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Run Prometheus on the home PC (Docker), keep it private</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Drop sensitive labels (host names, IPs, paths) at scrape time</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Push curated metrics to Grafana Cloud (so the public dashboard stays up even when the home PC is off)</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Target metrics: build duration trend, success rate, queue depth, DORA-style indicators</span></li>
-          </ul>
-        </div>
-      </div>
+        </a>
+      ))}
+
     </div>
 
+    <!-- right rail -->
     <div class="rail">
+
       <div class="section-label">── ./context</div>
 
       <div class="card">
         <div class="card-label">why prometheus</div>
         <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
-          Prometheus is the standard for pull-based metrics in CI/CD and SRE. Easier to demo observability practices than home-grown logging.
+          Prometheus is the de-facto standard for pull-based metrics in CI/CD and SRE. The Jenkins plugin exposes a ready-made <code>/prometheus</code> endpoint, so the gap between "Jenkins is up" and "I have a dashboard" is just one container plus one scrape job.
         </p>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+          Runs in Docker on the Jenkins host so scrape latency stays near-zero and the controller never has to expose metrics outside <code>localhost</code>.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-group">
+          <div class="cat">Runtime</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Prometheus 2.x</span>
+            <span class="stack-tag">Docker</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Source</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins Prometheus plugin</span>
+            <span class="stack-tag">host.docker.internal</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Sink</div>
+          <div class="stack-tags">
+            <span class="stack-tag">remote_write</span>
+            <span class="stack-tag">Grafana Cloud Mimir</span>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <div class="card-label">related</div>
         <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/grafana/" style="color: var(--blue);">→ Grafana component (also planned)</a>
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/grafana/" style="color: var(--purple);">→ Grafana component</a>
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
           <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
         </div>
       </div>
     </div>
   </div>
+
 </Default>
