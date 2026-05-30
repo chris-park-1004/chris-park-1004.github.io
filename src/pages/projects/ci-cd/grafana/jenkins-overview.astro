@@ -19,38 +19,10 @@ const panels: Panel[] = [
     srcs: [{ label: 'default_jenkins_up', anchor: 'up' }],
   },
   {
-    name: 'Total Jobs',
+    name: 'Job Result Tallies',
     viz: 'stat',
-    meaning: 'Number of registered pipeline + branch jobs, regardless of result.',
-    img: 'total-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Successful Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 0 (SUCCESS).',
-    img: 'successful-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Failed Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 2 (FAILURE).',
-    img: 'failed-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Aborted Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 4 (ABORTED).',
-    img: 'aborted-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Unstable Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 1 (UNSTABLE).',
-    img: 'unstable-jobs.png',
+    meaning: 'Five stat tiles in a row — Total, Successful, Failed, Aborted, Unstable. Each is a count() over the last build result code across jobs (0=SUCCESS, 1=UNSTABLE, 2=FAILURE, 4=ABORTED); Total counts every job.',
+    img: 'jobs.png',
     srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
   },
   {
@@ -113,7 +85,7 @@ const panels: Panel[] = [
   </p>
 
   <div class="section-label">── ./panels</div>
-  <PanelGrid panels={panels} accent="green" />
+  <PanelGrid panels={panels} accent="green" dir="jenkins-overview" />
 
   <div style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
     <a href="/projects/ci-cd/grafana/server-resources" style="color: var(--purple);">→ Server Resources group</a>
