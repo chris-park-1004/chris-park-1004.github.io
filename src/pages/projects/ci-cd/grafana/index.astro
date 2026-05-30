@@ -7,8 +7,9 @@ const breadcrumbs = [
   { label: 'grafana' },
 ];
 
+// Public dashboard — no login required, live data
 const dashboardUrl =
-  'https://chrispark1004.grafana.net/d/chh8qv9/jenkins-dashboard?orgId=1&from=now-6h&to=now&timezone=browser';
+  'https://chrispark1004.grafana.net/public-dashboards/2d066cd8728b4f5cb5b01ce7be2a505f';
 
 // One Grafana dashboard ("jenkins-dashboard"), split into two row groups.
 const groups = [
@@ -62,21 +63,18 @@ const totalPanels = groups.reduce((sum, g) => sum + g.panels, 0);
     <div><div class="k">Dashboard</div><div class="v green">1</div></div>
     <div><div class="k">Row groups</div><div class="v blue">{groups.length}</div></div>
     <div><div class="k">Panels</div><div class="v purple">{totalPanels}</div></div>
-    <div><div class="k">Public access</div><div class="v yellow">soon</div></div>
+    <div><div class="k">Public access</div><div class="v green">live</div></div>
   </div>
 
   <!-- live dashboard link -->
   <div class="section-label">── ./live</div>
   <div class="live-link">
-    <div>
-      <div class="card-label" style="margin-bottom: 8px;">grafana cloud · jenkins-dashboard</div>
-      <div class="ll-url">{dashboardUrl}</div>
-      <div style="font-size: 12px; color: var(--text-dim); margin-top: 10px; line-height: 1.55;">
-        <span class="badge b-yellow" style="margin-right: 8px;"><span class="badge-dot"></span>login required</span>
-        Anonymous public access isn’t enabled yet — opening the link currently prompts for a Grafana login. A public, view-only snapshot link will replace this once configured.
-      </div>
+    <div class="card-label" style="margin-bottom: 8px;">grafana cloud · public dashboard</div>
+    <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 14px; line-height: 1.55;">
+      <span class="badge b-green" style="margin-right: 8px;"><span class="badge-dot"></span>public · no login</span>
+      Live, view-only access — anyone with the link sees real-time CI/CD metrics without signing in.
     </div>
-    <a class="ll-cta" href={dashboardUrl} target="_blank" rel="noopener noreferrer">open dashboard →</a>
+    <a class="ll-cta" href={dashboardUrl} target="_blank" rel="noopener noreferrer">↗ Open Dashboard</a>
   </div>
 
   <!-- row groups (full captures → sub-pages) -->
