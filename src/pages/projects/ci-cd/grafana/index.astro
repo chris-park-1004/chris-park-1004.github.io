@@ -6,74 +6,125 @@ const breadcrumbs = [
   { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
   { label: 'grafana' },
 ];
+
+// Public dashboard — no login required, live data
+const dashboardUrl =
+  'https://chrispark1004.grafana.net/public-dashboards/2d066cd8728b4f5cb5b01ce7be2a505f';
+
+// One Grafana dashboard ("jenkins-dashboard"), split into two row groups.
+const groups = [
+  {
+    href: '/projects/ci-cd/grafana/jenkins-overview',
+    img: 'jenkins-overview.png',
+    name: 'Jenkins Overview',
+    badge: 'b-green',
+    accent: 'green',
+    panels: 6,
+    description:
+      'CI / build health at a glance — controller status, job result tallies, registered pipelines, weekly build activity, and average stage durations.',
+  },
+  {
+    href: '/projects/ci-cd/grafana/server-resources',
+    img: 'server-resources.png',
+    name: 'Server Resources',
+    badge: 'b-purple',
+    accent: 'purple',
+    panels: 9,
+    description:
+      'JVM and host health of the Jenkins process — CPU, heap, threads, garbage collection, file descriptors, and deadlock detection.',
+  },
+];
+
+const totalPanels = groups.reduce((sum, g) => sum + g.panels, 0);
 ---
 
 <Default
-  title="Grafana — CI/CD Pipeline (planned)"
-  description="Planned public Grafana Cloud dashboard with curated Jenkins metrics for portfolio viewers."
+  title="Grafana — CI/CD Pipeline"
+  description="One Grafana Cloud dashboard over the Jenkins pipeline, split into two row groups (Jenkins Overview and Server Resources). Open a group to see every panel explained and linked to its Prometheus metric."
   breadcrumbs={breadcrumbs}
 >
+
+  <!-- header -->
   <div class="header">
     <div>
-      <div class="prompt">$ cat plan.md</div>
+      <div class="prompt">$ open grafana-cloud://jenkins-dashboard</div>
       <h1>Grafana</h1>
-      <div class="subtitle">Public dashboard · Grafana Cloud free tier · sanitized metrics for portfolio viewers</div>
+      <div class="subtitle">Grafana Cloud free tier · 1 dashboard · 2 row groups · {totalPanels} panels over the Jenkins pipeline</div>
     </div>
     <div class="header-meta">
-      <div class="row">status: <b style="color:var(--text-dim)">● planning</b></div>
+      <div class="row">datasource: <b>grafanacloud-prom</b></div>
+      <div class="row">groups: <b>{groups.length}</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
     </div>
   </div>
 
-  <div class="grid">
-    <div>
-      <div class="section-label">── ./plan</div>
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Dashboard</div><div class="v green">1</div></div>
+    <div><div class="k">Row groups</div><div class="v blue">{groups.length}</div></div>
+    <div><div class="k">Panels</div><div class="v purple">{totalPanels}</div></div>
+    <div><div class="k">Public access</div><div class="v green">live</div></div>
+  </div>
 
-      <div class="stage" style="--accent: var(--text-dim)">
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">todo</span>
-              <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
-            </div>
-            <div class="stage-name">Not implemented yet</div>
-            <div class="stage-sub">The public-facing surface of the whole pipeline — keep it lean and reviewer-friendly.</div>
+  <!-- live dashboard link -->
+  <div class="section-label">── ./live</div>
+  <div class="live-link">
+    <div class="card-label" style="margin-bottom: 8px;">grafana cloud · public dashboard</div>
+    <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 14px; line-height: 1.55;">
+      <span class="badge b-green" style="margin-right: 8px;"><span class="badge-dot"></span>public · no login</span>
+      Live, view-only access — anyone with the link sees real-time CI/CD metrics without signing in.
+    </div>
+    <a class="ll-cta" href={dashboardUrl} target="_blank" rel="noopener noreferrer">↗ Open Dashboard</a>
+  </div>
+
+  <!-- row groups (full captures → sub-pages) -->
+  <div class="section-label" style="margin-top: 28px;">── ./groups</div>
+  <div class="dash-list">
+    {groups.map((g) => (
+      <a class="dash-card" href={g.href} style={`--accent: var(--${g.accent})`}>
+        <div class="dash-body">
+          <div class="panel-top">
+            <div class="panel-name">{g.name}</div>
+            <span class={`badge ${g.badge}`}><span class="badge-dot"></span>{g.panels} panels</span>
           </div>
+          <p class="panel-meaning">{g.description}</p>
+          <span style={`font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--${g.accent});`}>
+            view panel breakdown →
+          </span>
         </div>
-        <div class="stage-body">
-          <p>Grafana Cloud free tier hosts a public dashboard. Recruiters / reviewers click a link in the README and see real-time-ish CI/CD metrics without logging in.</p>
-          <ul style="margin-top: 12px;">
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Sign up for Grafana Cloud free tier</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Push Prometheus metrics to Grafana Cloud (so the dashboard survives home-PC downtime)</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Strip sensitive labels at the Prometheus side (no IPs, no hostnames)</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Build a single, focused dashboard: build success rate, build duration trend, recent builds, DORA-style indicators</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Anonymous role: Viewer only; disable direct datasource querying</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Embed link in the portfolio site overview</span></li>
-          </ul>
+        <div class="dash-shot">
+          <img
+            src={`/img/grafana/${g.img}`}
+            alt={`${g.name} row group`}
+            loading="lazy"
+            onerror="this.remove(); this.parentElement.classList.add('shot-pending');"
+          />
         </div>
-      </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- context -->
+  <div class="section-label" style="margin-top: 32px;">── ./context</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">why grafana cloud</div>
+      <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+        Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
+      </p>
+      <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+        It’s a single dashboard split into two row groups, all on one datasource — <code>grafanacloud-prom</code> (Mimir). Open a group to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
+      </p>
     </div>
 
-    <div class="rail">
-      <div class="section-label">── ./context</div>
-
-      <div class="card">
-        <div class="card-label">why grafana cloud</div>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
-          Self-hosted Grafana would also need to be exposed via Cloudflare Tunnel, adding attack surface. Grafana Cloud hosts the public dashboard externally — the home PC only pushes metrics out.
-        </p>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
-          The dashboard is the only public surface of the pipeline. The Jenkins UI itself stays behind Cloudflare Access.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">related</div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus component (also planned)</a>
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
-          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
-        </div>
+    <div class="card">
+      <div class="card-label">related</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+        <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
+        <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
+        <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
       </div>
     </div>
   </div>
+
 </Default>

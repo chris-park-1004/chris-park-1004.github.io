@@ -6,70 +6,394 @@ const breadcrumbs = [
   { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
   { label: 'prometheus' },
 ];
+
+interface Metric {
+  anchor: string;
+  name: string;
+  type: 'gauge' | 'counter' | 'summary';
+  meaning: string;
+  panels: string;
+  sample: string[]; // illustrative exposition lines (not live)
+}
+
+// Jenkins Overview dashboard — scoped by jenkins_job=~"Jenkins-Test-Pipeline/.*"
+const buildMetrics: Metric[] = [
+  {
+    anchor: 'up',
+    name: 'default_jenkins_up',
+    type: 'gauge',
+    meaning: 'Controller liveness. 1 = the Jenkins controller is reachable and exporting.',
+    panels: 'Jenkins Status',
+    sample: [
+      'default_jenkins_up 1.0',
+    ],
+  },
+  {
+    anchor: 'health-score',
+    name: 'default_jenkins_builds_health_score',
+    type: 'gauge',
+    meaning: "Per-job weather score (0–100). Averaged across pipelines for the headline health number.",
+    panels: 'Jenkins Job Health',
+    sample: [
+      'default_jenkins_builds_health_score{jenkins_job="Jenkins-Test-Pipeline/main"} 60.0',
+    ],
+  },
+  {
+    anchor: 'result-ordinal',
+    name: 'default_jenkins_builds_last_build_result_ordinal',
+    type: 'gauge',
+    meaning: 'Result code of the most recent build (see result codes →). Counted by value to derive the Total / Successful / Failed / Aborted / Unstable tiles.',
+    panels: 'Total / Successful / Failed / Aborted / Unstable Jobs · Registered Pipelines',
+    sample: [
+      'default_jenkins_builds_last_build_result_ordinal{jenkins_job="Jenkins-Test-Pipeline/main"} 0.0',
+      'default_jenkins_builds_last_build_result_ordinal{jenkins_job="Jenkins-Test-Pipeline/feature/send-build-results"} 0.0',
+      '# 0 = SUCCESS for all 4 jobs',
+    ],
+  },
+  {
+    anchor: 'last-build-duration',
+    name: 'default_jenkins_builds_last_build_duration_milliseconds',
+    type: 'gauge',
+    meaning: 'Wall-clock duration of the last build per pipeline+branch.',
+    panels: 'Registered Pipelines (Build Duration)',
+    sample: [
+      'default_jenkins_builds_last_build_duration_milliseconds{jenkins_job="Jenkins-Test-Pipeline/main"} 17211.0',
+    ],
+  },
+  {
+    anchor: 'last-build-start-time',
+    name: 'default_jenkins_builds_last_build_start_time_milliseconds',
+    type: 'gauge',
+    meaning: 'Epoch-ms start time of the last build. Rendered as the Last Build Time column.',
+    panels: 'Registered Pipelines (Last Build Time)',
+    sample: [
+      'default_jenkins_builds_last_build_start_time_milliseconds{jenkins_job="Jenkins-Test-Pipeline/main"} 1779719160000',
+      '# = 2026-05-25 ~10:26 AM ET',
+    ],
+  },
+  {
+    anchor: 'duration-summary-count',
+    name: 'default_jenkins_builds_duration_milliseconds_summary_count',
+    type: 'summary',
+    meaning: 'Cumulative build count, split by the status label (SUCCESS / FAILURE / …). increase() over 1d gives the weekly activity bars.',
+    panels: 'Weekly Build Activity by Pipeline × Result',
+    sample: [
+      'default_jenkins_builds_duration_milliseconds_summary_count{jenkins_job="Jenkins-Test-Pipeline/main",status="SUCCESS"} 5',
+      'default_jenkins_builds_duration_milliseconds_summary_count{jenkins_job="Jenkins-Test-Pipeline/main",status="FAILURE"} 2',
+    ],
+  },
+  {
+    anchor: 'stage-duration-summary',
+    name: 'default_jenkins_builds_last_stage_duration_milliseconds_summary',
+    type: 'summary',
+    meaning: 'Per-stage duration summary. sum / count by(stage) yields the average duration of each pipeline stage (Build, Lint, Test, …).',
+    panels: 'Pipeline Stage Avg Duration',
+    sample: [
+      '..._summary_sum{stage="Checkout SCM"}   3560.0',
+      '..._summary_sum{stage="Build"}         3010.0',
+      '..._summary_sum{stage="Test"}          3009.0',
+      '..._summary_sum{stage="Lint"}          2872.0',
+      '..._summary_sum{stage="Checkout Info"} 2529.0',
+      '..._summary_sum{stage="Post Actions"}   858.0',
+    ],
+  },
+];
+
+// Server Resources dashboard — scoped by job="jenkins"
+const systemMetrics: Metric[] = [
+  {
+    anchor: 'cpu-load',
+    name: 'vm_cpu_load',
+    type: 'gauge',
+    meaning: 'Process CPU load (0–1, shown ×100 as %). Drives both the instant tile and the trend line.',
+    panels: 'CPU Load · CPU Load Over Time',
+    sample: [
+      'vm_cpu_load{job="jenkins"} 0.0',
+    ],
+  },
+  {
+    anchor: 'heap-usage',
+    name: 'vm_memory_heap_usage',
+    type: 'gauge',
+    meaning: 'Heap utilization ratio (0–1). Shown ×100 on the radial gauge.',
+    panels: 'Heap Memory Usage',
+    sample: [
+      'vm_memory_heap_usage{job="jenkins"} 0.735',
+    ],
+  },
+  {
+    anchor: 'heap-used-max',
+    name: 'vm_memory_heap_used / heap_max',
+    type: 'gauge',
+    meaning: 'Used vs. configured-max heap, in bytes. Plotted together against the Xmx ceiling.',
+    panels: 'JVM Memory',
+    sample: [
+      'vm_memory_heap_used{job="jenkins"} 211812352',
+      'vm_memory_heap_max{job="jenkins"}  268435456',
+      '# 202 MB used of 256 MB',
+    ],
+  },
+  {
+    anchor: 'non-heap-used',
+    name: 'vm_memory_non_heap_used',
+    type: 'gauge',
+    meaning: 'Non-heap memory (metaspace, code cache) in bytes.',
+    panels: 'JVM Memory',
+    sample: [
+      'vm_memory_non_heap_used{job="jenkins"} 160432128',
+      '# 153 MB',
+    ],
+  },
+  {
+    anchor: 'threads-current-peak',
+    name: 'jvm_threads_current / peak',
+    type: 'gauge',
+    meaning: 'Live thread count and the peak since JVM start.',
+    panels: 'JVM Threads',
+    sample: [
+      'jvm_threads_current{job="jenkins"} 39.0',
+      'jvm_threads_peak{job="jenkins"}    63.0',
+    ],
+  },
+  {
+    anchor: 'threads-state',
+    name: 'jvm_threads_state',
+    type: 'gauge',
+    meaning: 'Thread count broken down by state (RUNNABLE, WAITING, TIMED_WAITING, BLOCKED, …).',
+    panels: 'JVM Thread States',
+    sample: [
+      'jvm_threads_state{job="jenkins",state="WAITING"}       16.0',
+      'jvm_threads_state{job="jenkins",state="TIMED_WAITING"} 12.0',
+      'jvm_threads_state{job="jenkins",state="RUNNABLE"}      11.0',
+      'jvm_threads_state{job="jenkins",state="BLOCKED"}        0.0',
+    ],
+  },
+  {
+    anchor: 'threads-deadlocked',
+    name: 'jvm_threads_deadlocked',
+    type: 'gauge',
+    meaning: 'Number of deadlocked threads. Anything above 0 turns the tile red.',
+    panels: 'Deadlocked Threads',
+    sample: [
+      'jvm_threads_deadlocked{job="jenkins"} 0.0',
+    ],
+  },
+  {
+    anchor: 'gc-collection',
+    name: 'jvm_gc_collection_seconds_sum',
+    type: 'counter',
+    meaning: 'Cumulative GC time per collector (G1 Young / Old / Concurrent). rate() gives GC pause time per second.',
+    panels: 'GC Pause Time / sec',
+    sample: [
+      'jvm_gc_collection_seconds_sum{job="jenkins",gc="G1 Young Generation"} 7.9',
+      'jvm_gc_collection_seconds_sum{job="jenkins",gc="G1 Concurrent GC"}    2.1',
+      'jvm_gc_collection_seconds_sum{job="jenkins",gc="G1 Old Generation"}   0.2',
+    ],
+  },
+  {
+    anchor: 'file-descriptor',
+    name: 'vm_file_descriptor_ratio_x100_window_5m',
+    type: 'summary',
+    meaning: 'Open file descriptors as a percentage of the OS limit (×100, 5m window).',
+    panels: 'File Descriptor Usage',
+    sample: [
+      'vm_file_descriptor_ratio_x100_window_5m{job="jenkins",quantile="0.5"}  0.0',
+      'vm_file_descriptor_ratio_x100_window_5m{job="jenkins",quantile="0.95"} 0.0',
+    ],
+  },
+];
+
+const totalMetrics = buildMetrics.length + systemMetrics.length;
+
+const resultCodes = [
+  { code: '0', label: 'SUCCESS', color: 'green' },
+  { code: '1', label: 'UNSTABLE', color: 'yellow' },
+  { code: '2', label: 'FAILURE', color: 'red' },
+  { code: '3', label: 'NOT_BUILT', color: 'dim' },
+  { code: '4', label: 'ABORTED', color: 'dim' },
+];
 ---
 
 <Default
-  title="Prometheus — CI/CD Pipeline (planned)"
-  description="Planned Prometheus integration: scrape Jenkins metrics and feed a public Grafana dashboard."
+  title="Prometheus — CI/CD Pipeline"
+  description="What flows from Jenkins to Grafana Cloud: the metric catalog behind the Jenkins Overview and Server Resources dashboards, mapped to the panels that consume each series."
   breadcrumbs={breadcrumbs}
 >
+
+  <!-- header -->
   <div class="header">
     <div>
-      <div class="prompt">$ cat plan.md</div>
+      <div class="prompt">$ curl -s localhost:9090/api/v1/label/__name__/values</div>
       <h1>Prometheus</h1>
-      <div class="subtitle">Metrics scraping from Jenkins · feeds Grafana public dashboard</div>
+      <div class="subtitle">Pull-based metrics · Docker on Jenkins host · remote_write to Grafana Cloud Mimir</div>
     </div>
     <div class="header-meta">
-      <div class="row">status: <b style="color:var(--text-dim)">● planning</b></div>
+      <div class="row">runtime: <b>Docker</b></div>
+      <div class="row">scrape: <b>120s</b></div>
+      <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
     </div>
   </div>
 
+  <!-- summary -->
+  <div class="summary">
+    <div><div class="k">Metric families</div><div class="v blue">{totalMetrics}</div></div>
+    <div><div class="k">Dashboards fed</div><div class="v purple">2</div></div>
+    <div><div class="k">Scrape period</div><div class="v green">120s</div></div>
+    <div><div class="k">Inbound ports</div><div class="v yellow">0</div></div>
+  </div>
+
+  <!-- main grid -->
   <div class="grid">
     <div>
-      <div class="section-label">── ./plan</div>
 
-      <div class="stage" style="--accent: var(--text-dim)">
+      <!-- pipeline / data flow -->
+      <div class="section-label">── ./pipeline</div>
+
+      <div class="stage" style="--accent: var(--blue); margin-bottom: 28px;">
+        <div class="stage-body">
+          <p>
+            All metrics originate from the <b>Jenkins Prometheus plugin</b> running with its default
+            configuration — endpoint <code>/prometheus</code>, namespace <code>default</code>, 120s
+            collection period. A Prometheus container on the Jenkins host scrapes
+            <code>host.docker.internal:8080/prometheus/</code>, then a single <code>remote_write</code>
+            block ships everything to Grafana Cloud Mimir. No relabel filtering — what is scraped is what
+            Grafana sees. The local endpoint is bound to <code>localhost</code> only, so nothing is exposed inbound.
+          </p>
+          <div class="stack-tags" style="margin-top: 14px;">
+            <span class="chip">Jenkins plugin (default)</span>
+            <span class="chip">→ scrape 120s</span>
+            <span class="chip">→ remote_write</span>
+            <span class="chip">→ Grafana Cloud Mimir</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- metric catalog -->
+      <div class="section-label">── ./metrics</div>
+
+      <!-- CI / build group -->
+      <div class="stage" style="--accent: var(--green); margin-bottom: 14px;">
         <div class="stage-head">
           <div>
             <div class="stage-meta">
-              <span class="id">todo</span>
-              <span class="badge b-dim"><span class="badge-dot"></span>planning</span>
+              <span class="id">group_01</span>
+              <span class="badge b-green"><span class="badge-dot"></span>CI / build</span>
             </div>
-            <div class="stage-name">Not implemented yet</div>
-            <div class="stage-sub">Captures the design before building, so the architecture is documented up-front.</div>
+            <div class="stage-name">Jenkins Overview</div>
+            <div class="stage-sub">scope: jenkins_job=~"Jenkins-Test-Pipeline/.*"</div>
           </div>
+          <div class="stage-dur">{buildMetrics.length} families</div>
         </div>
         <div class="stage-body">
-          <p>Prometheus will scrape Jenkins via the Prometheus plugin, exposing metrics on a private internal endpoint. The scraping target is the Jenkins controller; build agents emit their own metrics through the controller.</p>
-          <ul style="margin-top: 12px;">
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Install Jenkins Prometheus plugin; expose <code>/prometheus</code> endpoint</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Run Prometheus on the home PC (Docker), keep it private</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Drop sensitive labels (host names, IPs, paths) at scrape time</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Push curated metrics to Grafana Cloud (so the public dashboard stays up even when the home PC is off)</span></li>
-            <li><span class="check" style="color:var(--text-faint)">○</span><span>Target metrics: build duration trend, success rate, queue depth, DORA-style indicators</span></li>
-          </ul>
+          <div class="metric-list">
+            {buildMetrics.map((m) => (
+              <div id={m.anchor} class="metric-item">
+                <div class="metric-item-head">
+                  <code>{m.name}</code>
+                </div>
+                <div class="metric-item-desc">{m.meaning}</div>
+                <div class="metric-item-panels">→ {m.panels}</div>
+                <details class="metric-sample">
+                  <summary>sample snapshot</summary>
+                  <pre>{m.sample.join('\n')}</pre>
+                </details>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      <!-- JVM / system group -->
+      <div class="stage" style="--accent: var(--purple);">
+        <div class="stage-head">
+          <div>
+            <div class="stage-meta">
+              <span class="id">group_02</span>
+              <span class="badge b-purple"><span class="badge-dot"></span>JVM / system</span>
+            </div>
+            <div class="stage-name">Server Resources</div>
+            <div class="stage-sub">scope: job="jenkins"</div>
+          </div>
+          <div class="stage-dur">{systemMetrics.length} families</div>
+        </div>
+        <div class="stage-body">
+          <div class="metric-list">
+            {systemMetrics.map((m) => (
+              <div id={m.anchor} class="metric-item">
+                <div class="metric-item-head">
+                  <code>{m.name}</code>
+                </div>
+                <div class="metric-item-desc">{m.meaning}</div>
+                <div class="metric-item-panels">→ {m.panels}</div>
+                <details class="metric-sample">
+                  <summary>sample snapshot</summary>
+                  <pre>{m.sample.join('\n')}</pre>
+                </details>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </div>
 
+    <!-- right rail -->
     <div class="rail">
+
       <div class="section-label">── ./context</div>
 
       <div class="card">
         <div class="card-label">why prometheus</div>
         <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
-          Prometheus is the standard for pull-based metrics in CI/CD and SRE. Easier to demo observability practices than home-grown logging.
+          The Jenkins plugin exposes a ready-made <code>/prometheus</code> endpoint, so the gap between "Jenkins is up" and "I have a dashboard" is just one container plus one scrape job. No custom exporters, no instrumentation code.
         </p>
+        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+          Running in Docker on the Jenkins host keeps scrape latency near-zero, and binding to <code>localhost</code> means the controller never exposes metrics outside the machine.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">result codes</div>
+        <p style="font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0 0 12px;">
+          Values of <code>last_build_result_ordinal</code>, counted to build the job-status tiles:
+        </p>
+        <div style="display:flex; flex-direction:column; gap:7px; font-family:'JetBrains Mono', monospace; font-size:12px;">
+          {resultCodes.map((r) => (
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="color:var(--text-faint); width:14px;">{r.code}</span>
+              <span class={`badge b-${r.color}`}><span class="badge-dot"></span>{r.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">stack</div>
+        <div class="stack-group">
+          <div class="cat">Runtime</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Prometheus 2.x</span>
+            <span class="stack-tag">Docker</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Source</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jenkins Prometheus plugin</span>
+            <span class="stack-tag">host.docker.internal</span>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <div class="card-label">related</div>
         <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/grafana/" style="color: var(--blue);">→ Grafana component (also planned)</a>
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
+          <a href="/projects/ci-cd/grafana/" style="color: var(--purple);">→ Grafana dashboards</a>
+          <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
           <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
         </div>
       </div>
     </div>
   </div>
+
 </Default>
