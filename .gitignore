@@ -41,3 +41,5 @@ next-env.d.ts
 
 # vscode
 .vscode/
+.claude/launch.json
+public/img/grafana/README.txt

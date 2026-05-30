@@ -8,6 +8,7 @@ const breadcrumbs = [
 ];
 
 interface Metric {
+  anchor: string;
   name: string;
   type: 'gauge' | 'counter' | 'summary';
   meaning: string;
@@ -17,42 +18,49 @@ interface Metric {
 // Jenkins Overview dashboard — scoped by jenkins_job=~"Jenkins-Test-Pipeline/.*"
 const buildMetrics: Metric[] = [
   {
+    anchor: 'up',
     name: 'default_jenkins_up',
     type: 'gauge',
     meaning: 'Controller liveness. 1 = the Jenkins controller is reachable and exporting.',
     panels: 'Jenkins Status',
   },
   {
+    anchor: 'health-score',
     name: 'default_jenkins_builds_health_score',
     type: 'gauge',
     meaning: "Per-job weather score (0–100). Averaged across pipelines for the headline health number.",
     panels: 'Jenkins Job Health',
   },
   {
+    anchor: 'result-ordinal',
     name: 'default_jenkins_builds_last_build_result_ordinal',
     type: 'gauge',
     meaning: 'Result code of the most recent build (see result codes →). Counted by value to derive the Total / Successful / Failed / Aborted / Unstable tiles.',
     panels: 'Total / Successful / Failed / Aborted / Unstable Jobs · Registered Pipelines',
   },
   {
+    anchor: 'last-build-duration',
     name: 'default_jenkins_builds_last_build_duration_milliseconds',
     type: 'gauge',
     meaning: 'Wall-clock duration of the last build per pipeline+branch.',
     panels: 'Registered Pipelines (Build Duration)',
   },
   {
+    anchor: 'last-build-start-time',
     name: 'default_jenkins_builds_last_build_start_time_milliseconds',
     type: 'gauge',
     meaning: 'Epoch-ms start time of the last build. Rendered as the Last Build Time column.',
     panels: 'Registered Pipelines (Last Build Time)',
   },
   {
+    anchor: 'duration-summary-count',
     name: 'default_jenkins_builds_duration_milliseconds_summary_count',
     type: 'summary',
     meaning: 'Cumulative build count, split by the status label (SUCCESS / FAILURE / …). increase() over 1d gives the weekly activity bars.',
     panels: 'Weekly Build Activity by Pipeline × Result',
   },
   {
+    anchor: 'stage-duration-summary',
     name: 'default_jenkins_builds_last_stage_duration_milliseconds_summary',
     type: 'summary',
     meaning: 'Per-stage duration summary. sum / count by(stage) yields the average duration of each pipeline stage (Build, Lint, Test, …).',
@@ -63,54 +71,63 @@ const buildMetrics: Metric[] = [
 // Server Resources dashboard — scoped by job="jenkins"
 const systemMetrics: Metric[] = [
   {
+    anchor: 'cpu-load',
     name: 'vm_cpu_load',
     type: 'gauge',
     meaning: 'Process CPU load (0–1, shown ×100 as %). Drives both the instant tile and the trend line.',
     panels: 'CPU Load · CPU Load Over Time',
   },
   {
+    anchor: 'heap-usage',
     name: 'vm_memory_heap_usage',
     type: 'gauge',
     meaning: 'Heap utilization ratio (0–1). Shown ×100 on the radial gauge.',
     panels: 'Heap Memory Usage',
   },
   {
+    anchor: 'heap-used-max',
     name: 'vm_memory_heap_used / heap_max',
     type: 'gauge',
     meaning: 'Used vs. configured-max heap, in bytes. Plotted together against the Xmx ceiling.',
     panels: 'JVM Memory',
   },
   {
+    anchor: 'non-heap-used',
     name: 'vm_memory_non_heap_used',
     type: 'gauge',
     meaning: 'Non-heap memory (metaspace, code cache) in bytes.',
     panels: 'JVM Memory',
   },
   {
+    anchor: 'threads-current-peak',
     name: 'jvm_threads_current / peak',
     type: 'gauge',
     meaning: 'Live thread count and the peak since JVM start.',
     panels: 'JVM Threads',
   },
   {
+    anchor: 'threads-state',
     name: 'jvm_threads_state',
     type: 'gauge',
     meaning: 'Thread count broken down by state (RUNNABLE, WAITING, TIMED_WAITING, BLOCKED, …).',
     panels: 'JVM Thread States',
   },
   {
+    anchor: 'threads-deadlocked',
     name: 'jvm_threads_deadlocked',
     type: 'gauge',
     meaning: 'Number of deadlocked threads. Anything above 0 turns the tile red.',
     panels: 'Deadlocked Threads',
   },
   {
+    anchor: 'gc-collection',
     name: 'jvm_gc_collection_seconds_sum',
     type: 'counter',
     meaning: 'Cumulative GC time per collector (G1 Young / Old / Concurrent). rate() gives GC pause time per second.',
     panels: 'GC Pause Time / sec',
   },
   {
+    anchor: 'file-descriptor',
     name: 'vm_file_descriptor_ratio_x100_window_5m',
     type: 'summary',
     meaning: 'Open file descriptors as a percentage of the OS limit (×100, 5m window).',
@@ -202,7 +219,7 @@ const resultCodes = [
         <div class="stage-body">
           <ul>
             {buildMetrics.map((m) => (
-              <li>
+              <li id={m.anchor} class="metric-row">
                 <span class="check" style="color:var(--green)">▸</span>
                 <span style="display:flex; flex-direction:column; gap:3px;">
                   <span style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
@@ -234,7 +251,7 @@ const resultCodes = [
         <div class="stage-body">
           <ul>
             {systemMetrics.map((m) => (
-              <li>
+              <li id={m.anchor} class="metric-row">
                 <span class="check" style="color:var(--purple)">▸</span>
                 <span style="display:flex; flex-direction:column; gap:3px;">
                   <span style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
