@@ -1,0 +1,117 @@
+---
+import Default from '../../../../layouts/Default.astro';
+import PanelGrid from '../../../../components/PanelGrid.astro';
+import type { Panel } from '../../../../components/PanelGrid.astro';
+
+const breadcrumbs = [
+  { label: 'chris-park-1004', href: '/' },
+  { label: 'projects/ci-cd', href: '/projects/ci-cd/' },
+  { label: 'grafana', href: '/projects/ci-cd/grafana/' },
+  { label: 'server-resources' },
+];
+
+const panels: Panel[] = [
+  {
+    name: 'CPU Load',
+    viz: 'stat',
+    meaning: 'Latest process CPU load as a percent.',
+    img: 'cpu-load.png',
+    srcs: [{ label: 'vm_cpu_load', anchor: 'cpu-load' }],
+  },
+  {
+    name: 'Heap Memory Usage',
+    viz: 'gauge',
+    meaning: 'Heap used as a percent of max heap — radial gauge that reddens as it approaches the ceiling.',
+    img: 'heap-usage.png',
+    srcs: [{ label: 'vm_memory_heap_usage', anchor: 'heap-usage' }],
+  },
+  {
+    name: 'JVM Threads',
+    viz: 'stat',
+    meaning: 'Current live thread count and the peak reached since the JVM started.',
+    img: 'jvm-threads.png',
+    srcs: [{ label: 'jvm_threads_current / peak', anchor: 'threads-current-peak' }],
+  },
+  {
+    name: 'File Descriptor Usage',
+    viz: 'gauge',
+    meaning: 'Open file descriptors as a percent of the OS limit (5-minute window).',
+    img: 'file-descriptor.png',
+    srcs: [{ label: 'vm_file_descriptor_ratio', anchor: 'file-descriptor' }],
+  },
+  {
+    name: 'CPU Load Over Time',
+    viz: 'timeseries',
+    meaning: 'CPU load percent trend over the selected range.',
+    img: 'cpu-load-over-time.png',
+    srcs: [{ label: 'vm_cpu_load', anchor: 'cpu-load' }],
+  },
+  {
+    name: 'JVM Memory',
+    viz: 'timeseries',
+    meaning: 'Heap used vs. heap max, plus non-heap used, in bytes — the classic GC sawtooth.',
+    img: 'jvm-memory.png',
+    srcs: [
+      { label: 'vm_memory_heap_used / max', anchor: 'heap-used-max' },
+      { label: 'vm_memory_non_heap_used', anchor: 'non-heap-used' },
+    ],
+  },
+  {
+    name: 'GC Pause Time / sec',
+    viz: 'timeseries',
+    meaning: 'Per-collector GC time per second (G1 Young / Old / Concurrent), via rate() over the cumulative GC counter.',
+    img: 'gc-pause.png',
+    srcs: [{ label: 'jvm_gc_collection_seconds_sum', anchor: 'gc-collection' }],
+  },
+  {
+    name: 'JVM Thread States',
+    viz: 'timeseries',
+    meaning: 'Thread counts broken down by state (RUNNABLE, WAITING, TIMED_WAITING, BLOCKED…) over time.',
+    img: 'jvm-thread-states.png',
+    srcs: [{ label: 'jvm_threads_state', anchor: 'threads-state' }],
+  },
+  {
+    name: 'Deadlocked Threads',
+    viz: 'stat',
+    meaning: 'Count of deadlocked threads — None is healthy, anything above 0 is an incident.',
+    img: 'deadlocked-threads.png',
+    srcs: [{ label: 'jvm_threads_deadlocked', anchor: 'threads-deadlocked' }],
+  },
+];
+---
+
+<Default
+  title="Grafana / Server Resources — CI/CD Pipeline"
+  description="Panel-by-panel breakdown of the Server Resources dashboard: CPU, heap, JVM threads, garbage collection, file descriptors and deadlock detection for the Jenkins process."
+  breadcrumbs={breadcrumbs}
+>
+
+  <div class="header">
+    <div>
+      <div class="prompt">$ open grafana://server-resources</div>
+      <h1>Server Resources</h1>
+      <div class="subtitle">JVM / host health · 8 panels · scope: job="jenkins"</div>
+    </div>
+    <div class="header-meta">
+      <div class="row">datasource: <b>grafanacloud-prom</b></div>
+      <div class="row">panels: <b>{panels.length}</b></div>
+    </div>
+  </div>
+
+  <p style="font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 0 0 24px; max-width: 760px;">
+    The infrastructure board: how healthy is the JVM running Jenkins? CPU, heap, threads, garbage collection
+    and file descriptors — the signals that explain a slow or wedged controller. Click any metric chip to jump
+    to its definition in the
+    <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">metric catalog</a>.
+  </p>
+
+  <div class="section-label">── ./panels</div>
+  <PanelGrid panels={panels} accent="purple" />
+
+  <div style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+    <a href="/projects/ci-cd/grafana/jenkins-overview" style="color: var(--green);">→ Jenkins Overview dashboard</a>
+    <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
+    <a href="/projects/ci-cd/grafana/" style="color: var(--text-dim);">← back to Grafana</a>
+  </div>
+
+</Default>

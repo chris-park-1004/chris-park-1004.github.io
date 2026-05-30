@@ -10,192 +10,35 @@ const breadcrumbs = [
 const dashboardUrl =
   'https://chrispark1004.grafana.net/d/chh8qv9/jenkins-dashboard?orgId=1&from=now-6h&to=now&timezone=browser';
 
-const PROM = '/projects/ci-cd/prometheus/';
-
-interface Src { label: string; anchor: string; }
-interface Panel {
-  name: string;
-  viz: 'stat' | 'gauge' | 'table' | 'timeseries' | 'barchart';
-  meaning: string;
-  img: string;
-  srcs: Src[];
-}
-
-// Dashboard 1 — Jenkins Overview (CI / build health)
-const jenkinsOverview: Panel[] = [
-  {
-    name: 'Jenkins Status',
-    viz: 'stat',
-    meaning: 'Big UP / DOWN tile — is the controller alive? Reads the latest liveness sample over the past week so it stays green even with sparse scrapes.',
-    img: 'jenkins-status.png',
-    srcs: [{ label: 'default_jenkins_up', anchor: 'up' }],
-  },
-  {
-    name: 'Total Jobs',
-    viz: 'stat',
-    meaning: 'Number of registered pipeline + branch jobs, regardless of result.',
-    img: 'total-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Successful Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 0 (SUCCESS).',
-    img: 'successful-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Failed Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 2 (FAILURE).',
-    img: 'failed-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Aborted Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 4 (ABORTED).',
-    img: 'aborted-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Unstable Jobs',
-    viz: 'stat',
-    meaning: 'Jobs whose last build result code is 1 (UNSTABLE).',
-    img: 'unstable-jobs.png',
-    srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
-  },
-  {
-    name: 'Jenkins Job Health',
-    viz: 'stat',
-    meaning: 'Average job weather score (0–100) across all pipelines — Jenkins’ own blend of recent success rate and stability.',
-    img: 'job-health.png',
-    srcs: [{ label: 'health_score', anchor: 'health-score' }],
-  },
-  {
-    name: 'Registered Pipelines',
-    viz: 'table',
-    meaning: 'One row per pipeline + branch: last result, last build time, and build duration. Joins three instant queries on the job label.',
-    img: 'registered-pipelines.png',
-    srcs: [
-      { label: 'last_build_result_ordinal', anchor: 'result-ordinal' },
-      { label: 'last_build_duration', anchor: 'last-build-duration' },
-      { label: 'last_build_start_time', anchor: 'last-build-start-time' },
-    ],
-  },
-  {
-    name: 'Weekly Build Activity by Pipeline × Result',
-    viz: 'timeseries',
-    meaning: 'Daily build counts split by pipeline and result, from increase() over the build-duration summary counter.',
-    img: 'weekly-build-activity.png',
-    srcs: [{ label: 'duration_summary_count', anchor: 'duration-summary-count' }],
-  },
-  {
-    name: 'Pipeline Stage Avg Duration',
-    viz: 'barchart',
-    meaning: 'Average duration of each declarative stage this week (Build, Lint, Test, Checkout…), as sum / count by stage.',
-    img: 'stage-avg-duration.png',
-    srcs: [{ label: 'last_stage_duration_summary', anchor: 'stage-duration-summary' }],
-  },
-];
-
-// Dashboard 2 — Server Resources (JVM / host health)
-const serverResources: Panel[] = [
-  {
-    name: 'CPU Load',
-    viz: 'stat',
-    meaning: 'Latest process CPU load as a percent.',
-    img: 'cpu-load.png',
-    srcs: [{ label: 'vm_cpu_load', anchor: 'cpu-load' }],
-  },
-  {
-    name: 'Heap Memory Usage',
-    viz: 'gauge',
-    meaning: 'Heap used as a percent of max heap — radial gauge that reddens as it approaches the ceiling.',
-    img: 'heap-usage.png',
-    srcs: [{ label: 'vm_memory_heap_usage', anchor: 'heap-usage' }],
-  },
-  {
-    name: 'JVM Threads',
-    viz: 'stat',
-    meaning: 'Current live thread count and the peak reached since the JVM started.',
-    img: 'jvm-threads.png',
-    srcs: [{ label: 'jvm_threads_current / peak', anchor: 'threads-current-peak' }],
-  },
-  {
-    name: 'File Descriptor Usage',
-    viz: 'gauge',
-    meaning: 'Open file descriptors as a percent of the OS limit (5-minute window).',
-    img: 'file-descriptor.png',
-    srcs: [{ label: 'vm_file_descriptor_ratio', anchor: 'file-descriptor' }],
-  },
-  {
-    name: 'CPU Load Over Time',
-    viz: 'timeseries',
-    meaning: 'CPU load percent trend over the selected range.',
-    img: 'cpu-load-over-time.png',
-    srcs: [{ label: 'vm_cpu_load', anchor: 'cpu-load' }],
-  },
-  {
-    name: 'JVM Memory',
-    viz: 'timeseries',
-    meaning: 'Heap used vs. heap max, plus non-heap used, in bytes — the classic GC sawtooth.',
-    img: 'jvm-memory.png',
-    srcs: [
-      { label: 'vm_memory_heap_used / max', anchor: 'heap-used-max' },
-      { label: 'vm_memory_non_heap_used', anchor: 'non-heap-used' },
-    ],
-  },
-  {
-    name: 'GC Pause Time / sec',
-    viz: 'timeseries',
-    meaning: 'Per-collector GC time per second (G1 Young / Old / Concurrent), via rate() over the cumulative GC counter.',
-    img: 'gc-pause.png',
-    srcs: [{ label: 'jvm_gc_collection_seconds_sum', anchor: 'gc-collection' }],
-  },
-  {
-    name: 'JVM Thread States',
-    viz: 'timeseries',
-    meaning: 'Thread counts broken down by state (RUNNABLE, WAITING, TIMED_WAITING, BLOCKED…) over time.',
-    img: 'jvm-thread-states.png',
-    srcs: [{ label: 'jvm_threads_state', anchor: 'threads-state' }],
-  },
-  {
-    name: 'Deadlocked Threads',
-    viz: 'stat',
-    meaning: 'Count of deadlocked threads — None is healthy, anything above 0 is an incident.',
-    img: 'deadlocked-threads.png',
-    srcs: [{ label: 'jvm_threads_deadlocked', anchor: 'threads-deadlocked' }],
-  },
-];
-
 const dashboards = [
   {
-    id: 'dashboard_01',
-    slug: 'jenkins-overview',
+    href: '/projects/ci-cd/grafana/jenkins-overview',
+    img: 'jenkins-overview.png',
     name: 'Jenkins Overview',
-    accent: 'green',
     badge: 'b-green',
-    blurb: 'CI / build health — status, job results, build activity and per-stage timings.',
-    panels: jenkinsOverview,
+    accent: 'green',
+    panels: 10,
+    description:
+      'CI / build health at a glance — controller status, job result tallies, registered pipelines, weekly build activity, and average stage durations.',
   },
   {
-    id: 'dashboard_02',
-    slug: 'server-resources',
+    href: '/projects/ci-cd/grafana/server-resources',
+    img: 'server-resources.png',
     name: 'Server Resources',
-    accent: 'purple',
     badge: 'b-purple',
-    blurb: 'JVM / host health — CPU, heap, threads, GC and file descriptors of the Jenkins process.',
-    panels: serverResources,
+    accent: 'purple',
+    panels: 8,
+    description:
+      'JVM and host health of the Jenkins process — CPU, heap, threads, garbage collection, file descriptors, and deadlock detection.',
   },
 ];
 
-const totalPanels = jenkinsOverview.length + serverResources.length;
+const totalPanels = dashboards.reduce((sum, d) => sum + d.panels, 0);
 ---
 
 <Default
   title="Grafana — CI/CD Pipeline"
-  description="Grafana Cloud dashboards over the Jenkins pipeline: two boards (Jenkins Overview and Server Resources), each panel explained and linked back to its Prometheus metric."
+  description="Grafana Cloud dashboards over the Jenkins pipeline: two boards (Jenkins Overview and Server Resources). Click a dashboard to see every panel explained and linked to its Prometheus metric."
   breadcrumbs={breadcrumbs}
 >
 
@@ -204,18 +47,18 @@ const totalPanels = jenkinsOverview.length + serverResources.length;
     <div>
       <div class="prompt">$ open grafana-cloud://jenkins-dashboard</div>
       <h1>Grafana</h1>
-      <div class="subtitle">Grafana Cloud free tier · 2 dashboards · 19 panels over the Jenkins pipeline</div>
+      <div class="subtitle">Grafana Cloud free tier · 2 dashboards · {totalPanels} panels over the Jenkins pipeline</div>
     </div>
     <div class="header-meta">
       <div class="row">datasource: <b>grafanacloud-prom</b></div>
-      <div class="row">boards: <b>2</b></div>
+      <div class="row">boards: <b>{dashboards.length}</b></div>
       <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
     </div>
   </div>
 
   <!-- summary -->
   <div class="summary">
-    <div><div class="k">Dashboards</div><div class="v green">2</div></div>
+    <div><div class="k">Dashboards</div><div class="v green">{dashboards.length}</div></div>
     <div><div class="k">Panels</div><div class="v blue">{totalPanels}</div></div>
     <div><div class="k">Datasource</div><div class="v purple">mimir</div></div>
     <div><div class="k">Public access</div><div class="v yellow">soon</div></div>
@@ -235,76 +78,52 @@ const totalPanels = jenkinsOverview.length + serverResources.length;
     <a class="ll-cta" href={dashboardUrl} target="_blank" rel="noopener noreferrer">open dashboard →</a>
   </div>
 
-  <!-- dashboards -->
-  {dashboards.map((d) => (
-    <div style="margin-top: 28px;">
-      <div class="section-label">── ./dashboards/{d.slug}</div>
-
-      <div class="stage" style={`--accent: var(--${d.accent}); margin-bottom: 16px;`}>
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">{d.id}</span>
-              <span class={`badge ${d.badge}`}><span class="badge-dot"></span>{d.panels.length} panels</span>
-            </div>
-            <div class="stage-name">{d.name}</div>
-            <div class="stage-sub">{d.blurb}</div>
-          </div>
+  <!-- dashboards (full captures → sub-pages) -->
+  <div class="section-label" style="margin-top: 28px;">── ./dashboards</div>
+  <div class="dash-list">
+    {dashboards.map((d) => (
+      <a class="dash-card" href={d.href} style={`--accent: var(--${d.accent})`}>
+        <div class="dash-shot">
+          <img
+            src={`/img/grafana/${d.img}`}
+            alt={`${d.name} dashboard`}
+            loading="lazy"
+            onerror="this.remove(); this.parentElement.classList.add('shot-pending');"
+          />
         </div>
-      </div>
-
-      <div class="panel-grid">
-        {d.panels.map((p) => (
-          <div class="panel-card" style={`--accent: var(--${d.accent})`}>
-            <div class="panel-shot">
-              <img
-                src={`/img/grafana/${p.img}`}
-                alt={`${d.name} — ${p.name} panel`}
-                loading="lazy"
-                onerror="this.remove(); this.parentElement.classList.add('shot-pending');"
-              />
-            </div>
-            <div class="panel-body">
-              <div class="panel-top">
-                <div class="panel-name">{p.name}</div>
-                <span class="chip">{p.viz}</span>
-              </div>
-              <p class="panel-meaning">{p.meaning}</p>
-              <div class="panel-srcs">
-                {p.srcs.map((s) => (
-                  <a class="chip" href={`${PROM}#${s.anchor}`} title="View this metric in the Prometheus catalog">
-                    <code>{s.label}</code>
-                  </a>
-                ))}
-              </div>
-            </div>
+        <div class="dash-body">
+          <div class="panel-top">
+            <div class="panel-name">{d.name}</div>
+            <span class={`badge ${d.badge}`}><span class="badge-dot"></span>{d.panels} panels</span>
           </div>
-        ))}
-      </div>
+          <p class="panel-meaning">{d.description}</p>
+          <span style={`font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--${d.accent});`}>
+            view panel breakdown →
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- context -->
+  <div class="section-label" style="margin-top: 32px;">── ./context</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">why grafana cloud</div>
+      <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+        Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
+      </p>
+      <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+        Both boards run on a single datasource, <code>grafanacloud-prom</code> (Mimir). Open a dashboard to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
+      </p>
     </div>
-  ))}
 
-  <!-- context / why + related -->
-  <div style="margin-top: 32px;">
-    <div class="section-label">── ./context</div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-label">why grafana cloud</div>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
-          Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
-        </p>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
-          Every panel is backed by a single datasource, <code>grafanacloud-prom</code> (Mimir). Click any metric chip on a panel to jump to its definition in the Prometheus catalog.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="card-label">related</div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
-          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
-        </div>
+    <div class="card">
+      <div class="card-label">related</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+        <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
+        <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
+        <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
       </div>
     </div>
   </div>

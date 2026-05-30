@@ -296,6 +296,27 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 }
 .live-link a.ll-cta:hover { background: color-mix(in srgb, var(--purple) 24%, transparent); }
 
+/* dashboard preview cards → sub-pages (grafana hub) */
+.dash-list { display: flex; flex-direction: column; gap: 16px; }
+.dash-card {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--panel); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent, var(--text-dim)); border-radius: 10px;
+  overflow: hidden; box-shadow: var(--shadow);
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.dash-card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); transform: translateY(-2px); }
+.dash-shot { position: relative; background: var(--bg-deep); border-bottom: 1px solid var(--border); min-height: 120px; }
+.dash-shot img { width: 100%; height: auto; display: block; }
+.dash-shot.shot-pending { aspect-ratio: 16 / 6; }
+.dash-shot.shot-pending::after {
+  content: 'full dashboard screenshot pending'; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.dash-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; }
+
 /* dashboard panel cards (grafana page) */
 .panel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .panel-card {
