@@ -82,7 +82,7 @@ const panels: Panel[] = [
 
 <Default
   title="Grafana / Server Resources — CI/CD Pipeline"
-  description="Panel-by-panel breakdown of the Server Resources dashboard: CPU, heap, JVM threads, garbage collection, file descriptors and deadlock detection for the Jenkins process."
+  description="Panel-by-panel breakdown of the Server Resources row group: CPU, heap, JVM threads, garbage collection, file descriptors and deadlock detection for the Jenkins process."
   breadcrumbs={breadcrumbs}
 >
 
@@ -90,7 +90,7 @@ const panels: Panel[] = [
     <div>
       <div class="prompt">$ open grafana://server-resources</div>
       <h1>Server Resources</h1>
-      <div class="subtitle">JVM / host health · 8 panels · scope: job="jenkins"</div>
+      <div class="subtitle">JVM / host health · row group · {panels.length} panels · scope: job="jenkins"</div>
     </div>
     <div class="header-meta">
       <div class="row">datasource: <b>grafanacloud-prom</b></div>
@@ -99,7 +99,7 @@ const panels: Panel[] = [
   </div>
 
   <p style="font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 0 0 24px; max-width: 760px;">
-    The infrastructure board: how healthy is the JVM running Jenkins? CPU, heap, threads, garbage collection
+    The infrastructure group: how healthy is the JVM running Jenkins? CPU, heap, threads, garbage collection
     and file descriptors — the signals that explain a slow or wedged controller. Click any metric chip to jump
     to its definition in the
     <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">metric catalog</a>.
@@ -109,7 +109,7 @@ const panels: Panel[] = [
   <PanelGrid panels={panels} accent="purple" />
 
   <div style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-    <a href="/projects/ci-cd/grafana/jenkins-overview" style="color: var(--green);">→ Jenkins Overview dashboard</a>
+    <a href="/projects/ci-cd/grafana/jenkins-overview" style="color: var(--green);">→ Jenkins Overview group</a>
     <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
     <a href="/projects/ci-cd/grafana/" style="color: var(--text-dim);">← back to Grafana</a>
   </div>

@@ -10,7 +10,8 @@ const breadcrumbs = [
 const dashboardUrl =
   'https://chrispark1004.grafana.net/d/chh8qv9/jenkins-dashboard?orgId=1&from=now-6h&to=now&timezone=browser';
 
-const dashboards = [
+// One Grafana dashboard ("jenkins-dashboard"), split into two row groups.
+const groups = [
   {
     href: '/projects/ci-cd/grafana/jenkins-overview',
     img: 'jenkins-overview.png',
@@ -27,18 +28,18 @@ const dashboards = [
     name: 'Server Resources',
     badge: 'b-purple',
     accent: 'purple',
-    panels: 8,
+    panels: 9,
     description:
       'JVM and host health of the Jenkins process — CPU, heap, threads, garbage collection, file descriptors, and deadlock detection.',
   },
 ];
 
-const totalPanels = dashboards.reduce((sum, d) => sum + d.panels, 0);
+const totalPanels = groups.reduce((sum, g) => sum + g.panels, 0);
 ---
 
 <Default
   title="Grafana — CI/CD Pipeline"
-  description="Grafana Cloud dashboards over the Jenkins pipeline: two boards (Jenkins Overview and Server Resources). Click a dashboard to see every panel explained and linked to its Prometheus metric."
+  description="One Grafana Cloud dashboard over the Jenkins pipeline, split into two row groups (Jenkins Overview and Server Resources). Open a group to see every panel explained and linked to its Prometheus metric."
   breadcrumbs={breadcrumbs}
 >
 
@@ -47,20 +48,20 @@ const totalPanels = dashboards.reduce((sum, d) => sum + d.panels, 0);
     <div>
       <div class="prompt">$ open grafana-cloud://jenkins-dashboard</div>
       <h1>Grafana</h1>
-      <div class="subtitle">Grafana Cloud free tier · 2 dashboards · {totalPanels} panels over the Jenkins pipeline</div>
+      <div class="subtitle">Grafana Cloud free tier · 1 dashboard · 2 row groups · {totalPanels} panels over the Jenkins pipeline</div>
     </div>
     <div class="header-meta">
       <div class="row">datasource: <b>grafanacloud-prom</b></div>
-      <div class="row">boards: <b>{dashboards.length}</b></div>
+      <div class="row">groups: <b>{groups.length}</b></div>
       <div class="row">status: <b style="color:var(--green)">● deployed</b></div>
     </div>
   </div>
 
   <!-- summary -->
   <div class="summary">
-    <div><div class="k">Dashboards</div><div class="v green">{dashboards.length}</div></div>
-    <div><div class="k">Panels</div><div class="v blue">{totalPanels}</div></div>
-    <div><div class="k">Datasource</div><div class="v purple">mimir</div></div>
+    <div><div class="k">Dashboard</div><div class="v green">1</div></div>
+    <div><div class="k">Row groups</div><div class="v blue">{groups.length}</div></div>
+    <div><div class="k">Panels</div><div class="v purple">{totalPanels}</div></div>
     <div><div class="k">Public access</div><div class="v yellow">soon</div></div>
   </div>
 
@@ -78,28 +79,28 @@ const totalPanels = dashboards.reduce((sum, d) => sum + d.panels, 0);
     <a class="ll-cta" href={dashboardUrl} target="_blank" rel="noopener noreferrer">open dashboard →</a>
   </div>
 
-  <!-- dashboards (full captures → sub-pages) -->
-  <div class="section-label" style="margin-top: 28px;">── ./dashboards</div>
+  <!-- row groups (full captures → sub-pages) -->
+  <div class="section-label" style="margin-top: 28px;">── ./groups</div>
   <div class="dash-list">
-    {dashboards.map((d) => (
-      <a class="dash-card" href={d.href} style={`--accent: var(--${d.accent})`}>
+    {groups.map((g) => (
+      <a class="dash-card" href={g.href} style={`--accent: var(--${g.accent})`}>
+        <div class="dash-body">
+          <div class="panel-top">
+            <div class="panel-name">{g.name}</div>
+            <span class={`badge ${g.badge}`}><span class="badge-dot"></span>{g.panels} panels</span>
+          </div>
+          <p class="panel-meaning">{g.description}</p>
+          <span style={`font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--${g.accent});`}>
+            view panel breakdown →
+          </span>
+        </div>
         <div class="dash-shot">
           <img
-            src={`/img/grafana/${d.img}`}
-            alt={`${d.name} dashboard`}
+            src={`/img/grafana/${g.img}`}
+            alt={`${g.name} row group`}
             loading="lazy"
             onerror="this.remove(); this.parentElement.classList.add('shot-pending');"
           />
-        </div>
-        <div class="dash-body">
-          <div class="panel-top">
-            <div class="panel-name">{d.name}</div>
-            <span class={`badge ${d.badge}`}><span class="badge-dot"></span>{d.panels} panels</span>
-          </div>
-          <p class="panel-meaning">{d.description}</p>
-          <span style={`font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--${d.accent});`}>
-            view panel breakdown →
-          </span>
         </div>
       </a>
     ))}
@@ -114,7 +115,7 @@ const totalPanels = dashboards.reduce((sum, d) => sum + d.panels, 0);
         Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
       </p>
       <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
-        Both boards run on a single datasource, <code>grafanacloud-prom</code> (Mimir). Open a dashboard to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
+        It’s a single dashboard split into two row groups, all on one datasource — <code>grafanacloud-prom</code> (Mimir). Open a group to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
       </p>
     </div>
 

@@ -90,7 +90,7 @@ const panels: Panel[] = [
 
 <Default
   title="Grafana / Jenkins Overview — CI/CD Pipeline"
-  description="Panel-by-panel breakdown of the Jenkins Overview dashboard: controller status, job result tallies, registered pipelines, weekly build activity and stage durations."
+  description="Panel-by-panel breakdown of the Jenkins Overview row group: controller status, job result tallies, registered pipelines, weekly build activity and stage durations."
   breadcrumbs={breadcrumbs}
 >
 
@@ -98,7 +98,7 @@ const panels: Panel[] = [
     <div>
       <div class="prompt">$ open grafana://jenkins-overview</div>
       <h1>Jenkins Overview</h1>
-      <div class="subtitle">CI / build health · 10 panels · scope: jenkins_job=~"Jenkins-Test-Pipeline/.*"</div>
+      <div class="subtitle">CI / build health · row group · {panels.length} panels · scope: jenkins_job=~"Jenkins-Test-Pipeline/.*"</div>
     </div>
     <div class="header-meta">
       <div class="row">datasource: <b>grafanacloud-prom</b></div>
@@ -107,7 +107,7 @@ const panels: Panel[] = [
   </div>
 
   <p style="font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 0 0 24px; max-width: 760px;">
-    The headline board: at a glance, is Jenkins up, are builds passing, and how busy has the week been?
+    The headline group: at a glance, is Jenkins up, are builds passing, and how busy has the week been?
     Every panel below maps to a Prometheus metric — click a metric chip to jump to its definition in the
     <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">metric catalog</a>.
   </p>
@@ -116,7 +116,7 @@ const panels: Panel[] = [
   <PanelGrid panels={panels} accent="green" />
 
   <div style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-    <a href="/projects/ci-cd/grafana/server-resources" style="color: var(--purple);">→ Server Resources dashboard</a>
+    <a href="/projects/ci-cd/grafana/server-resources" style="color: var(--purple);">→ Server Resources group</a>
     <a href="/projects/ci-cd/prometheus/" style="color: var(--blue);">→ Prometheus metric catalog</a>
     <a href="/projects/ci-cd/grafana/" style="color: var(--text-dim);">← back to Grafana</a>
   </div>
