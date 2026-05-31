@@ -43,11 +43,11 @@ const buildMetrics: Metric[] = [
     name: 'default_jenkins_builds_last_build_result_ordinal',
     type: 'gauge',
     meaning: 'Result code of the most recent build (see result codes →). Counted by value to derive the Total / Successful / Failed / Aborted / Unstable tiles.',
-    panels: 'Total / Successful / Failed / Aborted / Unstable Jobs · Registered Pipelines',
+    panels: 'Total / Successful / Failed / Aborted / Unstable Builds · Registered Pipelines',
     sample: [
       'default_jenkins_builds_last_build_result_ordinal{jenkins_job="Jenkins-Test-Pipeline/main"} 0.0',
       'default_jenkins_builds_last_build_result_ordinal{jenkins_job="Jenkins-Test-Pipeline/feature/send-build-results"} 0.0',
-      '# 0 = SUCCESS for all 4 jobs',
+      '# 0 = SUCCESS for all builds',
     ],
   },
   {
@@ -355,7 +355,7 @@ const resultCodes = [
       <div class="card">
         <div class="card-label">result codes</div>
         <p style="font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0 0 12px;">
-          Values of <code>last_build_result_ordinal</code>, counted to build the job-status tiles:
+          Values of <code>last_build_result_ordinal</code>, counted to build the build-status tiles:
         </p>
         <div style="display:flex; flex-direction:column; gap:7px; font-family:'JetBrains Mono', monospace; font-size:12px;">
           {resultCodes.map((r) => (
