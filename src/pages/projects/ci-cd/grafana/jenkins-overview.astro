@@ -19,10 +19,10 @@ const panels: Panel[] = [
     srcs: [{ label: 'default_jenkins_up', anchor: 'up' }],
   },
   {
-    name: 'Job Result Tallies',
+    name: 'Build Result Tallies',
     viz: 'stat',
-    meaning: 'Five stat tiles in a row — Total, Successful, Failed, Aborted, Unstable. Each is a count() over the last build result code across jobs (0=SUCCESS, 1=UNSTABLE, 2=FAILURE, 4=ABORTED); Total counts every job.',
-    img: 'jobs.png',
+    meaning: 'Five stat tiles in a row — Total, Successful, Failed, Aborted, Unstable Builds. Each tile counts builds by their last result code (0=SUCCESS, 1=UNSTABLE, 2=FAILURE, 4=ABORTED); Total covers all builds.',
+    img: 'builds.png',
     srcs: [{ label: 'last_build_result_ordinal', anchor: 'result-ordinal' }],
   },
   {
@@ -62,7 +62,7 @@ const panels: Panel[] = [
 
 <Default
   title="Grafana / Jenkins Overview — CI/CD Pipeline"
-  description="Panel-by-panel breakdown of the Jenkins Overview row group: controller status, job result tallies, registered pipelines, weekly build activity and stage durations."
+  description="Panel-by-panel breakdown of the Jenkins Overview row group: controller status, build result tallies, registered pipelines, weekly build activity and stage durations."
   breadcrumbs={breadcrumbs}
 >
 
