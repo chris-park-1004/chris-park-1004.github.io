@@ -1,5 +1,6 @@
 ---
 import Default from '../../../layouts/Default.astro';
+import LivePipeline from '../../../components/LivePipeline.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -69,8 +70,6 @@ const components: Component[] = [
   },
 ];
 
-const deployedCount = components.filter(c => c.status === 'deployed').length;
-const totalSubPages = components.reduce((sum, c) => sum + (c.subPages?.length ?? 0), 0);
 ---
 
 <Default
@@ -92,13 +91,8 @@ const totalSubPages = components.reduce((sum, c) => sum + (c.subPages?.length ??
     </div>
   </div>
 
-  <!-- summary -->
-  <div class="summary">
-    <div><div class="k">Components</div><div class="v blue">{components.length}</div></div>
-    <div><div class="k">Deployed</div><div class="v green">{deployedCount}</div></div>
-    <div><div class="k">Sub-pages</div><div class="v yellow">{totalSubPages}</div></div>
-    <div><div class="k">Inbound ports</div><div class="v purple">0</div></div>
-  </div>
+  <!-- live pipeline -->
+  <LivePipeline />
 
   <!-- main grid -->
   <div class="grid">
