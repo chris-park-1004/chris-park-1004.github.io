@@ -1,5 +1,8 @@
 ---
 import Default from '../layouts/Default.astro';
+import CareerHighlights from '../components/CareerHighlights.astro';
+import LivePipeline from '../components/LivePipeline.astro';
+import CareerTimeline from '../components/CareerTimeline.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004' },
@@ -12,14 +15,22 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
 >
 
+  <!-- ambient scanline backdrop -->
+  <div class="backdrop" aria-hidden="true"><div class="scanbar"></div></div>
+
   <!-- header -->
-  <div class="header">
+  <div class="header" style="margin-bottom: 20px;">
     <div>
       <div class="prompt">$ whoami</div>
-      <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ Portfolio</span></h1>
-      <div class="subtitle">DevOps Engineer · Waterloo, ON · <span style="color:var(--green)">● open to work</span></div>
+      <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ DevOps Engineer</span></h1>
+      <div class="subtitle">I build and run CI/CD pipelines end to end — Waterloo, ON · <span style="color:var(--green)">● open to work</span></div>
     </div>
   </div>
+
+  <div class="section-label">── career highlights</div>
+  <CareerHighlights />
+
+  <LivePipeline />
 
   <!-- main grid -->
   <div class="grid">
@@ -29,7 +40,7 @@ const breadcrumbs = [
       <div class="section-label">── about me</div>
 
       <a href="/career" class="stage-link">
-        <div class="stage" style="--accent: var(--purple)">
+        <div class="stage" id="about-card" style="--accent: var(--purple)">
           <div class="stage-head">
             <div>
               <div class="stage-meta">
@@ -37,23 +48,12 @@ const breadcrumbs = [
                 <span class="badge b-green"><span class="badge-dot"></span>active</span>
               </div>
               <div class="stage-name">Mech-Eng turned DevOps Engineer</div>
-              <div class="stage-sub">12+ pipelines built · Win → Linux migration · 1y+ in CI/CD</div>
+              <div class="stage-sub">Jenkins · Azure DevOps · Docker · SonarQube · GitHub Actions</div>
             </div>
             <div class="stage-dur">since 2023</div>
           </div>
           <div class="stage-body">
-            <p>I build CI/CD pipelines for JS, Unity, and containerized web apps. Hands-on experience designing automated pipelines from scratch, migrating CI/CD stacks from Windows to Linux for better stability, integrating code-quality tools like SonarQube with team usage guidelines, and containerizing services with Docker and Azure Container Registry.</p>
-            <div class="stack-tags" style="margin-top: 12px;">
-              <span class="chip">Jenkins</span>
-              <span class="chip">Azure DevOps</span>
-              <span class="chip">Docker</span>
-              <span class="chip">SonarQube</span>
-              <span class="chip">GitHub Actions</span>
-              <span class="chip">Bitbucket</span>
-            </div>
-            <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue);">
-              view full career timeline →
-            </div>
+            <div class="cta">view full career timeline →</div>
           </div>
         </div>
       </a>
@@ -62,7 +62,7 @@ const breadcrumbs = [
       <div class="section-label" style="margin-top: 28px;">── about my projects</div>
 
       <a href="/projects/ci-cd/" class="stage-link">
-        <div class="stage" style="--accent: var(--green)">
+        <div class="stage" style="--accent: var(--green); overflow: hidden;">
           <div class="stage-head">
             <div>
               <div class="stage-meta">
@@ -75,35 +75,20 @@ const breadcrumbs = [
             <div class="stage-dur">5 components</div>
           </div>
           <div class="stage-body">
-            <p>A personal Jenkins-based CI/CD pipeline running on a home PC, exposed securely via Cloudflare Tunnel + Access. GitHub App auth, Multibranch Pipeline with rich PR Checks, and a live public Grafana dashboard for portfolio viewers.</p>
-            <div class="stack-tags" style="margin-top: 12px;">
-              <span class="chip">Jenkins</span>
-              <span class="chip">GitHub</span>
-              <span class="chip">Cloudflare</span>
-              <span class="chip">Prometheus</span>
-              <span class="chip">Grafana</span>
+            <div class="shot-grid">
+              <div class="shot">
+                <img src="/img/grafana/jenkins-overview.png" alt="Grafana — Jenkins overview dashboard" loading="lazy" />
+                <div class="shot-cap">jenkins-overview · live</div>
+              </div>
+              <div class="shot">
+                <img src="/img/grafana/server-resources.png" alt="Grafana — server resources dashboard" loading="lazy" />
+                <div class="shot-cap">server-resources · live</div>
+              </div>
             </div>
-            <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue);">
-              view project →
-            </div>
+            <div class="cta" style="margin-top: 12px;">view project →</div>
           </div>
         </div>
       </a>
-
-      <!-- placeholder for future projects -->
-      <div class="stage" style="--accent: var(--border); border-style: dashed; opacity: 0.6; margin-top: 14px;">
-        <div class="stage-head">
-          <div>
-            <div class="stage-meta">
-              <span class="id">project_02</span>
-              <span class="badge b-dim"><span class="badge-dot"></span>idle</span>
-            </div>
-            <div class="stage-name">Future project</div>
-            <div class="stage-sub">Slot reserved · stay tuned</div>
-          </div>
-          <div class="stage-dur">—</div>
-        </div>
-      </div>
 
     </div>
 
@@ -111,7 +96,7 @@ const breadcrumbs = [
     <div class="rail">
       <div class="section-label">── ./contact</div>
 
-      <div class="card endpoints-card">
+      <div class="card endpoints-card" id="contact-card">
         <div class="card-label">endpoints</div>
         <a href="mailto:honggyupark1004@gmail.com">
           <div class="contact-row">
@@ -133,25 +118,19 @@ const breadcrumbs = [
         </a>
       </div>
 
-      <div class="console">
-        <div class="console-head">
-          <div class="card-label" style="margin: 0;">recent activity</div>
-          <span class="live-dot"></span>
-        </div>
-        <div class="log"><span class="ts">today</span><span class="lvl OK">[OK]</span><span>grafana · public dashboard live</span></div>
-        <div class="log"><span class="ts">today</span><span class="lvl OK">[OK]</span><span>prometheus · scraping jenkins, remote_write</span></div>
-        <div class="log"><span class="ts">today</span><span class="lvl INFO">[INFO]</span><span>migrated portfolio to Astro</span></div>
-        <div class="log"><span class="ts">-1d</span><span class="lvl OK">[OK]</span><span>jenkins · checks-api integrated</span></div>
-        <div class="log"><span class="ts">-2d</span><span class="lvl OK">[OK]</span><span>github-app · auth configured</span></div>
-        <div class="log"><span class="ts">-3d</span><span class="lvl OK">[OK]</span><span>cloudflare-tunnel · access gate up</span></div>
-      </div>
+      <div class="section-label">── career overview</div>
+      <CareerTimeline />
     </div>
   </div>
 
 </Default>
 
 <style>
-  /* Make stage cards on overview behave as clickable links */
+  /* Page-local only — these three selectors are shared with other pages,
+     so they must stay scoped here instead of moving into global.css:
+       .stage-link        → also used by the ci-cd component hub pages
+       .endpoints-card    → also used by /career
+       .section-label     → grey everywhere else, green tint only here */
   .stage-link {
     display: block;
     color: inherit;
@@ -162,4 +141,53 @@ const breadcrumbs = [
     border-color: var(--text-faint);
     transform: translateY(-1px);
   }
+
+  .section-label { color: color-mix(in oklab, var(--green) 65%, var(--text)); }
+
+  /* single-line endpoint rows so the card can stretch to the About card height */
+  .endpoints-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .endpoints-card .contact-row {
+    display: grid;
+    grid-template-columns: 30px 62px 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+  .endpoints-card .contact-row .verb { color: var(--green); }
+  .endpoints-card .contact-row .val {
+    display: block;
+    padding-left: 0;
+    margin-top: 0;
+    text-align: left;
+    justify-self: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: normal;
+  }
 </style>
+
+<script is:inline>
+  // Match the contact card height to the About card (desktop two-column layout only)
+  (function () {
+    const about = document.getElementById('about-card');
+    const contact = document.getElementById('contact-card');
+    if (!about || !contact) return;
+
+    function sync() {
+      if (window.innerWidth <= 900) {
+        contact.style.height = '';
+        return;
+      }
+      contact.style.height = about.offsetHeight + 'px';
+    }
+
+    window.addEventListener('resize', sync);
+    requestAnimationFrame(sync);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+  })();
+</script>

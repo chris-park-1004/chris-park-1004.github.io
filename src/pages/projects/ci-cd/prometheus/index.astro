@@ -1,5 +1,6 @@
 ---
 import Default from '../../../../layouts/Default.astro';
+import RelatedCard from '../../../../components/RelatedCard.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -344,10 +345,10 @@ const resultCodes = [
 
       <div class="card">
         <div class="card-label">why prometheus</div>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+        <p>
           The Jenkins plugin exposes a ready-made <code>/prometheus</code> endpoint, so the gap between "Jenkins is up" and "I have a dashboard" is just one container plus one scrape job. No custom exporters, no instrumentation code.
         </p>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+        <p>
           Running in Docker on the Jenkins host keeps scrape latency near-zero, and binding to <code>localhost</code> means the controller never exposes metrics outside the machine.
         </p>
       </div>
@@ -385,14 +386,13 @@ const resultCodes = [
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-label">related</div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/grafana/" style="color: var(--purple);">→ Grafana dashboards</a>
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--green);">→ Jenkins component</a>
-          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
-        </div>
-      </div>
+      <RelatedCard
+        links={[
+          { href: '/projects/ci-cd/grafana/', label: '→ Grafana dashboards', color: 'purple' },
+          { href: '/projects/ci-cd/jenkins/', label: '→ Jenkins component', color: 'green' },
+          { href: '/projects/ci-cd/', label: '← back to project' },
+        ]}
+      />
     </div>
   </div>
 

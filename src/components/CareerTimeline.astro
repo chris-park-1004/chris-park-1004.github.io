@@ -1,0 +1,31 @@
+---
+export interface Entry {
+  kind: string;
+  /** one of the .k-* colour modifiers in global.css */
+  tone: 'green' | 'purple' | 'yellow' | 'blue' | 'dim';
+  text: string;
+  year: string;
+}
+
+const entries: Entry[] = [
+  { kind: 'Personal',  tone: 'green',  text: 'Self-hosted Jenkins + Grafana CI/CD — live', year: '2026' },
+  { kind: 'Education', tone: 'purple', text: 'Conestoga — Software Engineering Technology, Advanced Diploma', year: '2026' },
+  { kind: 'Hackathon', tone: 'yellow', text: 'ConHacks 2026 — Handoff (cross-agent AI context tool)', year: '2026' },
+  { kind: 'Co-op',     tone: 'blue',   text: 'Smart Centre — Software Engineer', year: '2025' },
+  { kind: 'Hackathon', tone: 'yellow', text: 'SpurHacks 2025 — Blink-Fit', year: '2025' },
+  { kind: 'Hackathon', tone: 'yellow', text: 'HackTheBrain 2025 — FirstIssue', year: '2025' },
+  { kind: 'Co-op',     tone: 'blue',   text: 'VARLab — DevOps Engineer', year: '2024–25' },
+  { kind: 'Education', tone: 'purple', text: 'Jeonju University — Mechanical Engineering B.Eng (1st-place capstone)', year: '2022' },
+  { kind: 'Military',  tone: 'dim',    text: 'ROK Army — Artillery Squad Leader', year: '2016–18' },
+];
+---
+
+<div class="card timeline-card">
+  {entries.map((e) => (
+    <>
+      <span class={`tl-kind k-${e.tone}`}>{e.kind}</span>
+      <span class="tl-text">{e.text}</span>
+      <span class="tl-year">{e.year}</span>
+    </>
+  ))}
+</div>

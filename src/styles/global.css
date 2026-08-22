@@ -188,6 +188,9 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   box-shadow: var(--shadow);
 }
 .card-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+.card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+.card p + p { margin-top: 10px; }
+.related-links { display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 .stack-group { margin-bottom: 12px; }
 .stack-group:last-child { margin-bottom: 0; }
 .stack-group + .stack-group { padding-top: 12px; border-top: 1px solid var(--border-soft); }
@@ -383,6 +386,81 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .panel-srcs a.chip { text-decoration: none; transition: border-color .15s, color .15s, background .15s; }
 .panel-srcs a.chip:hover { color: var(--text); border-color: var(--accent, var(--purple)); }
 
+/* ambient scanline backdrop (overview page) */
+.backdrop {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  background-image:
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--text) 5%, transparent) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--green) 7%, transparent) 100%);
+}
+.scanbar {
+  position: absolute; left: 0; right: 0; height: 90px;
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--green) 12%, transparent), transparent);
+  animation: scanbar 7s linear infinite;
+}
+@keyframes scanbar { 0% { top: -12%; } 100% { top: 112%; } }
+
+/* inline mono call-to-action link inside a card body */
+.cta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue); }
+
+/* career highlights — glowing stat cards (overview page) */
+.highlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+.highlight {
+  position: relative; overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--green) 38%, var(--border));
+  border-radius: 10px;
+  background: linear-gradient(165deg, color-mix(in oklab, var(--green) 9%, var(--panel)) 0%, var(--panel) 60%);
+  box-shadow:
+    0 0 22px color-mix(in oklab, var(--green) 10%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--green) 22%, transparent);
+  padding: 16px 18px;
+}
+.hl-stat { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.5px; }
+.hl-title { font-size: 12.5px; font-weight: 600; margin-top: 5px; }
+.hl-note { font-size: 11px; color: var(--text-faint); margin-top: 3px; line-height: 1.45; }
+
+/* live pipeline diagram (overview page) */
+.pipeline-card { padding: 22px 24px 18px; margin-bottom: 24px; }
+.pipeline-head { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+.live-dot.pulse { animation: pulse-ring 1.8s infinite; }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 45%, transparent); }
+  100% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--green) 0%, transparent); }
+}
+.pipeline { display: flex; align-items: center; gap: 6px; padding-bottom: 4px; }
+.pipe-node { flex: 1 1 96px; min-width: 0; text-align: center; animation: nodepop .5s both; }
+@keyframes nodepop { 0% { opacity: 0; transform: translateY(6px); } 100% { opacity: 1; transform: none; } }
+.pipe-icon {
+  width: 44px; height: 44px; margin: 0 auto 8px;
+  border-radius: 10px; border: 1px solid var(--border); background: var(--panel-hi);
+  display: flex; align-items: center; justify-content: center;
+}
+.pipe-icon img { display: block; }
+.pipe-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; }
+.pipe-sub { font-size: 10.5px; color: var(--text-faint); }
+.pipe-edge { flex: 1 1 24px; min-width: 12px; display: flex; align-items: center; gap: 2px; }
+.pipe-edge svg { flex-shrink: 0; }
+.pipe-dash {
+  flex: 1; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 12px);
+  animation: dashmove 1s linear infinite;
+}
+@keyframes dashmove { to { background-position: 24px 0; } }
+
+/* dashboard thumbnails inside a stage card (overview page) */
+.shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.shot { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--bg-deep); }
+.shot img { display: block; width: 100%; height: 110px; object-fit: cover; object-position: top; }
+.shot-cap { padding: 6px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); }
+
+/* mini career timeline (overview rail) */
+.timeline-card { display: grid; grid-template-columns: 70px 1fr auto; align-items: baseline; column-gap: 10px; row-gap: 9px; }
+.tl-kind { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
+.k-green { color: var(--green); } .k-purple { color: var(--purple); } .k-yellow { color: var(--yellow); }
+.k-blue { color: var(--blue); } .k-dim { color: var(--text-faint); }
+.tl-text { font-size: 12px; color: var(--text); }
+.tl-year { font-size: 11px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+
 /* footer */
 footer {
   border-top: 1px solid var(--border);
@@ -395,8 +473,14 @@ footer {
 }
 
 /* responsive */
+@media (max-width: 1100px) {
+  .highlight-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 900px) {
   .container { padding: 28px 20px 40px; }
+  .pipeline { flex-wrap: wrap; justify-content: center; row-gap: 14px; }
+  .pipe-node { flex: 0 0 88px; }
+  .pipe-edge { flex: 0 0 20px; }
   .grid { grid-template-columns: 1fr; gap: 20px; }
   .panel-grid { grid-template-columns: 1fr; }
   .summary { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -412,5 +496,9 @@ footer {
   .summary { grid-template-columns: 1fr 1fr; }
   .stage-head { flex-direction: column; }
   .stage-dur { text-align: left; }
+  .highlight-grid { grid-template-columns: 1fr; }
+  .shot-grid { grid-template-columns: 1fr; }
+  .timeline-card { grid-template-columns: 66px 1fr; }
+  .tl-year { grid-column: 2; margin-top: -6px; }
   footer { padding: 20px; }
 }

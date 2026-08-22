@@ -1,0 +1,24 @@
+---
+export interface Highlight {
+  stat: string;
+  title: string;
+  note: string;
+}
+
+const highlights: Highlight[] = [
+  { stat: '2 roles',        title: 'DevOps + Software Engineer',            note: '16-month co-op · CI/CD at VARLab, full-stack at Smart Centre' },
+  { stat: '3 CI platforms', title: 'Jenkins · Azure DevOps · GitHub Actions', note: 'from org-first pipelines to self-hosted, tunnel-secured infra' },
+  { stat: '2 degrees',      title: 'Mechanical → Software Engineering',     note: '1st-place mechanical capstone · systems thinking on both sides' },
+  { stat: '4 AI builds',    title: 'Gemini apps · context hooks · chatbot', note: 'co-op product + 3 hackathon projects, all shipped with repos' },
+];
+---
+
+<div class="highlight-grid">
+  {highlights.map((h) => (
+    <div class="highlight">
+      <div class="hl-stat">{h.stat}</div>
+      <div class="hl-title">{h.title}</div>
+      <div class="hl-note">{h.note}</div>
+    </div>
+  ))}
+</div>
