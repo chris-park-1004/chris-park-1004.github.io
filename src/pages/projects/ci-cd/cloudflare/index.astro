@@ -1,5 +1,8 @@
 ---
 import Default from '../../../../layouts/Default.astro';
+import DocList from '../../../../components/DocList.astro';
+import RelatedCard from '../../../../components/RelatedCard.astro';
+import type { Doc } from '../../../../components/DocList.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -7,7 +10,7 @@ const breadcrumbs = [
   { label: 'cloudflare' },
 ];
 
-const subPages = [
+const subPages: Doc[] = [
   {
     id: 'doc_01',
     name: 'Tunnel Setup',
@@ -46,23 +49,7 @@ const subPages = [
     <div>
       <div class="section-label">── ./docs</div>
 
-      {subPages.map((doc) => (
-        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
-          <div class="stage" style={`--accent: var(--${doc.accent})`}>
-            <div class="stage-head">
-              <div>
-                <div class="stage-meta">
-                  <span class="id">{doc.id}</span>
-                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
-                </div>
-                <div class="stage-name">{doc.name}</div>
-                <div class="stage-sub">{doc.summary}</div>
-              </div>
-              <div class="stage-dur">read →</div>
-            </div>
-          </div>
-        </a>
-      ))}
+      <DocList docs={subPages} />
     </div>
 
     <div class="rail">
@@ -70,10 +57,10 @@ const subPages = [
 
       <div class="card">
         <div class="card-label">why tunnel</div>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+        <p>
           A home PC behind NAT can't accept inbound connections without port forwarding and DDNS, both of which expose attack surface. Cloudflare Tunnel reverses the direction: the home PC opens an outbound socket to Cloudflare and keeps it alive.
         </p>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+        <p>
           Result: zero inbound ports on the home PC, home IP never exposed, HTTPS terminated at Cloudflare.
         </p>
       </div>
@@ -88,13 +75,12 @@ const subPages = [
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-label">related</div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/jenkins/" style="color: var(--blue);">→ Jenkins component</a>
-          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
-        </div>
-      </div>
+      <RelatedCard
+        links={[
+          { href: '/projects/ci-cd/jenkins/', label: '→ Jenkins component', color: 'blue' },
+          { href: '/projects/ci-cd/', label: '← back to project' },
+        ]}
+      />
     </div>
   </div>
 </Default>

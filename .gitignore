@@ -43,3 +43,6 @@ next-env.d.ts
 .vscode/
 .claude/launch.json
 public/img/grafana/README.txt
+
+# claude
+CLAUDE.md

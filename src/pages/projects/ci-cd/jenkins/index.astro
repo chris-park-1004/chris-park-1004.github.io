@@ -1,5 +1,8 @@
 ---
 import Default from '../../../../layouts/Default.astro';
+import DocList from '../../../../components/DocList.astro';
+import RelatedCard from '../../../../components/RelatedCard.astro';
+import type { Doc } from '../../../../components/DocList.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -7,16 +10,7 @@ const breadcrumbs = [
   { label: 'jenkins' },
 ];
 
-interface SubPage {
-  id: string;
-  name: string;
-  href: string;
-  accent: string;
-  summary: string;
-  bullets: string[];
-}
-
-const subPages: SubPage[] = [
+const subPages: Doc[] = [
   {
     id: 'doc_01',
     name: 'Installation',
@@ -120,30 +114,7 @@ const subPages: SubPage[] = [
 
       <div class="section-label">── ./docs</div>
 
-      {subPages.map((doc) => (
-        <a href={doc.href} class="stage-link" style="display: block; margin-bottom: 14px;">
-          <div class="stage" style={`--accent: var(--${doc.accent})`}>
-            <div class="stage-head">
-              <div>
-                <div class="stage-meta">
-                  <span class="id">{doc.id}</span>
-                  <span class="badge b-dim"><span class="badge-dot"></span>draft</span>
-                </div>
-                <div class="stage-name">{doc.name}</div>
-                <div class="stage-sub">{doc.summary}</div>
-              </div>
-              <div class="stage-dur">read →</div>
-            </div>
-            <div class="stage-body">
-              <ul>
-                {doc.bullets.map((b) => (
-                  <li><span class="check" style="color:var(--text-faint)">•</span><span set:html={b}></span></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </a>
-      ))}
+      <DocList docs={subPages} />
 
     </div>
 
@@ -154,10 +125,10 @@ const subPages: SubPage[] = [
 
       <div class="card">
         <div class="card-label">why jenkins</div>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0;">
+        <p>
           Jenkins is the industry standard for self-hosted CI/CD. Full control, rich plugin ecosystem, and the same tool used at most enterprises with on-prem pipelines.
         </p>
-        <p style="font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0;">
+        <p>
           This setup is portfolio-grade: deliberately self-hosted on a home PC, secured by Cloudflare, and documented to mirror an enterprise architecture.
         </p>
       </div>
@@ -190,14 +161,13 @@ const subPages: SubPage[] = [
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-label">related</div>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-          <a href="/projects/ci-cd/github/" style="color: var(--blue);">→ GitHub component</a>
-          <a href="/projects/ci-cd/cloudflare/" style="color: var(--blue);">→ Cloudflare component</a>
-          <a href="/projects/ci-cd/" style="color: var(--text-dim);">← back to project</a>
-        </div>
-      </div>
+      <RelatedCard
+        links={[
+          { href: '/projects/ci-cd/github/', label: '→ GitHub component', color: 'blue' },
+          { href: '/projects/ci-cd/cloudflare/', label: '→ Cloudflare component', color: 'blue' },
+          { href: '/projects/ci-cd/', label: '← back to project' },
+        ]}
+      />
     </div>
   </div>
 

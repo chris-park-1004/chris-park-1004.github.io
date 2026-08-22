@@ -188,6 +188,9 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   box-shadow: var(--shadow);
 }
 .card-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+.card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+.card p + p { margin-top: 10px; }
+.related-links { display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 .stack-group { margin-bottom: 12px; }
 .stack-group:last-child { margin-bottom: 0; }
 .stack-group + .stack-group { padding-top: 12px; border-top: 1px solid var(--border-soft); }
