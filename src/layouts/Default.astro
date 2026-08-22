@@ -11,13 +11,23 @@ interface Props {
   description?: string;
   breadcrumbs?: BreadcrumbSegment[];
   buildBadge?: string;
+  /** colour variable name (without --) tinting the ambient backdrop and section labels;
+      defaults per site section (dashboard green, career purple, projects red) */
+  tint?: string;
 }
+
+const sectionTint = Astro.url.pathname.startsWith('/projects')
+  ? 'red'
+  : Astro.url.pathname.startsWith('/career')
+    ? 'purple'
+    : 'green';
 
 const {
   title,
   description = "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure.",
   breadcrumbs = [{ label: 'chris-park-1004', href: '/' }],
   buildBadge = 'build #247 · passing',
+  tint = sectionTint,
 } = Astro.props;
 ---
 
@@ -48,7 +58,10 @@ const {
   })();
 </script>
 </head>
-<body>
+<body style={`--page-tint: var(--${tint})`}>
+
+<!-- ambient backdrop: scanlines + vignette + drifting scanbar, tinted per page -->
+<div class="backdrop" aria-hidden="true"><div class="scanbar"></div></div>
 
 <div class="chrome">
   <div class="chrome-dots">

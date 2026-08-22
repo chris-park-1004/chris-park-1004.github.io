@@ -14,9 +14,6 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
 >
 
-  <!-- ambient scanline backdrop -->
-  <div class="backdrop" aria-hidden="true"><div class="scanbar"></div></div>
-
   <!-- header -->
   <div class="header" style="margin-bottom: 20px;">
     <div>
@@ -123,11 +120,10 @@ const breadcrumbs = [
 </Default>
 
 <style>
-  /* Page-local only — these three selectors are shared with other pages,
+  /* Page-local only — these selectors are shared with other pages,
      so they must stay scoped here instead of moving into global.css:
-       .stage-link        → also used by the ci-cd component hub pages
-       .endpoints-card    → also used by /career
-       .section-label     → grey everywhere else, green tint only here */
+       .stage-link        → also used by the ci-cd component index pages
+       .endpoints-card    → also used by /career */
   .stage-link {
     display: block;
     color: inherit;
@@ -138,8 +134,6 @@ const breadcrumbs = [
     border-color: var(--text-faint);
     transform: translateY(-1px);
   }
-
-  .section-label { color: color-mix(in oklab, var(--green) 65%, var(--text)); }
 
   /* single-line endpoint rows so the card can stretch to the About card height */
   .endpoints-card {

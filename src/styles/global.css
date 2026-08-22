@@ -142,7 +142,7 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 
 /* main grid */
 .grid { display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
-.section-label { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; font-weight: 500; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: color-mix(in oklab, var(--page-tint, var(--green)) 65%, var(--text)); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; font-weight: 500; }
 
 /* stage card */
 .stage {
@@ -386,16 +386,17 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .panel-srcs a.chip { text-decoration: none; transition: border-color .15s, color .15s, background .15s; }
 .panel-srcs a.chip:hover { color: var(--text); border-color: var(--accent, var(--purple)); }
 
-/* ambient scanline backdrop (overview page) */
+/* ambient backdrop: scanlines + vignette + drifting scanbar.
+   Tint comes from --page-tint (set on <body> by the Default layout; green fallback) */
 .backdrop {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
   background-image:
     repeating-linear-gradient(0deg, color-mix(in oklab, var(--text) 5%, transparent) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--green) 7%, transparent) 100%);
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--page-tint, var(--green)) 7%, transparent) 100%);
 }
 .scanbar {
   position: absolute; left: 0; right: 0; height: 90px;
-  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--green) 12%, transparent), transparent);
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--page-tint, var(--green)) 12%, transparent), transparent);
   animation: scanbar 7s linear infinite;
 }
 @keyframes scanbar { 0% { top: -12%; } 100% { top: 112%; } }
