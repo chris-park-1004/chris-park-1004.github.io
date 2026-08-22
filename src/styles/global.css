@@ -32,6 +32,34 @@
   --red: #cf222e;
   --shadow: 0 1px 3px rgba(31, 35, 40, 0.04), 0 8px 24px rgba(66, 74, 83, 0.06);
 }
+/* ink cards (dashboard rail: contact + career overview) — near-black in dark
+   mode, light grey in light mode. --cat-*: timeline category label colours. */
+:root {
+  --ink-bg: #050608;
+  --ink-border: #2a3038;
+  --ink-row: #21262d;
+  --ink-text: #e6edf3;
+  --ink-dim: #8b949e;
+  --ink-green: #3fb950;
+  --cat-personal: #9ece6a;
+  --cat-edu: #bb9af7;
+  --cat-hack: #e0af68;
+  --cat-coop: #7aa2f7;
+  --cat-mil: #787c99;
+}
+[data-theme="light"] {
+  --ink-bg: #f6f8fa;
+  --ink-border: #d0d7de;
+  --ink-row: #d8dee4;
+  --ink-text: #1f2328;
+  --ink-dim: #59636e;
+  --ink-green: #1a7f37;
+  --cat-personal: #4d7c0f;
+  --cat-edu: #6f42c1;
+  --cat-hack: #9a6700;
+  --cat-coop: #0969da;
+  --cat-mil: #57606a;
+}
 [data-theme="light"] body {
   background-image: radial-gradient(circle, rgba(23, 27, 22, .07) 1px, transparent 1px);
   background-size: 20px 20px;
@@ -476,13 +504,16 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .shot img { display: block; width: 100%; height: 110px; object-fit: cover; object-position: top; }
 .shot-cap { padding: 6px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); }
 
-/* mini career timeline (overview rail) */
-.timeline-card { display: grid; grid-template-columns: 70px 1fr auto; align-items: baseline; column-gap: 10px; row-gap: 9px; }
+/* mini career timeline (overview rail) — ink card with category colours */
+.timeline-card {
+  display: grid; grid-template-columns: 70px 1fr auto; align-items: baseline; column-gap: 10px; row-gap: 9px;
+  background: var(--ink-bg); border-color: var(--ink-border);
+}
 .tl-kind { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
-.k-green { color: var(--green); } .k-purple { color: var(--purple); } .k-yellow { color: var(--yellow); }
-.k-blue { color: var(--blue); } .k-dim { color: var(--text-faint); }
-.tl-text { font-size: 12px; color: var(--text); }
-.tl-year { font-size: 11px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+.k-personal { color: var(--cat-personal); } .k-edu { color: var(--cat-edu); } .k-hack { color: var(--cat-hack); }
+.k-coop { color: var(--cat-coop); } .k-mil { color: var(--cat-mil); }
+.tl-text { font-size: 12px; color: var(--ink-text); }
+.tl-year { font-size: 11px; color: var(--ink-dim); font-family: 'JetBrains Mono', monospace; }
 
 /* footer */
 footer {

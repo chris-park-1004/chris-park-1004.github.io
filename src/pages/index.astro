@@ -155,20 +155,25 @@ const breadcrumbs = [
     transform: translateY(-1px);
   }
 
-  /* single-line endpoint rows so the card can stretch to the About card height */
+  /* single-line endpoint rows so the card can stretch to the About card height;
+     ink treatment (--ink-*) applies on the dashboard only */
   .endpoints-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    background: var(--ink-bg);
+    border-color: var(--ink-border);
   }
+  .endpoints-card .card-label { color: var(--ink-dim); }
+  .endpoints-card .contact-row .path { color: var(--ink-text); }
   .endpoints-card .contact-row {
     display: grid;
     grid-template-columns: 30px 62px 1fr;
     align-items: center;
     gap: 8px;
   }
-  .endpoints-card .contact-row .verb { color: var(--green); }
+  .endpoints-card .contact-row .verb { color: var(--ink-green); }
   .endpoints-card .contact-row .val {
     display: block;
     padding-left: 0;
@@ -179,6 +184,7 @@ const breadcrumbs = [
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: normal;
+    color: var(--ink-dim);
   }
 </style>
 
