@@ -120,8 +120,22 @@ const {
     if (btn) {
       btn.addEventListener('click', () => {
         const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        localStorage.setItem(KEY, next);
-        apply(next);
+        const run = () => {
+          localStorage.setItem(KEY, next);
+          apply(next);
+        };
+        if (document.startViewTransition) {
+          // diagonal wipe: the new theme sweeps in left-to-right with a slanted edge
+          const vt = document.startViewTransition(run);
+          vt.ready.then(() => {
+            document.documentElement.animate(
+              { clipPath: ['polygon(0 0, 0% 0, -35% 100%, 0 100%)', 'polygon(0 0, 135% 0, 100% 100%, 0 100%)'] },
+              { duration: 900, easing: 'cubic-bezier(.55,0,.35,1)', pseudoElement: '::view-transition-new(root)' }
+            );
+          }).catch(() => {});
+        } else {
+          run();
+        }
       });
     }
   })();
