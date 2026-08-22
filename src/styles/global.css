@@ -16,21 +16,29 @@
   --shadow: 0 0 0 transparent;
 }
 [data-theme="light"] {
-  --bg: #ffffff;
-  --bg-deep: #f6f8fa;
-  --panel: #ffffff;
-  --panel-hi: #f6f8fa;
-  --border: #d0d7de;
-  --border-soft: #d8dee4;
-  --text: #1f2328;
+  --bg: #f2f3ef;
+  --bg-deep: #e9ebe5;
+  --panel: #fafbf8;
+  --panel-hi: #eef0ea;
+  --border: #c9cec4;
+  --border-soft: #d8dcd2;
+  --text: #171b16;
   --text-dim: #59636e;
   --text-faint: #818b98;
-  --green: #1a7f37;
+  --green: #186a2f;
   --blue: #0969da;
   --yellow: #9a6700;
   --purple: #8250df;
   --red: #cf222e;
   --shadow: 0 1px 3px rgba(31, 35, 40, 0.04), 0 8px 24px rgba(66, 74, 83, 0.06);
+}
+[data-theme="light"] body {
+  background-image: radial-gradient(circle, rgba(23, 27, 22, .07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+[data-theme="light"] .card,
+[data-theme="light"] .stage {
+  box-shadow: 0 1px 0 rgba(23, 27, 22, .05);
 }
 
 /* theme-toggle wipe: disable the View Transition default crossfade and stack
