@@ -23,7 +23,7 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <div class="section-label">── career highlights</div>
+  <div class="highlights-heading"><span class="highlights-heading-bar"></span>Career Highlights</div>
   <CareerHighlights />
 
   <!-- main grid -->
@@ -124,6 +124,26 @@ const breadcrumbs = [
      so they must stay scoped here instead of moving into global.css:
        .stage-link        → also used by the ci-cd component index pages
        .endpoints-card    → also used by /career */
+  /* Career Highlights heading: bold green title with a glowing bar */
+  .highlights-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .highlights-heading-bar {
+    width: 8px;
+    height: 22px;
+    background: var(--green);
+    border-radius: 2px;
+    box-shadow: 0 0 10px color-mix(in oklab, var(--green) 55%, transparent);
+  }
+
   .stage-link {
     display: block;
     color: inherit;
