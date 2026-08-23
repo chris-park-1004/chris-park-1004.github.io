@@ -1,8 +1,8 @@
 ---
 import Default from '../layouts/Default.astro';
 import CareerHighlights from '../components/CareerHighlights.astro';
-import LivePipeline from '../components/LivePipeline.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
+import ContactCard from '../components/ContactCard.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004' },
@@ -15,9 +15,6 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
 >
 
-  <!-- ambient scanline backdrop -->
-  <div class="backdrop" aria-hidden="true"><div class="scanbar"></div></div>
-
   <!-- header -->
   <div class="header" style="margin-bottom: 20px;">
     <div>
@@ -27,10 +24,7 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <div class="section-label">── career highlights</div>
   <CareerHighlights />
-
-  <LivePipeline />
 
   <!-- main grid -->
   <div class="grid">
@@ -94,29 +88,9 @@ const breadcrumbs = [
 
     <!-- right rail -->
     <div class="rail">
-      <div class="section-label">── ./contact</div>
+      <div class="section-label">── contact</div>
 
-      <div class="card endpoints-card" id="contact-card">
-        <div class="card-label">endpoints</div>
-        <a href="mailto:honggyupark1004@gmail.com">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/email</span>
-            <span class="val">honggyupark1004@gmail.com</span>
-          </div>
-        </a>
-        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/linkedin</span>
-            <span class="val">/in/honggyu-park-b68627249</span>
-          </div>
-        </a>
-        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/github</span>
-            <span class="val">github.com/chris-park-1004</span>
-          </div>
-        </a>
-      </div>
+      <ContactCard id="contact-card" />
 
       <div class="section-label">── career overview</div>
       <CareerTimeline />
@@ -126,11 +100,10 @@ const breadcrumbs = [
 </Default>
 
 <style>
-  /* Page-local only — these three selectors are shared with other pages,
+  /* Page-local only — these selectors are shared with other pages,
      so they must stay scoped here instead of moving into global.css:
-       .stage-link        → also used by the ci-cd component hub pages
-       .endpoints-card    → also used by /career
-       .section-label     → grey everywhere else, green tint only here */
+       .stage-link        → also used by the ci-cd component index pages
+       .endpoints-card    → also used by /career */
   .stage-link {
     display: block;
     color: inherit;
@@ -142,33 +115,18 @@ const breadcrumbs = [
     transform: translateY(-1px);
   }
 
-  .section-label { color: color-mix(in oklab, var(--green) 65%, var(--text)); }
-
-  /* single-line endpoint rows so the card can stretch to the About card height */
-  .endpoints-card {
+  /* stretch the contact card to the About card height (ink look + entrance are global) */
+  .rail :global(.endpoints-card) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
   }
-  .endpoints-card .contact-row {
-    display: grid;
-    grid-template-columns: 30px 62px 1fr;
-    align-items: center;
-    gap: 8px;
-  }
-  .endpoints-card .contact-row .verb { color: var(--green); }
-  .endpoints-card .contact-row .val {
-    display: block;
-    padding-left: 0;
-    margin-top: 0;
-    text-align: left;
-    justify-self: start;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: normal;
-  }
+
+  /* entrance stagger — highlights run .1–.4s, so the two main cards follow at .5/.6s */
+  .grid > div:first-child .stage { animation: nodepop .5s both; }
+  .grid > div:first-child .stage-link:nth-of-type(1) .stage { animation-delay: .5s; }
+  .grid > div:first-child .stage-link:nth-of-type(2) .stage { animation-delay: .6s; }
 </style>
 
 <script is:inline>
@@ -180,10 +138,11 @@ const breadcrumbs = [
 
     function sync() {
       if (window.innerWidth <= 900) {
-        contact.style.height = '';
+        contact.style.minHeight = '';
         return;
       }
-      contact.style.height = about.offsetHeight + 'px';
+      // min-height (not height) so the card can still grow if its content overflows
+      contact.style.minHeight = about.offsetHeight + 'px';
     }
 
     window.addEventListener('resize', sync);

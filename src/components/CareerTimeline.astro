@@ -1,31 +1,37 @@
 ---
 export interface Entry {
   kind: string;
-  /** one of the .k-* colour modifiers in global.css */
-  tone: 'green' | 'purple' | 'yellow' | 'blue' | 'dim';
+  /** one of the .k-* category colour modifiers in global.css (--cat-* variables) */
+  tone: 'personal' | 'edu' | 'hack' | 'coop' | 'mil';
   text: string;
   year: string;
 }
 
 const entries: Entry[] = [
-  { kind: 'Personal',  tone: 'green',  text: 'Self-hosted Jenkins + Grafana CI/CD — live', year: '2026' },
-  { kind: 'Education', tone: 'purple', text: 'Conestoga — Software Engineering Technology, Advanced Diploma', year: '2026' },
-  { kind: 'Hackathon', tone: 'yellow', text: 'ConHacks 2026 — Handoff (cross-agent AI context tool)', year: '2026' },
-  { kind: 'Co-op',     tone: 'blue',   text: 'Smart Centre — Software Engineer', year: '2025' },
-  { kind: 'Hackathon', tone: 'yellow', text: 'SpurHacks 2025 — Blink-Fit', year: '2025' },
-  { kind: 'Hackathon', tone: 'yellow', text: 'HackTheBrain 2025 — FirstIssue', year: '2025' },
-  { kind: 'Co-op',     tone: 'blue',   text: 'VARLab — DevOps Engineer', year: '2024–25' },
-  { kind: 'Education', tone: 'purple', text: 'Jeonju University — Mechanical Engineering B.Eng (1st-place capstone)', year: '2022' },
-  { kind: 'Military',  tone: 'dim',    text: 'ROK Army — Artillery Squad Leader', year: '2016–18' },
+  { kind: 'Personal',  tone: 'personal', text: 'Self-hosted Jenkins + Grafana CI/CD — live', year: '2026' },
+  { kind: 'Education', tone: 'edu',      text: 'Conestoga — Software Engineering Technology, Advanced Diploma', year: '2026' },
+  { kind: 'Hackathon', tone: 'hack',     text: 'ConHacks 2026 — Handoff (cross-agent AI context tool)', year: '2026' },
+  { kind: 'Co-op',     tone: 'coop',     text: 'Smart Centre — Software Engineer', year: '2025' },
+  { kind: 'Hackathon', tone: 'hack',     text: 'SpurHacks 2025 — Blink-Fit', year: '2025' },
+  { kind: 'Hackathon', tone: 'hack',     text: 'HackTheBrain 2025 — FirstIssue', year: '2025' },
+  { kind: 'Co-op',     tone: 'coop',     text: 'VARLab — DevOps Engineer', year: '2024–25' },
+  { kind: 'Education', tone: 'edu',      text: 'Jeonju University — Mechanical Engineering B.Eng (1st-place capstone)', year: '2022' },
+  { kind: 'Military',  tone: 'mil',      text: 'ROK Army — Artillery Squad Leader', year: '2016–18' },
 ];
 ---
 
 <div class="card timeline-card">
-  {entries.map((e) => (
+  {entries.map((e, i) => (
     <>
-      <span class={`tl-kind k-${e.tone}`}>{e.kind}</span>
-      <span class="tl-text">{e.text}</span>
-      <span class="tl-year">{e.year}</span>
+      <span class={`tl-kind k-${e.tone}`} style={`animation-delay:${0.3 + i * 0.1}s`}>{e.kind}</span>
+      <span class="tl-text" style={`animation-delay:${0.3 + i * 0.1}s`}>{e.text}</span>
+      <span class="tl-year" style={`animation-delay:${0.3 + i * 0.1}s`}>{e.year}</span>
     </>
   ))}
 </div>
+
+<style>
+  /* entrance: card pops in, rows slide in one by one (same pattern as the rail cards) */
+  .timeline-card { animation: nodepop .5s both; }
+  .tl-kind, .tl-text, .tl-year { animation: logline .4s both; }
+</style>

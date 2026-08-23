@@ -16,22 +16,64 @@
   --shadow: 0 0 0 transparent;
 }
 [data-theme="light"] {
-  --bg: #ffffff;
-  --bg-deep: #f6f8fa;
-  --panel: #ffffff;
-  --panel-hi: #f6f8fa;
-  --border: #d0d7de;
-  --border-soft: #d8dee4;
-  --text: #1f2328;
+  --bg: #f2f3ef;
+  --bg-deep: #e9ebe5;
+  --panel: #fafbf8;
+  --panel-hi: #eef0ea;
+  --border: #c9cec4;
+  --border-soft: #d8dcd2;
+  --text: #171b16;
   --text-dim: #59636e;
   --text-faint: #818b98;
-  --green: #1a7f37;
+  --green: #186a2f;
   --blue: #0969da;
   --yellow: #9a6700;
   --purple: #8250df;
   --red: #cf222e;
   --shadow: 0 1px 3px rgba(31, 35, 40, 0.04), 0 8px 24px rgba(66, 74, 83, 0.06);
 }
+/* ink cards (dashboard rail: contact + career overview) — near-black in dark
+   mode, light grey in light mode. --cat-*: timeline category label colours. */
+:root {
+  --ink-bg: #050608;
+  --ink-border: #2a3038;
+  --ink-row: #21262d;
+  --ink-text: #e6edf3;
+  --ink-dim: #8b949e;
+  --ink-green: #3fb950;
+  --cat-personal: #9ece6a;
+  --cat-edu: #bb9af7;
+  --cat-hack: #e0af68;
+  --cat-coop: #7aa2f7;
+  --cat-mil: #787c99;
+}
+[data-theme="light"] {
+  --ink-bg: #f6f8fa;
+  --ink-border: #d0d7de;
+  --ink-row: #d8dee4;
+  --ink-text: #1f2328;
+  --ink-dim: #59636e;
+  --ink-green: #1a7f37;
+  --cat-personal: #4d7c0f;
+  --cat-edu: #6f42c1;
+  --cat-hack: #9a6700;
+  --cat-coop: #0969da;
+  --cat-mil: #57606a;
+}
+[data-theme="light"] body {
+  background-image: radial-gradient(circle, rgba(23, 27, 22, .07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+[data-theme="light"] .card,
+[data-theme="light"] .stage {
+  box-shadow: 0 1px 0 rgba(23, 27, 22, .05);
+}
+
+/* theme-toggle wipe: disable the View Transition default crossfade and stack
+   the new theme on top so only the clip-path sweep (Default.astro) is visible */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -142,7 +184,7 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 
 /* main grid */
 .grid { display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
-.section-label { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; font-weight: 500; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: color-mix(in oklab, var(--page-tint, var(--green)) 65%, var(--text)); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; font-weight: 500; }
 
 /* stage card */
 .stage {
@@ -180,6 +222,31 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 /* right rail */
 .rail { display: flex; flex-direction: column; gap: 20px; }
 .rail > .section-label { margin-bottom: -6px; }
+/* rail entrance — same nodepop/logline stagger on every page */
+.rail .card, .rail .console { animation: nodepop .5s both; }
+.endpoints-card > a { animation: logline .4s both; }
+.endpoints-card > a:nth-of-type(1) { animation-delay: .3s; }
+.endpoints-card > a:nth-of-type(2) { animation-delay: .45s; }
+.endpoints-card > a:nth-of-type(3) { animation-delay: .6s; }
+.rail .stack-group { animation: logline .4s both; }
+.rail .stack-group:nth-of-type(1) { animation-delay: .3s; }
+.rail .stack-group:nth-of-type(2) { animation-delay: .45s; }
+.rail .stack-group:nth-of-type(3) { animation-delay: .6s; }
+.rail .stack-group:nth-of-type(4) { animation-delay: .75s; }
+.rail .stack-group:nth-of-type(5) { animation-delay: .9s; }
+.rail .stack-group:nth-of-type(6) { animation-delay: 1.05s; }
+.rail .stack-group:nth-of-type(7) { animation-delay: 1.2s; }
+/* deep-background stack/skills card shared by all rails
+   (.card.stack-card so it outranks the later .card background) */
+.card.stack-card { background: var(--bg-deep); }
+.stack-card .stack-group .cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.stack-card .stack-tag { background: var(--panel); border-color: var(--border); }
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -187,6 +254,9 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   padding: 18px;
   box-shadow: var(--shadow);
 }
+/* every rail card sits on the deep black background; zero-specificity :where()
+   lets the ink cards (contact, timeline) keep their own black defined later */
+.rail :where(.card) { background: var(--bg-deep); }
 .card-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
 .card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
 .card p + p { margin-top: 10px; }
@@ -268,7 +338,12 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 }
 .contact-row a:hover .val { color: var(--blue); }
 
-/* Endpoints card: make link wrappers block-level and add gap between rows */
+/* Endpoints card: ink treatment + single-line grid rows (dashboard + career) */
+.endpoints-card {
+  background: var(--ink-bg);
+  border-color: var(--ink-border);
+}
+.endpoints-card .card-label { color: var(--ink-dim); }
 .endpoints-card > a {
   display: block;
 }
@@ -276,6 +351,26 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   margin-top: 10px;
 }
 .endpoints-card a:hover .val { color: var(--blue); }
+.endpoints-card .contact-row {
+  display: grid;
+  grid-template-columns: 30px 62px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.endpoints-card .contact-row .verb { color: var(--ink-green); }
+.endpoints-card .contact-row .path { color: var(--ink-text); }
+.endpoints-card .contact-row .val {
+  display: block;
+  padding-left: 0;
+  margin-top: 0;
+  text-align: left;
+  justify-self: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  color: var(--ink-dim);
+}
 
 /* metric catalog — per-metric cards split by dividers (prometheus page) */
 .metric-list { display: flex; flex-direction: column; }
@@ -386,36 +481,56 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .panel-srcs a.chip { text-decoration: none; transition: border-color .15s, color .15s, background .15s; }
 .panel-srcs a.chip:hover { color: var(--text); border-color: var(--accent, var(--purple)); }
 
-/* ambient scanline backdrop (overview page) */
+/* ambient backdrop: scanlines + vignette + drifting scanbar.
+   Colour comes from --bd-tint (falls back to --page-tint, then green).
+   Per-section overrides: --bd-line / --bd-line-pct (scanlines), --bd-vig-pct, --bd-bar-pct. */
 .backdrop {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
   background-image:
-    repeating-linear-gradient(0deg, color-mix(in oklab, var(--text) 5%, transparent) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--green) 7%, transparent) 100%);
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--bd-line, var(--text)) var(--bd-line-pct, 5%), transparent) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--bd-tint, var(--page-tint, var(--green))) var(--bd-vig-pct, 7%), transparent) 100%);
 }
 .scanbar {
   position: absolute; left: 0; right: 0; height: 90px;
-  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--green) 12%, transparent), transparent);
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bd-tint, var(--page-tint, var(--green))) var(--bd-bar-pct, 12%), transparent), transparent);
   animation: scanbar 7s linear infinite;
 }
 @keyframes scanbar { 0% { top: -12%; } 100% { top: 112%; } }
+/* dashed flow on career timeline edges */
+@keyframes edgeflow { to { stroke-dashoffset: -12; } }
+/* entrance: slide-in from the left (rail rows, logs) */
+@keyframes logline { 0% { opacity: 0; transform: translateX(-6px); } 100% { opacity: 1; transform: none; } }
 
 /* inline mono call-to-action link inside a card body */
 .cta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue); }
 
-/* career highlights — glowing stat cards (overview page) */
+/* career highlights — glowing stat cards, tinted per page via --page-tint
+   (green on the dashboard, purple on /career) */
+.highlights-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700; letter-spacing: -0.3px;
+  color: var(--page-tint, var(--green));
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.highlights-heading-bar {
+  width: 8px; height: 22px;
+  background: var(--page-tint, var(--green));
+  border-radius: 2px;
+  box-shadow: 0 0 10px color-mix(in oklab, var(--page-tint, var(--green)) 55%, transparent);
+}
 .highlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
 .highlight {
   position: relative; overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--green) 38%, var(--border));
+  border: 1px solid color-mix(in oklab, var(--page-tint, var(--green)) 38%, var(--border));
   border-radius: 10px;
-  background: linear-gradient(165deg, color-mix(in oklab, var(--green) 9%, var(--panel)) 0%, var(--panel) 60%);
+  background: linear-gradient(165deg, color-mix(in oklab, var(--page-tint, var(--green)) 9%, var(--panel)) 0%, var(--panel) 60%);
   box-shadow:
-    0 0 22px color-mix(in oklab, var(--green) 10%, transparent),
-    inset 0 1px 0 color-mix(in oklab, var(--green) 22%, transparent);
+    0 0 22px color-mix(in oklab, var(--page-tint, var(--green)) 10%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--page-tint, var(--green)) 22%, transparent);
   padding: 16px 18px;
 }
-.hl-stat { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.5px; }
+.hl-stat { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--page-tint, var(--green)); letter-spacing: -0.5px; }
 .hl-title { font-size: 12.5px; font-weight: 600; margin-top: 5px; }
 .hl-note { font-size: 11px; color: var(--text-faint); margin-top: 3px; line-height: 1.45; }
 
@@ -442,10 +557,18 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .pipe-edge svg { flex-shrink: 0; }
 .pipe-dash {
   flex: 1; height: 2px;
+  position: relative; overflow: hidden;
+}
+/* dash pattern moves via transform (GPU, sub-pixel) — animating
+   background-position instead snaps to whole pixels and judders */
+.pipe-dash::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: -24px; right: 0;
   background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 12px);
   animation: dashmove 1s linear infinite;
 }
-@keyframes dashmove { to { background-position: 24px 0; } }
+@keyframes dashmove { to { transform: translateX(24px); } }
 
 /* dashboard thumbnails inside a stage card (overview page) */
 .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
@@ -453,13 +576,16 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .shot img { display: block; width: 100%; height: 110px; object-fit: cover; object-position: top; }
 .shot-cap { padding: 6px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); }
 
-/* mini career timeline (overview rail) */
-.timeline-card { display: grid; grid-template-columns: 70px 1fr auto; align-items: baseline; column-gap: 10px; row-gap: 9px; }
+/* mini career timeline (overview rail) — ink card with category colours */
+.timeline-card {
+  display: grid; grid-template-columns: 70px 1fr auto; align-items: baseline; column-gap: 10px; row-gap: 9px;
+  background: var(--ink-bg); border-color: var(--ink-border);
+}
 .tl-kind { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
-.k-green { color: var(--green); } .k-purple { color: var(--purple); } .k-yellow { color: var(--yellow); }
-.k-blue { color: var(--blue); } .k-dim { color: var(--text-faint); }
-.tl-text { font-size: 12px; color: var(--text); }
-.tl-year { font-size: 11px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+.k-personal { color: var(--cat-personal); } .k-edu { color: var(--cat-edu); } .k-hack { color: var(--cat-hack); }
+.k-coop { color: var(--cat-coop); } .k-mil { color: var(--cat-mil); }
+.tl-text { font-size: 12px; color: var(--ink-text); }
+.tl-year { font-size: 11px; color: var(--ink-dim); font-family: 'JetBrains Mono', monospace; }
 
 /* footer */
 footer {

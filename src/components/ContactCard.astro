@@ -1,0 +1,30 @@
+---
+interface Props {
+  /** optional element id (the dashboard height-sync script targets it) */
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="card endpoints-card" id={id}>
+  <div class="card-label">endpoints</div>
+  <a href="mailto:honggyupark1004@gmail.com">
+    <div class="contact-row">
+      <span class="verb">GET </span><span class="path">/email</span>
+      <span class="val">honggyupark1004@gmail.com</span>
+    </div>
+  </a>
+  <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
+    <div class="contact-row">
+      <span class="verb">GET </span><span class="path">/linkedin</span>
+      <span class="val">/in/honggyu-park-b68627249</span>
+    </div>
+  </a>
+  <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
+    <div class="contact-row">
+      <span class="verb">GET </span><span class="path">/github</span>
+      <span class="val">github.com/chris-park-1004</span>
+    </div>
+  </a>
+</div>

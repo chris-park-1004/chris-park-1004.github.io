@@ -1,5 +1,7 @@
 ---
 import Default from '../layouts/Default.astro';
+import CareerHighlights from '../components/CareerHighlights.astro';
+import ContactCard from '../components/ContactCard.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -14,7 +16,7 @@ const breadcrumbs = [
 >
 
   <!-- header -->
-  <div class="header">
+  <div class="header" style="margin-bottom: 20px;">
     <div>
       <div class="prompt">$ kubectl describe engineer/chris-park</div>
       <h1>Chris Park <span style="font-weight:400;color:var(--text-dim);font-size:0.5em;letter-spacing:-0.3px;">/ Honggyu</span></h1>
@@ -27,13 +29,7 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <!-- summary -->
-  <div class="summary">
-    <div><div class="k">Pipelines built</div><div class="v blue">12+</div></div>
-    <div><div class="k">Stack migrated</div><div class="v purple">Win → Linux</div></div>
-    <div><div class="k">Years in CI/CD</div><div class="v green">1y+</div></div>
-    <div><div class="k">Awards</div><div class="v yellow">5</div></div>
-  </div>
+  <CareerHighlights />
 
   <!-- main grid -->
   <div class="grid">
@@ -53,11 +49,14 @@ const breadcrumbs = [
           <div class="stage-dur">7y</div>
         </div>
         <div class="stage-body">
-          <p>Fluid mechanics, thermodynamics, oil hydraulics. Capstone winner — built a waste-energy recovery generator that converts excess water-pipe pressure into electricity.</p>
+          <ul>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Capstone — energy-recovery generator harvesting excess pressure in apartment water supply</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>1st place, graduation capstone design competition</span></li>
+          </ul>
         </div>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="edge" style="color:var(--purple);padding:10px 0;">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" style="animation:edgeflow 1s linear infinite;"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       </div>
 
       <div class="stage" style="--accent: var(--green)">
@@ -74,15 +73,14 @@ const breadcrumbs = [
         </div>
         <div class="stage-body">
           <ul>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Designed VARLab's first automated CI/CD pipelines for JS + Unity projects</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Containerized web apps with Docker, Azure Container Registry, Container Apps</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Migrated pipelines Windows → Linux, improving stability and reducing overhead</span></li>
-            <li><span class="check" style="color:var(--green)">✓</span><span>Integrated SonarQube and authored usage guidelines for the team</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>First automated CI/CD pipelines for JS + Unity projects</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Docker + Azure Container Registry / Container Apps</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Windows → Linux migration · SonarQube + team guidelines</span></li>
           </ul>
         </div>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="edge" style="color:var(--purple);padding:10px 0;">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" style="animation:edgeflow 1s linear infinite;"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       </div>
 
       <div class="stage" style="--accent: var(--blue)">
@@ -93,19 +91,19 @@ const breadcrumbs = [
               <span class="badge b-green"><span class="badge-dot"></span>success</span>
             </div>
             <div class="stage-name">Software Engineer @ Smart Centre</div>
-            <div class="stage-sub">Conestoga College · May 2025 – Sep 2025</div>
+            <div class="stage-sub">Conestoga College · May – Sep 2025</div>
           </div>
           <div class="stage-dur">5mo</div>
         </div>
         <div class="stage-body">
           <ul>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Built a social-media prototype for authors — React, Express, OAuth 2.0, Gemini API</span></li>
-            <li><span class="check" style="color:var(--blue)">✓</span><span>Scanned industrial machines into 3D models for Unity VR (Blender pipeline)</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Full-stack app — React + Express.js REST APIs · Google OAuth 2.0 · Gemini API</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>C# Unity VR from industrial machine scans · 3D assets via Blender</span></li>
           </ul>
         </div>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="edge" style="color:var(--purple);padding:10px 0;">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" style="animation:edgeflow 1s linear infinite;"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       </div>
 
       <div class="stage" style="--accent: var(--green)">
@@ -121,16 +119,14 @@ const breadcrumbs = [
           <div class="stage-dur">3y</div>
         </div>
         <div class="stage-body">
-          <div class="stack-tags">
-            <span class="chip">CI/CD</span>
-            <span class="chip">Cloud</span>
-            <span class="chip">Full-Stack</span>
-            <span class="chip">Containers</span>
-          </div>
+          <ul>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Capstone <a href="https://setprojectday.ca/post/2026/loc8u/" target="_blank" rel="noopener" style="color:var(--purple);font-weight:600;">LOC8U</a> — LoRa safety net for visitors in remote areas: geofence alerts, SOS beacons, live position tracking</span></li>
+            <li><span class="check" style="color:var(--green)">✓</span><span>Built the Python server bridging LoRa IoT devices ↔ client via Apache Kafka</span></li>
+          </ul>
         </div>
       </div>
-      <div class="edge">
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="edge" style="color:var(--purple);padding:10px 0;">
+        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" style="animation:edgeflow 1s linear infinite;"/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       </div>
 
       <div class="stage" style="--accent: var(--blue)">
@@ -153,10 +149,11 @@ const breadcrumbs = [
 
     <!-- right rail -->
     <div class="rail">
-      <div class="section-label">── ./modules</div>
-      <div class="card">
-        <div class="card-label">stack</div>
+      <div class="section-label">── ./contact</div>
+      <ContactCard />
 
+      <div class="section-label">── ./skills</div>
+      <div class="card stack-card">
         <div class="stack-group">
           <div class="cat">CI/CD</div>
           <div class="stack-tags">
@@ -173,6 +170,7 @@ const breadcrumbs = [
             <span class="stack-tag">Azure</span>
             <span class="stack-tag">Docker</span>
             <span class="stack-tag">Container Apps</span>
+            <span class="stack-tag">Linux</span>
             <span class="stack-tag">Nginx</span>
             <span class="stack-tag">Apache</span>
           </div>
@@ -180,11 +178,26 @@ const breadcrumbs = [
         <div class="stack-group">
           <div class="cat">Languages</div>
           <div class="stack-tags">
-            <span class="stack-tag">Python</span>
+            <span class="stack-tag">JavaScript</span>
             <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">C#</span>
+            <span class="stack-tag">Python</span>
             <span class="stack-tag">C++</span>
+            <span class="stack-tag">C</span>
             <span class="stack-tag">Groovy</span>
             <span class="stack-tag">Bash</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="cat">Web</div>
+          <div class="stack-tags">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Next.js</span>
+            <span class="stack-tag">Node.js</span>
+            <span class="stack-tag">Express.js</span>
+            <span class="stack-tag">NestJS</span>
+            <span class="stack-tag">REST APIs</span>
+            <span class="stack-tag">OAuth 2.0</span>
           </div>
         </div>
         <div class="stack-group">
@@ -193,55 +206,48 @@ const breadcrumbs = [
             <span class="stack-tag">PostgreSQL</span>
             <span class="stack-tag">MySQL</span>
             <span class="stack-tag">MongoDB</span>
+            <span class="stack-tag">SQL Server</span>
+            <span class="stack-tag">Supabase</span>
           </div>
         </div>
-      </div>
-
-      <div class="console">
-        <div class="console-head">
-          <div class="card-label" style="margin: 0;">console</div>
-          <span class="live-dot"></span>
+        <div class="stack-group">
+          <div class="cat">Testing</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jest</span>
+            <span class="stack-tag">Vitest</span>
+            <span class="stack-tag">PyTest</span>
+            <span class="stack-tag">NUnit</span>
+          </div>
         </div>
-        <div class="log"><span class="ts">14:02:11</span><span class="lvl INFO">[INFO]</span><span>git pull origin main</span></div>
-        <div class="log"><span class="ts">14:02:12</span><span class="lvl OK">[OK]</span><span>build · 12.4s · cached</span></div>
-        <div class="log"><span class="ts">14:02:14</span><span class="lvl INFO">[INFO]</span><span>docker push azurecr.io/app:v2.1</span></div>
-        <div class="log"><span class="ts">14:02:31</span><span class="lvl OK">[OK]</span><span>sonarqube · A · 0 issues</span></div>
-        <div class="log"><span class="ts">14:02:33</span><span class="lvl INFO">[INFO]</span><span>deploy → container-app/prod</span></div>
-        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>healthcheck · 200 OK</span></div>
-        <div class="log"><span class="ts">14:02:48</span><span class="lvl OK">[OK]</span><span>pipeline complete</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">achievements</div>
-        <div class="award"><span class="icon">🥇</span><div><div class="text">University Capstone Design Competition</div><div class="year">2021</div></div></div>
-        <div class="award"><span class="icon">🎓</span><div><div class="text">National Science Scholarship · sole recipient</div><div class="year">2019</div></div></div>
-        <div class="award"><span class="icon">🎖</span><div><div class="text">Korean Official Invention Scholarship</div><div class="year">2014</div></div></div>
-        <div class="award"><span class="icon">🥈</span><div><div class="text">Korean National Invention Competition</div><div class="year">2012–14</div></div></div>
-        <div class="award"><span class="icon">🏆</span><div><div class="text">LG Student Invention Contest</div><div class="year">2011</div></div></div>
-      </div>
-
-      <div class="card endpoints-card">
-        <div class="card-label">endpoints</div>
-        <a href="mailto:honggyupark1004@gmail.com">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/email</span>
-            <span class="val">honggyupark1004@gmail.com</span>
+        <div class="stack-group">
+          <div class="cat">Concepts</div>
+          <div class="stack-tags">
+            <span class="stack-tag">OOP</span>
+            <span class="stack-tag">DSA</span>
+            <span class="stack-tag">HTTP</span>
+            <span class="stack-tag">TLS/SSL</span>
+            <span class="stack-tag">Distributed Systems</span>
+            <span class="stack-tag">Git</span>
+            <span class="stack-tag">Agile</span>
           </div>
-        </a>
-        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/linkedin</span>
-            <span class="val">/in/honggyu-park-b68627249</span>
-          </div>
-        </a>
-        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/github</span>
-            <span class="val">github.com/chris-park-1004</span>
-          </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
 
 </Default>
+
+<style>
+  /* entrance stagger (design: Career v2) — column children alternate stage/edge */
+  .grid > div:first-child > .stage,
+  .grid > div:first-child > .edge { animation: nodepop .5s both; }
+  .grid > div:first-child > :nth-child(2)  { animation-delay: .05s; }
+  .grid > div:first-child > :nth-child(3)  { animation-delay: .12s; }
+  .grid > div:first-child > :nth-child(4)  { animation-delay: .2s; }
+  .grid > div:first-child > :nth-child(5)  { animation-delay: .27s; }
+  .grid > div:first-child > :nth-child(6)  { animation-delay: .35s; }
+  .grid > div:first-child > :nth-child(7)  { animation-delay: .42s; }
+  .grid > div:first-child > :nth-child(8)  { animation-delay: .5s; }
+  .grid > div:first-child > :nth-child(9)  { animation-delay: .57s; }
+  .grid > div:first-child > :nth-child(10) { animation-delay: .65s; }
+</style>

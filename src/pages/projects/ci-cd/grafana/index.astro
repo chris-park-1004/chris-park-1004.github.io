@@ -1,6 +1,7 @@
 ---
 import Default from '../../../../layouts/Default.astro';
 import RelatedCard from '../../../../components/RelatedCard.astro';
+import ContactCard from '../../../../components/ContactCard.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004', href: '/' },
@@ -67,6 +68,10 @@ const totalPanels = groups.reduce((sum, g) => sum + g.panels, 0);
     <div><div class="k">Public access</div><div class="v green">live</div></div>
   </div>
 
+  <!-- main grid -->
+  <div class="grid">
+    <div>
+
   <!-- live dashboard link -->
   <div class="section-label">── ./live</div>
   <div class="live-link">
@@ -105,26 +110,32 @@ const totalPanels = groups.reduce((sum, g) => sum + g.panels, 0);
     ))}
   </div>
 
-  <!-- context -->
-  <div class="section-label" style="margin-top: 32px;">── ./context</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">why grafana cloud</div>
-      <p>
-        Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
-      </p>
-      <p>
-        It’s a single dashboard split into two row groups, all on one datasource — <code>grafanacloud-prom</code> (Mimir). Open a group to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
-      </p>
     </div>
 
-    <RelatedCard
-      links={[
-        { href: '/projects/ci-cd/prometheus/', label: '→ Prometheus metric catalog', color: 'blue' },
-        { href: '/projects/ci-cd/jenkins/', label: '→ Jenkins component', color: 'green' },
-        { href: '/projects/ci-cd/', label: '← back to project' },
-      ]}
-    />
+    <!-- right rail -->
+    <div class="rail">
+      <div class="section-label">── ./contact</div>
+      <ContactCard />
+
+      <div class="section-label">── ./context</div>
+      <div class="card">
+        <div class="card-label">why grafana cloud</div>
+        <p>
+          Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
+        </p>
+        <p>
+          It’s a single dashboard split into two row groups, all on one datasource — <code>grafanacloud-prom</code> (Mimir). Open a group to see each panel explained, with a click-through to the backing metric in the Prometheus catalog.
+        </p>
+      </div>
+
+      <RelatedCard
+        links={[
+          { href: '/projects/ci-cd/prometheus/', label: '→ Prometheus metric catalog', color: 'blue' },
+          { href: '/projects/ci-cd/jenkins/', label: '→ Jenkins component', color: 'green' },
+          { href: '/projects/ci-cd/', label: '← back to project' },
+        ]}
+      />
+    </div>
   </div>
 
 </Default>
