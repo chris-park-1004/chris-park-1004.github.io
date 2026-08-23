@@ -54,6 +54,7 @@ const nodes: Node[] = [
 <style>
   /* red-glow treatment (design: CI-CD Pipeline v2 #live-pipeline-card) */
   .pipeline-card {
+    animation: nodepop .5s both;
     border-left: 1px solid transparent;
     border-color: color-mix(in oklab, var(--red) 38%, var(--border));
     background: linear-gradient(165deg, color-mix(in oklab, var(--red) 9%, var(--panel)) 0%, var(--panel) 60%);

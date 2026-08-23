@@ -23,3 +23,12 @@ const highlights: Highlight[] = [
     </div>
   ))}
 </div>
+
+<style>
+  /* entrance stagger — same nodepop pattern as the CI-CD component cards */
+  .highlight { animation: nodepop .5s both; }
+  .highlight:nth-child(1) { animation-delay: .1s; }
+  .highlight:nth-child(2) { animation-delay: .2s; }
+  .highlight:nth-child(3) { animation-delay: .3s; }
+  .highlight:nth-child(4) { animation-delay: .4s; }
+</style>

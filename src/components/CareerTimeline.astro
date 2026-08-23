@@ -21,11 +21,17 @@ const entries: Entry[] = [
 ---
 
 <div class="card timeline-card">
-  {entries.map((e) => (
+  {entries.map((e, i) => (
     <>
-      <span class={`tl-kind k-${e.tone}`}>{e.kind}</span>
-      <span class="tl-text">{e.text}</span>
-      <span class="tl-year">{e.year}</span>
+      <span class={`tl-kind k-${e.tone}`} style={`animation-delay:${0.3 + i * 0.1}s`}>{e.kind}</span>
+      <span class="tl-text" style={`animation-delay:${0.3 + i * 0.1}s`}>{e.text}</span>
+      <span class="tl-year" style={`animation-delay:${0.3 + i * 0.1}s`}>{e.year}</span>
     </>
   ))}
 </div>
+
+<style>
+  /* entrance: card pops in, rows slide in one by one (same pattern as the rail cards) */
+  .timeline-card { animation: nodepop .5s both; }
+  .tl-kind, .tl-text, .tl-year { animation: logline .4s both; }
+</style>

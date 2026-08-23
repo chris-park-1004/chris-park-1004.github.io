@@ -206,27 +206,13 @@ const components: Component[] = [
 
       <div class="console">
         <div class="console-head">
-          <div class="card-label" style="margin: 0;">data flow</div>
+          <div class="card-label" style="margin: 0;">why it matters</div>
           <span class="live-dot"></span>
         </div>
-        <div class="flow">
-          <div class="flow-step"><span class="flow-name" style="color: var(--blue)">GitHub</span><span class="flow-action">push / pr event</span></div>
-          <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ webhook</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--green)">Cloudflare</span><span class="flow-action">tunnel + access</span></div>
-          <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ secure tunnel</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--green)">Jenkins</span><span class="flow-action">multibranch pipeline</span></div>
-          <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ checks api</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--green)">GitHub PR</span><span class="flow-action">status display</span></div>
-          <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ /prometheus scrape</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--red)">Prometheus</span><span class="flow-action">docker, 120s scrape</span></div>
-          <div class="flow-line">│</div>
-          <div class="flow-arrow">▼ remote_write</div>
-          <div class="flow-step"><span class="flow-name" style="color: var(--purple)">Grafana Cloud</span><span class="flow-action">dashboards</span></div>
-        </div>
+        <div class="log"><span class="lvl OK">[OK]</span><span>no port-forwarding — outbound-only tunnel</span></div>
+        <div class="log"><span class="lvl OK">[OK]</span><span>admin UI gated by Cloudflare Access</span></div>
+        <div class="log"><span class="lvl OK">[OK]</span><span>PR checks report stage-level status</span></div>
+        <div class="log"><span class="lvl OK">[OK]</span><span>metrics public — recruiters can see it live</span></div>
       </div>
 
     </div>
@@ -251,4 +237,28 @@ const components: Component[] = [
 
   /* Grafana card thumbnails run slightly taller here than on the dashboard */
   .shot img { height: 120px; }
+
+  /* entrance stagger (design: CI-CD Pipeline v2) */
+  .grid > div:first-child .stage { animation: nodepop .5s both; }
+  .grid > div:first-child .stage-link:nth-of-type(1) .stage { animation-delay: .1s; }
+  .grid > div:first-child .stage-link:nth-of-type(2) .stage { animation-delay: .2s; }
+  .grid > div:first-child .stage-link:nth-of-type(3) .stage { animation-delay: .3s; }
+  .grid > div:first-child .stage-link:nth-of-type(4) .stage { animation-delay: .4s; }
+  .grid > div:first-child .stage-link:nth-of-type(5) .stage { animation-delay: .5s; }
+  .rail .card, .rail .console { animation: nodepop .5s both; }
+  .rail .console { animation-delay: .2s; }
+  .rail .endpoints-card a { animation: logline .4s both; }
+  .rail .endpoints-card a:nth-of-type(1) { animation-delay: .3s; }
+  .rail .endpoints-card a:nth-of-type(2) { animation-delay: .45s; }
+  .rail .endpoints-card a:nth-of-type(3) { animation-delay: .6s; }
+  .rail .stack-group { animation: logline .4s both; }
+  .rail .stack-group:nth-of-type(1) { animation-delay: .3s; }
+  .rail .stack-group:nth-of-type(2) { animation-delay: .45s; }
+  .rail .stack-group:nth-of-type(3) { animation-delay: .6s; }
+  /* nth-of-type counts the console-head div too, so the logs are children 2–5 */
+  .rail .log { animation: logline .4s both; }
+  .rail .log:nth-of-type(2) { animation-delay: .5s; }
+  .rail .log:nth-of-type(3) { animation-delay: .65s; }
+  .rail .log:nth-of-type(4) { animation-delay: .8s; }
+  .rail .log:nth-of-type(5) { animation-delay: .95s; }
 </style>

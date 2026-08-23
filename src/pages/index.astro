@@ -141,6 +141,17 @@ const breadcrumbs = [
     justify-content: space-between;
     box-sizing: border-box;
   }
+
+  /* entrance stagger — same pattern as the Career / CI-CD pages;
+     highlights run .1–.4s, so the two main cards follow at .5/.6s */
+  .grid > div:first-child .stage { animation: nodepop .5s both; }
+  .grid > div:first-child .stage-link:nth-of-type(1) .stage { animation-delay: .5s; }
+  .grid > div:first-child .stage-link:nth-of-type(2) .stage { animation-delay: .6s; }
+  .rail .endpoints-card { animation: nodepop .5s both; }
+  .rail .endpoints-card a { animation: logline .4s both; }
+  .rail .endpoints-card a:nth-of-type(1) { animation-delay: .3s; }
+  .rail .endpoints-card a:nth-of-type(2) { animation-delay: .45s; }
+  .rail .endpoints-card a:nth-of-type(3) { animation-delay: .6s; }
 </style>
 
 <script is:inline>
