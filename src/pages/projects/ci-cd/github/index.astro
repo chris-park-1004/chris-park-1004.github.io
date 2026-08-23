@@ -2,6 +2,7 @@
 import Default from '../../../../layouts/Default.astro';
 import DocList from '../../../../components/DocList.astro';
 import RelatedCard from '../../../../components/RelatedCard.astro';
+import ContactCard from '../../../../components/ContactCard.astro';
 import type { Doc } from '../../../../components/DocList.astro';
 
 const breadcrumbs = [
@@ -60,6 +61,9 @@ const subPages: Doc[] = [
     </div>
 
     <div class="rail">
+      <div class="section-label">── ./contact</div>
+      <ContactCard />
+
       <div class="section-label">── ./context</div>
 
       <div class="card">
@@ -69,8 +73,8 @@ const subPages: Doc[] = [
         </p>
       </div>
 
-      <div class="card">
-        <div class="card-label">stack</div>
+      <div class="section-label">── ./stack</div>
+      <div class="card stack-card">
         <div class="stack-tags">
           <span class="stack-tag">GitHub App</span>
           <span class="stack-tag">RSA / JWT (RS256)</span>

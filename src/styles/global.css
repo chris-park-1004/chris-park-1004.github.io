@@ -222,6 +222,31 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 /* right rail */
 .rail { display: flex; flex-direction: column; gap: 20px; }
 .rail > .section-label { margin-bottom: -6px; }
+/* rail entrance — same nodepop/logline stagger on every page */
+.rail .card, .rail .console { animation: nodepop .5s both; }
+.endpoints-card > a { animation: logline .4s both; }
+.endpoints-card > a:nth-of-type(1) { animation-delay: .3s; }
+.endpoints-card > a:nth-of-type(2) { animation-delay: .45s; }
+.endpoints-card > a:nth-of-type(3) { animation-delay: .6s; }
+.rail .stack-group { animation: logline .4s both; }
+.rail .stack-group:nth-of-type(1) { animation-delay: .3s; }
+.rail .stack-group:nth-of-type(2) { animation-delay: .45s; }
+.rail .stack-group:nth-of-type(3) { animation-delay: .6s; }
+.rail .stack-group:nth-of-type(4) { animation-delay: .75s; }
+.rail .stack-group:nth-of-type(5) { animation-delay: .9s; }
+.rail .stack-group:nth-of-type(6) { animation-delay: 1.05s; }
+.rail .stack-group:nth-of-type(7) { animation-delay: 1.2s; }
+/* deep-background stack/skills card shared by all rails
+   (.card.stack-card so it outranks the later .card background) */
+.card.stack-card { background: var(--bg-deep); }
+.stack-card .stack-group .cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.stack-card .stack-tag { background: var(--panel); border-color: var(--border); }
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -229,6 +254,9 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   padding: 18px;
   box-shadow: var(--shadow);
 }
+/* every rail card sits on the deep black background; zero-specificity :where()
+   lets the ink cards (contact, timeline) keep their own black defined later */
+.rail :where(.card) { background: var(--bg-deep); }
 .card-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
 .card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
 .card p + p { margin-top: 10px; }

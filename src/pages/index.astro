@@ -2,6 +2,7 @@
 import Default from '../layouts/Default.astro';
 import CareerHighlights from '../components/CareerHighlights.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
+import ContactCard from '../components/ContactCard.astro';
 
 const breadcrumbs = [
   { label: 'chris-park-1004' },
@@ -89,27 +90,7 @@ const breadcrumbs = [
     <div class="rail">
       <div class="section-label">── contact</div>
 
-      <div class="card endpoints-card" id="contact-card">
-        <div class="card-label">endpoints</div>
-        <a href="mailto:honggyupark1004@gmail.com">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/email</span>
-            <span class="val">honggyupark1004@gmail.com</span>
-          </div>
-        </a>
-        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/linkedin</span>
-            <span class="val">/in/honggyu-park-b68627249</span>
-          </div>
-        </a>
-        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
-          <div class="contact-row">
-            <span class="verb">GET </span><span class="path">/github</span>
-            <span class="val">github.com/chris-park-1004</span>
-          </div>
-        </a>
-      </div>
+      <ContactCard id="contact-card" />
 
       <div class="section-label">── career overview</div>
       <CareerTimeline />
@@ -134,24 +115,18 @@ const breadcrumbs = [
     transform: translateY(-1px);
   }
 
-  /* stretch the contact card to the About card height (ink look is global) */
-  .endpoints-card {
+  /* stretch the contact card to the About card height (ink look + entrance are global) */
+  .rail :global(.endpoints-card) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
   }
 
-  /* entrance stagger — same pattern as the Career / CI-CD pages;
-     highlights run .1–.4s, so the two main cards follow at .5/.6s */
+  /* entrance stagger — highlights run .1–.4s, so the two main cards follow at .5/.6s */
   .grid > div:first-child .stage { animation: nodepop .5s both; }
   .grid > div:first-child .stage-link:nth-of-type(1) .stage { animation-delay: .5s; }
   .grid > div:first-child .stage-link:nth-of-type(2) .stage { animation-delay: .6s; }
-  .rail .endpoints-card { animation: nodepop .5s both; }
-  .rail .endpoints-card a { animation: logline .4s both; }
-  .rail .endpoints-card a:nth-of-type(1) { animation-delay: .3s; }
-  .rail .endpoints-card a:nth-of-type(2) { animation-delay: .45s; }
-  .rail .endpoints-card a:nth-of-type(3) { animation-delay: .6s; }
 </style>
 
 <script is:inline>
