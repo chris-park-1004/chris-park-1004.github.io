@@ -454,17 +454,17 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .panel-srcs a.chip:hover { color: var(--text); border-color: var(--accent, var(--purple)); }
 
 /* ambient backdrop: scanlines + vignette + drifting scanbar.
-   Tint comes from --page-tint (set on <body> by the Default layout; green fallback).
-   Per-section intensity overrides: --bd-line (scanline colour), --bd-vig-pct, --bd-bar-pct. */
+   Colour comes from --bd-tint (falls back to --page-tint, then green).
+   Per-section overrides: --bd-line / --bd-line-pct (scanlines), --bd-vig-pct, --bd-bar-pct. */
 .backdrop {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
   background-image:
-    repeating-linear-gradient(0deg, color-mix(in oklab, var(--bd-line, var(--text)) 5%, transparent) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--page-tint, var(--green)) var(--bd-vig-pct, 7%), transparent) 100%);
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--bd-line, var(--text)) var(--bd-line-pct, 5%), transparent) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--bd-tint, var(--page-tint, var(--green))) var(--bd-vig-pct, 7%), transparent) 100%);
 }
 .scanbar {
   position: absolute; left: 0; right: 0; height: 90px;
-  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--page-tint, var(--green)) var(--bd-bar-pct, 12%), transparent), transparent);
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bd-tint, var(--page-tint, var(--green))) var(--bd-bar-pct, 12%), transparent), transparent);
   animation: scanbar 7s linear infinite;
 }
 @keyframes scanbar { 0% { top: -12%; } 100% { top: 112%; } }

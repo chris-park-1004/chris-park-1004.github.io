@@ -22,10 +22,13 @@ const sectionTint = Astro.url.pathname.startsWith('/projects')
     ? 'purple'
     : 'green';
 
-// /career runs a stronger, colour-tinted backdrop (design: Career v2)
+// per-section backdrop tuning (designs: Career v2 / CI-CD Pipeline v2).
+// /projects uses Jenkins brand red #d24939 for the backdrop while labels keep var(--red).
 const backdropTuning = Astro.url.pathname.startsWith('/career')
   ? '; --bd-line: var(--purple); --bd-vig-pct: 9%; --bd-bar-pct: 14%'
-  : '';
+  : Astro.url.pathname.startsWith('/projects')
+    ? '; --bd-tint: #d24939; --bd-line: #d24939; --bd-line-pct: 4%; --bd-vig-pct: 8%; --bd-bar-pct: 13%'
+    : '';
 
 const {
   title,

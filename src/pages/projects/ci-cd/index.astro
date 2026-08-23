@@ -13,8 +13,9 @@ interface Component {
   href: string;
   status: 'deployed' | 'planning';
   accent: string;
-  description: string;
+  sub: string;
   subPages?: string[];
+  shots?: { img: string; cap: string }[];
   meta?: string;
 }
 
@@ -25,7 +26,7 @@ const components: Component[] = [
     href: '/projects/ci-cd/jenkins/',
     status: 'deployed',
     accent: 'green',
-    description: 'CI/CD orchestrator on home PC. Java 25 LTS, Multibranch Pipeline, multi-agent (controller + windows-agent).',
+    sub: 'CI/CD orchestrator · Multibranch Pipeline · controller + windows-agent',
     subPages: ['installation', 'service-account', 'multibranch-pipeline', 'checks-api', 'agents'],
     meta: '5 docs',
   },
@@ -35,7 +36,7 @@ const components: Component[] = [
     href: '/projects/ci-cd/github/',
     status: 'deployed',
     accent: 'blue',
-    description: 'Source control + App-based authentication. Webhook-driven builds with rich PR status feedback via Checks API.',
+    sub: 'App-based auth · webhook builds · rich PR status via Checks API',
     subPages: ['app-setup', 'webhook', 'pr-checks'],
     meta: '3 docs',
   },
@@ -45,7 +46,7 @@ const components: Component[] = [
     href: '/projects/ci-cd/cloudflare/',
     status: 'deployed',
     accent: 'yellow',
-    description: 'Tunnel for secure outbound-only connection. Access gate for admin authentication. Zero inbound ports exposed.',
+    sub: 'Outbound-only tunnel · Access gate for admin · zero inbound ports',
     subPages: ['tunnel-setup', 'access-gate'],
     meta: '2 docs',
   },
@@ -55,7 +56,7 @@ const components: Component[] = [
     href: '/projects/ci-cd/prometheus/',
     status: 'deployed',
     accent: 'red',
-    description: 'Docker container on the Jenkins host. Scrapes Jenkins via the Prometheus plugin every 120s and remote-writes to Grafana Cloud Mimir.',
+    sub: 'Docker on Jenkins host · 120s scrape · remote_write → Grafana Cloud Mimir',
     meta: 'metric catalog',
   },
   {
@@ -64,8 +65,11 @@ const components: Component[] = [
     href: '/projects/ci-cd/grafana/',
     status: 'deployed',
     accent: 'purple',
-    description: 'Grafana Cloud free tier hosts one dashboard, split into two row groups: Jenkins Overview (CI/CD) and Server Resources (JVM/system).',
-    subPages: ['jenkins-overview', 'server-resources'],
+    sub: 'Grafana Cloud free tier · public dashboard · 2 row groups',
+    shots: [
+      { img: '/img/grafana/jenkins-overview.png', cap: 'jenkins-overview' },
+      { img: '/img/grafana/server-resources.png', cap: 'server-resources' },
+    ],
     meta: '2 row groups',
   },
 ];
@@ -79,7 +83,7 @@ const components: Component[] = [
 >
 
   <!-- header -->
-  <div class="header">
+  <div class="header" style="margin-bottom: 20px;">
     <div>
       <div class="prompt">$ cat README.md</div>
       <h1>CI/CD Pipeline</h1>
@@ -102,7 +106,7 @@ const components: Component[] = [
 
       {components.map((comp) => (
         <a href={comp.href} class="stage-link" style="display: block; margin-bottom: 14px;">
-          <div class="stage" style={`--accent: var(--${comp.accent})`}>
+          <div class="stage" style={`--accent: var(--${comp.accent})${comp.shots ? '; overflow: hidden' : ''}`}>
             <div class="stage-head">
               <div>
                 <div class="stage-meta">
@@ -114,19 +118,31 @@ const components: Component[] = [
                   )}
                 </div>
                 <div class="stage-name">{comp.name}</div>
+                <div class="stage-sub">{comp.sub}</div>
               </div>
               <div class="stage-dur">{comp.meta}</div>
             </div>
-            <div class="stage-body">
-              <p>{comp.description}</p>
-              {comp.subPages && (
-                <div class="stack-tags" style="margin-top: 12px;">
-                  {comp.subPages.map((sub) => (
-                    <span class="chip">{sub}</span>
-                  ))}
-                </div>
-              )}
-            </div>
+            {(comp.subPages || comp.shots) && (
+              <div class="stage-body">
+                {comp.subPages && (
+                  <div class="stack-tags">
+                    {comp.subPages.map((sub) => (
+                      <span class="chip">{sub}</span>
+                    ))}
+                  </div>
+                )}
+                {comp.shots && (
+                  <div class="shot-grid">
+                    {comp.shots.map((s) => (
+                      <div class="shot">
+                        <img src={s.img} alt={`Grafana — ${s.cap} row group`} loading="lazy" />
+                        <div class="shot-cap">{s.cap}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </a>
       ))}
@@ -136,10 +152,32 @@ const components: Component[] = [
     <!-- right rail -->
     <div class="rail">
 
+      <div class="section-label">── ./contact</div>
+      <div class="card endpoints-card">
+        <div class="card-label">endpoints</div>
+        <a href="mailto:honggyupark1004@gmail.com">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/email</span>
+            <span class="val">honggyupark1004@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/honggyu-park-b68627249" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/linkedin</span>
+            <span class="val">/in/honggyu-park-b68627249</span>
+          </div>
+        </a>
+        <a href="https://github.com/chris-park-1004" target="_blank" rel="noopener">
+          <div class="contact-row">
+            <span class="verb">GET </span><span class="path">/github</span>
+            <span class="val">github.com/chris-park-1004</span>
+          </div>
+        </a>
+      </div>
+
       <div class="section-label">── ./architecture</div>
 
-      <div class="card">
-        <div class="card-label">stack</div>
+      <div class="card arch-card">
         <div class="stack-group">
           <div class="cat">CI</div>
           <div class="stack-tags">
@@ -195,3 +233,22 @@ const components: Component[] = [
   </div>
 
 </Default>
+
+<style>
+  /* architecture card: deep background, category names promoted (design: CI-CD Pipeline v2) */
+  .arch-card { background: var(--bg-deep); }
+  .arch-card .stack-group .cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .arch-card .stack-tag {
+    background: var(--panel);
+    border-color: var(--border);
+  }
+
+  /* Grafana card thumbnails run slightly taller here than on the dashboard */
+  .shot img { height: 120px; }
+</style>
