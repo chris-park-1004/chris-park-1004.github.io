@@ -22,6 +22,11 @@ const sectionTint = Astro.url.pathname.startsWith('/projects')
     ? 'purple'
     : 'green';
 
+// /career runs a stronger, colour-tinted backdrop (design: Career v2)
+const backdropTuning = Astro.url.pathname.startsWith('/career')
+  ? '; --bd-line: var(--purple); --bd-vig-pct: 9%; --bd-bar-pct: 14%'
+  : '';
+
 const {
   title,
   description = "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure.",
@@ -58,7 +63,7 @@ const {
   })();
 </script>
 </head>
-<body style={`--page-tint: var(--${tint})`}>
+<body style={`--page-tint: var(--${tint})${backdropTuning}`}>
 
 <!-- ambient backdrop: scanlines + vignette + drifting scanbar, tinted per page -->
 <div class="backdrop" aria-hidden="true"><div class="scanbar"></div></div>

@@ -310,7 +310,12 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 }
 .contact-row a:hover .val { color: var(--blue); }
 
-/* Endpoints card: make link wrappers block-level and add gap between rows */
+/* Endpoints card: ink treatment + single-line grid rows (dashboard + career) */
+.endpoints-card {
+  background: var(--ink-bg);
+  border-color: var(--ink-border);
+}
+.endpoints-card .card-label { color: var(--ink-dim); }
 .endpoints-card > a {
   display: block;
 }
@@ -318,6 +323,26 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
   margin-top: 10px;
 }
 .endpoints-card a:hover .val { color: var(--blue); }
+.endpoints-card .contact-row {
+  display: grid;
+  grid-template-columns: 30px 62px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.endpoints-card .contact-row .verb { color: var(--ink-green); }
+.endpoints-card .contact-row .path { color: var(--ink-text); }
+.endpoints-card .contact-row .val {
+  display: block;
+  padding-left: 0;
+  margin-top: 0;
+  text-align: left;
+  justify-self: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  color: var(--ink-dim);
+}
 
 /* metric catalog — per-metric cards split by dividers (prometheus page) */
 .metric-list { display: flex; flex-direction: column; }
@@ -429,36 +454,53 @@ h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin: 0; letter-spac
 .panel-srcs a.chip:hover { color: var(--text); border-color: var(--accent, var(--purple)); }
 
 /* ambient backdrop: scanlines + vignette + drifting scanbar.
-   Tint comes from --page-tint (set on <body> by the Default layout; green fallback) */
+   Tint comes from --page-tint (set on <body> by the Default layout; green fallback).
+   Per-section intensity overrides: --bd-line (scanline colour), --bd-vig-pct, --bd-bar-pct. */
 .backdrop {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
   background-image:
-    repeating-linear-gradient(0deg, color-mix(in oklab, var(--text) 5%, transparent) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--page-tint, var(--green)) 7%, transparent) 100%);
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--bd-line, var(--text)) 5%, transparent) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--page-tint, var(--green)) var(--bd-vig-pct, 7%), transparent) 100%);
 }
 .scanbar {
   position: absolute; left: 0; right: 0; height: 90px;
-  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--page-tint, var(--green)) 12%, transparent), transparent);
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--page-tint, var(--green)) var(--bd-bar-pct, 12%), transparent), transparent);
   animation: scanbar 7s linear infinite;
 }
 @keyframes scanbar { 0% { top: -12%; } 100% { top: 112%; } }
+/* dashed flow on career timeline edges */
+@keyframes edgeflow { to { stroke-dashoffset: -12; } }
 
 /* inline mono call-to-action link inside a card body */
 .cta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--blue); }
 
-/* career highlights — glowing stat cards (overview page) */
+/* career highlights — glowing stat cards, tinted per page via --page-tint
+   (green on the dashboard, purple on /career) */
+.highlights-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700; letter-spacing: -0.3px;
+  color: var(--page-tint, var(--green));
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.highlights-heading-bar {
+  width: 8px; height: 22px;
+  background: var(--page-tint, var(--green));
+  border-radius: 2px;
+  box-shadow: 0 0 10px color-mix(in oklab, var(--page-tint, var(--green)) 55%, transparent);
+}
 .highlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
 .highlight {
   position: relative; overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--green) 38%, var(--border));
+  border: 1px solid color-mix(in oklab, var(--page-tint, var(--green)) 38%, var(--border));
   border-radius: 10px;
-  background: linear-gradient(165deg, color-mix(in oklab, var(--green) 9%, var(--panel)) 0%, var(--panel) 60%);
+  background: linear-gradient(165deg, color-mix(in oklab, var(--page-tint, var(--green)) 9%, var(--panel)) 0%, var(--panel) 60%);
   box-shadow:
-    0 0 22px color-mix(in oklab, var(--green) 10%, transparent),
-    inset 0 1px 0 color-mix(in oklab, var(--green) 22%, transparent);
+    0 0 22px color-mix(in oklab, var(--page-tint, var(--green)) 10%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--page-tint, var(--green)) 22%, transparent);
   padding: 16px 18px;
 }
-.hl-stat { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.5px; }
+.hl-stat { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: var(--page-tint, var(--green)); letter-spacing: -0.5px; }
 .hl-title { font-size: 12.5px; font-weight: 600; margin-top: 5px; }
 .hl-note { font-size: 11px; color: var(--text-faint); margin-top: 3px; line-height: 1.45; }
 

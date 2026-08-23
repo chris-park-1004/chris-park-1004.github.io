@@ -23,7 +23,6 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <div class="highlights-heading"><span class="highlights-heading-bar"></span>Career Highlights</div>
   <CareerHighlights />
 
   <!-- main grid -->
@@ -88,7 +87,7 @@ const breadcrumbs = [
 
     <!-- right rail -->
     <div class="rail">
-      <div class="section-label">── ./contact</div>
+      <div class="section-label">── contact</div>
 
       <div class="card endpoints-card" id="contact-card">
         <div class="card-label">endpoints</div>
@@ -124,26 +123,6 @@ const breadcrumbs = [
      so they must stay scoped here instead of moving into global.css:
        .stage-link        → also used by the ci-cd component index pages
        .endpoints-card    → also used by /career */
-  /* Career Highlights heading: bold green title with a glowing bar */
-  .highlights-heading {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    color: var(--green);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .highlights-heading-bar {
-    width: 8px;
-    height: 22px;
-    background: var(--green);
-    border-radius: 2px;
-    box-shadow: 0 0 10px color-mix(in oklab, var(--green) 55%, transparent);
-  }
-
   .stage-link {
     display: block;
     color: inherit;
@@ -155,36 +134,12 @@ const breadcrumbs = [
     transform: translateY(-1px);
   }
 
-  /* single-line endpoint rows so the card can stretch to the About card height;
-     ink treatment (--ink-*) applies on the dashboard only */
+  /* stretch the contact card to the About card height (ink look is global) */
   .endpoints-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    background: var(--ink-bg);
-    border-color: var(--ink-border);
-  }
-  .endpoints-card .card-label { color: var(--ink-dim); }
-  .endpoints-card .contact-row .path { color: var(--ink-text); }
-  .endpoints-card .contact-row {
-    display: grid;
-    grid-template-columns: 30px 62px 1fr;
-    align-items: center;
-    gap: 8px;
-  }
-  .endpoints-card .contact-row .verb { color: var(--ink-green); }
-  .endpoints-card .contact-row .val {
-    display: block;
-    padding-left: 0;
-    margin-top: 0;
-    text-align: left;
-    justify-self: start;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: normal;
-    color: var(--ink-dim);
   }
 </style>
 
@@ -197,10 +152,11 @@ const breadcrumbs = [
 
     function sync() {
       if (window.innerWidth <= 900) {
-        contact.style.height = '';
+        contact.style.minHeight = '';
         return;
       }
-      contact.style.height = about.offsetHeight + 'px';
+      // min-height (not height) so the card can still grow if its content overflows
+      contact.style.minHeight = about.offsetHeight + 'px';
     }
 
     window.addEventListener('resize', sync);
