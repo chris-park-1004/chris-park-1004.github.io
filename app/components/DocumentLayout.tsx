@@ -3,6 +3,7 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import '../styles/documents.css';
 import '../styles/document-layout.css';
+import '../styles/document-cards.css';
 
 interface Props {
   children: ReactNode;
@@ -22,7 +23,7 @@ export default function DocumentLayout({ children, breadcrumbs, pageClass }: Pro
           {segment.href ? <a href={segment.href}>{index === 0 ? 'Home' : segment.label}</a> : <span aria-current="page">{segment.label}</span>}
         </Fragment>)}
       </nav>
-      <div className={`document-content ${pageClass}`}>{children}</div>
+      <div className={`document-content ${pageClass}${pageClass === 'document-career' ? '' : ' document-cards'}`}>{children}</div>
     </main>
     <Footer />
   </>;

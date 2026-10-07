@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import RelatedCard from "../../documents/components/RelatedCard";
@@ -269,6 +270,7 @@ export default function DocumentPage() {
         <div className="stage-head">
           <div>
             <div className="stage-meta">
+                  <DocCardIcon kind="chart" />
               <span className="id">group_01</span>
               <span className="badge b-green"><span className="badge-dot"></span>CI / build</span>
             </div>
@@ -299,6 +301,7 @@ export default function DocumentPage() {
         <div className="stage-head">
           <div>
             <div className="stage-meta">
+                  <DocCardIcon kind="chart" />
               <span className="id">group_02</span>
               <span className="badge b-purple"><span className="badge-dot"></span>JVM / system</span>
             </div>
@@ -335,7 +338,7 @@ export default function DocumentPage() {
       <div className="section-label">── ./context</div>
 
       <div className="card">
-        <div className="card-label">why prometheus</div>
+        <div className="card-label"><DocCardIcon kind="info" />why prometheus</div>
         <p>
           The Jenkins plugin exposes a ready-made <code>/prometheus</code> endpoint, so the gap between "Jenkins is up" and "I have a dashboard" is just one container plus one scrape job. No custom exporters, no instrumentation code.
         </p>
@@ -345,7 +348,7 @@ export default function DocumentPage() {
       </div>
 
       <div className="card">
-        <div className="card-label">result codes</div>
+        <div className="card-label"><DocCardIcon kind="info" />result codes</div>
         <p style={cssStyle("font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0 0 12px;")}>
           Values of <code>last_build_result_ordinal</code>, counted to build the build-status tiles:
         </p>

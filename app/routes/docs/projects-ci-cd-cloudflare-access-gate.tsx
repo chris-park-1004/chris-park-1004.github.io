@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 const breadcrumbs = [
@@ -25,6 +26,7 @@ export default function DocumentPage() {
     <div className="stage-head">
       <div>
         <div className="stage-meta">
+                  <DocCardIcon kind="document" />
           <span className="id">draft</span>
           <span className="badge b-yellow"><span className="badge-dot"></span>writing</span>
         </div>

@@ -1,4 +1,5 @@
 import { cssStyle, imageFallback } from '../helpers';
+import DocCardIcon from './DocCardIcon';
 const PROM = '/projects/ci-cd/prometheus/';
 export interface Src {
     label: string;
@@ -21,7 +22,7 @@ export default function PanelGrid({ panels, accent, dir }: Props) {
     <div className="panel-grid">
   {panels.map((p, itemIndex) => (<div className="panel-card" style={cssStyle(`--accent: var(--${accent})`)} key={itemIndex}>
       <div className="panel-head">
-        <div className="panel-name">{p.name}</div>
+        <div className="panel-name"><DocCardIcon kind="chart" />{p.name}</div>
         <span className="chip">{p.viz}</span>
       </div>
       <div className="panel-shot">

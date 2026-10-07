@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import LivePipeline from "../../documents/components/LivePipeline";
@@ -106,6 +107,7 @@ export default function DocumentPage() {
             <div className="stage-head">
               <div>
                 <div className="stage-meta">
+                  <DocCardIcon kind={comp.name} />
                   <span className="id">{comp.id}</span>
                   {comp.status === 'deployed' ? (<span className="badge b-green"><span className="badge-dot"></span>deployed</span>) : (<span className="badge b-dim"><span className="badge-dot"></span>planning</span>)}
                 </div>

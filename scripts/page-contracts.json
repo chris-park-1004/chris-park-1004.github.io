@@ -3,7 +3,7 @@
     "url": "/career/",
     "title": "Career — Chris (Honggyu) Park",
     "description": "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure.",
-    "textHash": "cf96f1cdce924d8c1e8e8525d1b277520cad249e3d002097cf4cee4b25018815",
+    "textHash": "79783fd1274c2283901e48e2b32d20dacc74eeb226aa43eee1c224d392c6feea",
     "anchors": [],
     "links": [
       "https://setprojectday.ca/post/2026/loc8u/",
@@ -28,7 +28,7 @@
     "url": "/projects/ci-cd/cloudflare/",
     "title": "Cloudflare — CI/CD Pipeline",
     "description": "Cloudflare integration notes: Tunnel for outbound-only connectivity, Access gate for admin authentication.",
-    "textHash": "20d432526bb871025cd8a7b35fe940b92dc9d596bea30a2bbb1d8f80ded3ea9e",
+    "textHash": "8ca7867915ff70cf88ad740179bf062d80959b1c660cc4caa7c5325ee0b24998",
     "anchors": [],
     "links": [
       "/projects/ci-cd/cloudflare/tunnel-setup",
@@ -67,7 +67,7 @@
     "url": "/projects/ci-cd/github/",
     "title": "GitHub — CI/CD Pipeline",
     "description": "GitHub integration notes: App-based auth, webhook, and PR Checks API.",
-    "textHash": "48ca27b7da5495933455abaf6522f2f75f92cec4efe5ed76d39aa1bb89342a0c",
+    "textHash": "f0b653047b95727839ba0e94127b192694b67a3f9d6a4e560cd278f859d2744a",
     "anchors": [],
     "links": [
       "/projects/ci-cd/github/app-setup",
@@ -107,7 +107,7 @@
     "url": "/projects/ci-cd/grafana/",
     "title": "Grafana — CI/CD Pipeline",
     "description": "One Grafana Cloud dashboard over the Jenkins pipeline, split into two row groups (Jenkins Overview and Server Resources). Open a group to see every panel explained and linked to its Prometheus metric.",
-    "textHash": "22125b9080a7118c69b8f81663251700506bb7fa5fb681c6cc613575e7006aef",
+    "textHash": "dd5bad7183e7ba3fce48fa866b0b5088aa9f8a2186c88ad976207cfe4b442bb0",
     "anchors": [],
     "links": [
       "https://chrispark1004.grafana.net/public-dashboards/2d066cd8728b4f5cb5b01ce7be2a505f",
@@ -243,7 +243,7 @@
     "url": "/projects/ci-cd/",
     "title": "CI/CD Pipeline — Chris (Honggyu) Park",
     "description": "Personal CI/CD pipeline project: Jenkins on home PC, Cloudflare Tunnel, GitHub App authentication, Prometheus metrics and a live public Grafana dashboard.",
-    "textHash": "1f03daaf6a9387e2180e429986b2e6d308ac0c71b539e7996f3644584130c00a",
+    "textHash": "c374296a28d3c45ada8a668b853653796d6f144bb3d2dc65dd47ea7482c63ed9",
     "anchors": [],
     "links": [
       "/projects/ci-cd/jenkins/",
@@ -308,7 +308,7 @@
     "url": "/projects/ci-cd/jenkins/",
     "title": "Jenkins — CI/CD Pipeline",
     "description": "Jenkins setup notes: installation, dedicated service account, Multibranch Pipeline, GitHub Checks API integration, and multi-agent architecture.",
-    "textHash": "cbe30a4d15933ee77ff68b20450593e2f774f1d358edf89d77320f7349812400",
+    "textHash": "38a94c0bf439ef2be1552c6722033729cd19f5905893e961164fbf39575e758c",
     "anchors": [],
     "links": [
       "/projects/ci-cd/jenkins/installation",
@@ -362,7 +362,7 @@
     "url": "/projects/ci-cd/prometheus/",
     "title": "Prometheus — CI/CD Pipeline",
     "description": "What flows from Jenkins to Grafana Cloud: the metric catalog behind the Jenkins Overview and Server Resources dashboards, mapped to the panels that consume each series.",
-    "textHash": "13c7596882cb53ecc92b5eb736b9c455713ced49cf34461043f84172d9222b3d",
+    "textHash": "4cc24f59448120bcd46732ab8fce1de08bdaeefe3bdbae0d90e1001451cceb60",
     "anchors": [
       "up",
       "health-score",

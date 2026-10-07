@@ -1,4 +1,5 @@
 import { cssStyle } from '../helpers';
+import DocCardIcon from './DocCardIcon';
 export interface Doc {
     id: string;
     name: string;
@@ -18,6 +19,7 @@ export default function DocList({ docs }: Props) {
       <div className="stage-head">
         <div>
           <div className="stage-meta">
+            <DocCardIcon kind={doc.href.split('/').filter(Boolean).at(-1)} />
             <span className="id">{doc.id}</span>
             <span className="badge b-dim"><span className="badge-dot"></span>draft</span>
           </div>

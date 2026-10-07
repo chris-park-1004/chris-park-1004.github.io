@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import DocList from "../../documents/components/DocList";
@@ -55,7 +56,7 @@ export default function DocumentPage() {
       <div className="section-label">── ./context</div>
 
       <div className="card">
-        <div className="card-label">why tunnel</div>
+        <div className="card-label"><DocCardIcon kind="info" />why tunnel</div>
         <p>
           A home PC behind NAT can't accept inbound connections without port forwarding and DDNS, both of which expose attack surface. Cloudflare Tunnel reverses the direction: the home PC opens an outbound socket to Cloudflare and keeps it alive.
         </p>

@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import DocList from "../../documents/components/DocList";
@@ -62,7 +63,7 @@ export default function DocumentPage() {
       <div className="section-label">── ./context</div>
 
       <div className="card">
-        <div className="card-label">why github app</div>
+        <div className="card-label"><DocCardIcon kind="info" />why github app</div>
         <p>
           Personal Access Tokens (PATs) are user-bound and have a fixed 5,000 req/hr rate limit. GitHub Apps scale with installation, are account-independent, and issue short-lived 1-hour tokens auto-refreshed by Jenkins.
         </p>

@@ -1,0 +1,86 @@
+/* Shared document cards. The live pipeline and career's approved design are excluded. */
+.documentation .document-cards :is(.stage:not(.pipeline-card), .card, .dash-card, .panel-card, .live-link, .summary > div) {
+  --card-accent: #7855ad;
+  --card-tint: #eee7f8;
+  position: relative;
+  isolation: isolate;
+  border: 1px solid #e5e1eb;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 100% 0%, var(--card-tint), transparent 62%), #fff;
+  box-shadow: 0 4px 20px #30204005;
+  animation: none;
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.documentation .document-cards :is(.stage:not(.pipeline-card), .dash-card, .panel-card)[style*="--green"],
+.documentation .document-cards .summary > div:nth-child(2) { --card-accent: #387b78; --card-tint: #e8f3ee; }
+.documentation .document-cards :is(.stage:not(.pipeline-card), .dash-card, .panel-card)[style*="--blue"],
+.documentation .document-cards .summary > div:nth-child(4) { --card-accent: #546fa6; --card-tint: #ecf0fa; }
+.documentation .document-cards :is(.stage:not(.pipeline-card), .dash-card, .panel-card)[style*="--yellow"],
+.documentation .document-cards .summary > div:nth-child(3) { --card-accent: #ab713f; --card-tint: #f9eee3; }
+.documentation .document-cards :is(.stage:not(.pipeline-card), .dash-card, .panel-card)[style*="--red"] { --card-accent: #aa626d; --card-tint: #faecee; }
+.documentation .document-cards :is(.stage:not(.pipeline-card), .card, .live-link) { padding: 24px; }
+
+/* A bounded ornament never overlays content or clips keyboard focus rings. */
+.documentation .document-cards :is(.stage:not(.pipeline-card), .dash-card, .panel-card, .summary > div)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 160px;
+  height: 145px;
+  border-top-right-radius: inherit;
+  pointer-events: none;
+  opacity: .13;
+  background: repeating-radial-gradient(circle at 100% 0, transparent 0 23px, var(--card-accent) 24px 25px, transparent 26px 43px);
+  mask-image: linear-gradient(225deg, #000, transparent 78%);
+}
+.documentation .document-cards .stage:not(.pipeline-card) .stage-head { padding: 0; margin: 0; gap: 18px; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-meta { gap: 10px; margin-bottom: 16px; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-name { font-size: 22px; line-height: 1.35; font-weight: 550; letter-spacing: -.55px; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-sub { font-family: var(--font); font-size: 12px; line-height: 1.75; margin-top: 8px; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-dur { font-family: var(--font); background: var(--card-tint); color: var(--card-accent); padding: 6px 10px; border-radius: 7px; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-body { padding: 20px 0 0; margin-top: 20px; border-top: 1px solid #e9e4ee; }
+.documentation .document-cards .stage:not(.pipeline-card) > .stage-body:first-child { padding-top: 0; margin-top: 0; border: 0; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-body :is(p, li) { line-height: 1.8; color: #66616d; }
+.documentation .document-cards .stage:not(.pipeline-card) .stage-body ul { gap: 12px; }
+.documentation .document-cards .stage:not(.pipeline-card) .badge { font-family: var(--font); font-size: 10px; letter-spacing: 0; }
+.documentation .document-cards .stage:not(.pipeline-card) .badge-dot { box-shadow: none; }
+.doc-card-icon { display: inline-grid; place-items: center; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 11px; background: var(--card-tint); color: var(--card-accent); box-shadow: inset 0 0 0 1px #ffffffb3, 0 3px 6px #30204006; }
+.documentation .document-cards :is(.card, .live-link) .card-label { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 14px; font-weight: 550; letter-spacing: .1px; text-transform: none; color: #534760; }
+.documentation .document-cards .card p { line-height: 1.8; }
+.documentation .document-cards .related-links { font-family: var(--font); gap: 4px; }
+.documentation .document-cards .related-links a { padding-block: 8px; }
+.documentation .document-cards .related-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.documentation .document-cards .stage-link { border-radius: 18px; }
+.documentation .document-cards :is(.stage-link, .dash-card):focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; }
+.documentation .document-cards .stage:not(.pipeline-card) .chip { border-color: #e7e1ed; background: #ffffffa6; border-radius: 7px; padding: 5px 9px; }
+.documentation .document-cards .stack-tags { gap: 7px; }
+.documentation .document-cards .summary { background: none; border: 0; padding: 0; box-shadow: none; gap: 16px; }
+.documentation .document-cards .summary > div { min-width: 0; padding: 22px; }
+.documentation .document-cards .summary .k { font-family: var(--font); font-size: 12px; text-transform: none; letter-spacing: .1px; color: #716979; }
+.documentation .document-cards .summary .v { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); font-weight: 500; line-height: 1.3; letter-spacing: -1px; margin-top: 12px; color: var(--card-accent); overflow-wrap: anywhere; }
+.documentation .document-cards .dash-body { padding: 24px; gap: 14px; }
+.documentation .document-cards .panel-head { padding: 20px 24px; }
+.documentation .document-cards :is(.panel-head, .panel-top) .panel-name { display: flex; align-items: center; gap: 12px; font-size: 18px; line-height: 1.4; }
+.documentation .document-cards .panel-body { padding: 20px 24px 24px; gap: 12px; }
+.documentation .document-cards .panel-shot { background: #f3f1f6; border-color: #e9e4ee; }
+.documentation .document-cards .panel-meaning { line-height: 1.8; }
+.documentation .document-cards .panel-grid { gap: 20px; }
+.documentation .document-cards .live-link .ll-cta { font-family: var(--font); white-space: normal; }
+@media (hover: hover) and (pointer: fine) {
+  .documentation .document-cards :is(.stage-link:hover .stage, .dash-card:hover, .summary > div:hover) { transform: translateY(-4px); border-color: var(--card-accent); box-shadow: 0 14px 28px #3020400e; }
+  .documentation .document-cards :is(.stage:not(.pipeline-card):hover, .card:hover, .panel-card:hover, .live-link:hover) { border-color: var(--card-accent); box-shadow: 0 8px 24px #3020400c; }
+}
+@media (max-width: 540px) {
+  .documentation .document-cards :is(.stage:not(.pipeline-card), .card, .live-link) { padding: 20px; }
+  .documentation .document-cards .stage:not(.pipeline-card) .stage-name { font-size: 20px; }
+  .documentation .document-cards .summary { gap: 12px; }
+  .documentation .document-cards .summary > div { padding: 18px; }
+  .documentation .document-cards :is(.panel-head, .dash-body, .panel-body) { padding: 18px; }
+  .documentation .document-cards :is(.panel-head, .panel-top) { flex-wrap: wrap; }
+  .documentation .document-cards .panel-head .panel-name { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .documentation .document-cards :is(.stage-link:hover .stage, .dash-card:hover, .summary > div:hover) { transform: none; }
+}

@@ -454,7 +454,6 @@
   .documentation .header { flex-direction: column; align-items: flex-start; }
   .documentation .header-meta { align-items: flex-start; }
   .documentation .rail { order: -1; }
-  .documentation .endpoints-card { order: -1; }
 }
 @media (max-width: 540px) {
   .documentation .summary { grid-template-columns: 1fr 1fr; }
@@ -479,17 +478,6 @@
       0 0 22px color-mix(in oklab, var(--red) 10%, transparent),
       inset 0 1px 0 color-mix(in oklab, var(--red) 22%, transparent);
   }
-  .documentation .document-career .grid > div:first-child > .stage,
-  .documentation .document-career .grid > div:first-child > .edge { animation: nodepop .5s both; }
-  .documentation .document-career .grid > div:first-child > :nth-child(2)  { animation-delay: .05s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(3)  { animation-delay: .12s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(4)  { animation-delay: .2s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(5)  { animation-delay: .27s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(6)  { animation-delay: .35s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(7)  { animation-delay: .42s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(8)  { animation-delay: .5s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(9)  { animation-delay: .57s; }
-  .documentation .document-career .grid > div:first-child > :nth-child(10) { animation-delay: .65s; }
   .documentation .document-projects-ci-cd .shot img { height: 120px; }
   .documentation .document-projects-ci-cd .grid > div:first-child .stage { animation: nodepop .5s both; }
   .documentation .document-projects-ci-cd .grid > div:first-child .stage-link:nth-of-type(1) .stage { animation-delay: .1s; }

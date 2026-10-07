@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle, imageFallback } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import RelatedCard from "../../documents/components/RelatedCard";
@@ -79,7 +80,7 @@ export default function DocumentPage() {
     {groups.map((g, itemIndex) => (<a className="dash-card" href={g.href} style={cssStyle(`--accent: var(--${g.accent})`)} key={itemIndex}>
         <div className="dash-body">
           <div className="panel-top">
-            <div className="panel-name">{g.name}</div>
+            <div className="panel-name"><DocCardIcon kind="chart" />{g.name}</div>
             <span className={`badge ${g.badge}`}><span className="badge-dot"></span>{g.panels} panels</span>
           </div>
           <p className="panel-meaning">{g.description}</p>
@@ -102,7 +103,7 @@ export default function DocumentPage() {
 
       <div className="section-label">── ./context</div>
       <div className="card">
-        <div className="card-label">why grafana cloud</div>
+        <div className="card-label"><DocCardIcon kind="info" />why grafana cloud</div>
         <p>
           Self-hosting Grafana would mean exposing yet another service through the Cloudflare Tunnel. Grafana Cloud hosts the dashboards externally instead — the home PC only pushes metrics out via Prometheus <code>remote_write</code>, never accepting inbound connections.
         </p>

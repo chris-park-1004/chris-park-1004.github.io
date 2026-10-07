@@ -1,3 +1,4 @@
+import DocCardIcon from "../../documents/components/DocCardIcon";
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import DocList from "../../documents/components/DocList";
@@ -123,7 +124,7 @@ export default function DocumentPage() {
       <div className="section-label">── ./context</div>
 
       <div className="card">
-        <div className="card-label">why jenkins</div>
+        <div className="card-label"><DocCardIcon kind="info" />why jenkins</div>
         <p>
           Jenkins is the industry standard for self-hosted CI/CD. Full control, rich plugin ecosystem, and the same tool used at most enterprises with on-prem pipelines.
         </p>

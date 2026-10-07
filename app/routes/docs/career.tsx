@@ -1,3 +1,4 @@
+import '../../styles/career.css';
 import { cssStyle } from '../../documents/helpers';
 import DocumentLayout from "../../components/DocumentLayout";
 import CareerHighlights from "../../documents/components/CareerHighlights";
@@ -6,6 +7,15 @@ const breadcrumbs = [
     { label: 'chris-park-1004', href: '/' },
     { label: 'career' },
 ];
+function CareerIcon({ kind }: { kind: 'mechanical' | 'infra' | 'code' | 'education' | 'next' }) {
+  return <span className="career-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    {kind === 'mechanical' ? <><circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="3" /><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2" /></>
+      : kind === 'infra' ? <><rect x="4" y="3" width="16" height="7" rx="2" /><rect x="4" y="14" width="16" height="7" rx="2" /><path d="M8 6.5h.01M8 17.5h.01M12 10v4" /></>
+      : kind === 'code' ? <><rect x="2" y="3" width="20" height="18" rx="3" /><path d="M2 8h20m-14 4-3 3 3 3m8-6 3 3-3 3m-3-7-2 8" /></>
+      : kind === 'education' ? <><path d="m2 9 10-5 10 5-10 5-10-5M6 11v6c4 3 8 3 12 0v-6M22 9v7" /></>
+      : <><path d="M5 19 19 5M7 5h12v12M4 7V4h3" /></>}
+  </svg></span>;
+}
 export function meta() { return [{ title: "Career — Chris (Honggyu) Park" }, { name: 'description', content: "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure." }, { property: 'og:title', content: "Career — Chris (Honggyu) Park" }, { property: 'og:description', content: "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }]; }
 export default function DocumentPage() {
     return (<>
@@ -29,17 +39,17 @@ export default function DocumentPage() {
 
   {/* main grid */}
   <div className="grid">
-    <div>
-      <div className="section-label">── career.pipeline.yml</div>
+    <div className="career-history">
+      <h2 className="section-label">Experience & education</h2>
 
-      <div className="stage" style={cssStyle("--accent: var(--purple)")}>
+      <div className="stage" data-discipline="mechanical">
         <div className="stage-head">
           <div>
             <div className="stage-meta">
-              <span className="id">stage_01</span>
-              <span className="badge b-green"><span className="badge-dot"></span>success</span>
+              <CareerIcon kind="mechanical" />
+              <span className="career-type">Education</span>
             </div>
-            <div className="stage-name">B.Eng — Mechanical Engineering</div>
+            <h3 className="stage-name">B.Eng — Mechanical Engineering</h3>
             <div className="stage-sub">Jeonju University · 2015–2022</div>
           </div>
           <div className="stage-dur">7y</div>
@@ -51,18 +61,16 @@ export default function DocumentPage() {
           </ul>
         </div>
       </div>
-      <div className="edge" style={cssStyle("color:var(--purple);padding:10px 0;")}>
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" strokeWidth="2" strokeDasharray="6 6" style={cssStyle("animation:edgeflow 1s linear infinite;")}/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/></svg>
-      </div>
+      <div className="career-connector" aria-hidden="true" />
 
-      <div className="stage" style={cssStyle("--accent: var(--green)")}>
+      <div className="stage" data-discipline="infra">
         <div className="stage-head">
           <div>
             <div className="stage-meta">
-              <span className="id">stage_02</span>
-              <span className="badge b-green"><span className="badge-dot"></span>success</span>
+              <CareerIcon kind="infra" />
+              <span className="career-type">Experience</span>
             </div>
-            <div className="stage-name">DevOps Engineer @ VARLab</div>
+            <h3 className="stage-name">DevOps Engineer @ VARLab</h3>
             <div className="stage-sub">Conestoga College · May 2024 – May 2025</div>
           </div>
           <div className="stage-dur">12mo</div>
@@ -75,18 +83,16 @@ export default function DocumentPage() {
           </ul>
         </div>
       </div>
-      <div className="edge" style={cssStyle("color:var(--purple);padding:10px 0;")}>
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" strokeWidth="2" strokeDasharray="6 6" style={cssStyle("animation:edgeflow 1s linear infinite;")}/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/></svg>
-      </div>
+      <div className="career-connector" aria-hidden="true" />
 
-      <div className="stage" style={cssStyle("--accent: var(--blue)")}>
+      <div className="stage" data-discipline="code">
         <div className="stage-head">
           <div>
             <div className="stage-meta">
-              <span className="id">stage_03</span>
-              <span className="badge b-green"><span className="badge-dot"></span>success</span>
+              <CareerIcon kind="code" />
+              <span className="career-type">Experience</span>
             </div>
-            <div className="stage-name">Software Engineer @ Smart Centre</div>
+            <h3 className="stage-name">Software Engineer @ Smart Centre</h3>
             <div className="stage-sub">Conestoga College · May – Sep 2025</div>
           </div>
           <div className="stage-dur">5mo</div>
@@ -98,18 +104,16 @@ export default function DocumentPage() {
           </ul>
         </div>
       </div>
-      <div className="edge" style={cssStyle("color:var(--purple);padding:10px 0;")}>
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" strokeWidth="2" strokeDasharray="6 6" style={cssStyle("animation:edgeflow 1s linear infinite;")}/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/></svg>
-      </div>
+      <div className="career-connector" aria-hidden="true" />
 
-      <div className="stage" style={cssStyle("--accent: var(--green)")}>
+      <div className="stage" data-discipline="education">
         <div className="stage-head">
           <div>
             <div className="stage-meta">
-              <span className="id">stage_04</span>
-              <span className="badge b-green"><span className="badge-dot"></span>success</span>
+              <CareerIcon kind="education" />
+              <span className="career-type">Education</span>
             </div>
-            <div className="stage-name">Adv. Diploma — Software Engineering Tech.</div>
+            <h3 className="stage-name">Adv. Diploma — Software Engineering Tech.</h3>
             <div className="stage-sub">Conestoga College · 2023 – 2026</div>
           </div>
           <div className="stage-dur">3y</div>
@@ -121,34 +125,32 @@ export default function DocumentPage() {
           </ul>
         </div>
       </div>
-      <div className="edge" style={cssStyle("color:var(--purple);padding:10px 0;")}>
-        <svg aria-hidden="true" width="20" height="28" viewBox="0 0 20 28"><line x1="10" y1="0" x2="10" y2="22" stroke="currentColor" strokeWidth="2" strokeDasharray="6 6" style={cssStyle("animation:edgeflow 1s linear infinite;")}/><path d="M5 18 L10 26 L15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/></svg>
-      </div>
+      <div className="career-connector" aria-hidden="true" />
 
-      <div className="stage" style={cssStyle("--accent: var(--blue)")}>
+      <div className="stage" data-discipline="next">
         <div className="stage-head">
           <div>
             <div className="stage-meta">
-              <span className="id">stage_05</span>
-              <span className="badge b-blue"><span className="badge-dot"></span>running</span>
+              <CareerIcon kind="next" />
+              <span className="career-type">Next chapter</span>
             </div>
-            <div className="stage-name">Next: Full-Time DevOps / SRE</div>
+            <h3 className="stage-name">Next: Full-Time DevOps / SRE</h3>
             <div className="stage-sub">Open to opportunities · Canada · Remote</div>
           </div>
           <div className="stage-dur">in progress</div>
         </div>
         <div className="stage-body">
-          <p style={cssStyle("font-style: italic;")}>Deployment in progress · accepting offers ▶</p>
+          <p>Open to full-time DevOps, SRE, and software engineering opportunities.</p>
         </div>
       </div>
     </div>
 
     {/* right rail */}
     <div className="rail">
-      <div className="section-label">── ./contact</div>
+      <h2 className="section-label">Contact</h2>
       <ContactCard />
 
-      <div className="section-label">── ./skills</div>
+      <h2 className="section-label">Skills</h2>
       <div className="card stack-card">
         <div className="stack-group">
           <div className="cat">CI/CD</div>
