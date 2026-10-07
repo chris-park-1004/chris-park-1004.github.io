@@ -95,94 +95,95 @@ img {
 }
 .site-header nav {
   display: flex;
-  gap: 8px;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 500;
-}
-.site-header nav > a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  transition: color .2s, background-color .2s, box-shadow .2s, transform .2s;
-}
-.site-header .nav-link {
-  position: relative;
-  padding: 0 19px;
-  background: #efeeeb;
-  color: #56515e;
-}
-.nav-label {
-  display: inline-flex;
   align-items: center;
-  gap: 7px;
-}
-.nav-icon {
-  width: 16px;
-  height: 16px;
+  width: 410px;
   flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 550;
 }
-.site-header .nav-link::after {
+/* Fixed hit areas keep adjacent buttons and the pointer target still during expansion. */
+.site-header .nav-orb {
+  --orb-width: 44px;
+  --orb-color: #68616f;
+  --orb-background: #efeeeb;
+  --orb-border: #e5e1e9;
+  --orb-shadow: inset 0 1px 0 #ffffffa0;
+  --icon-shift: 0px;
+  --label-opacity: 0;
+  --label-shift: -4px;
+  position: relative;
+  isolation: isolate;
+  flex: 0 0 82px;
+  height: 44px;
+  color: var(--orb-color);
+  border-radius: 999px;
+  transition: color .45s ease;
+}
+.site-header .nav-orb::before {
   content: '';
   position: absolute;
-  bottom: 7px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0;
-  transform: translateY(3px);
-  transition: opacity .2s, transform .2s;
+  z-index: -1;
+  left: 50%;
+  top: 0;
+  width: var(--orb-width);
+  height: 44px;
+  transform: translateX(-50%);
+  border: 1px solid var(--orb-border);
+  border-radius: 999px;
+  background: var(--orb-background);
+  box-shadow: var(--orb-shadow);
+  pointer-events: none;
+  transition: width .6s cubic-bezier(.4, 0, .2, 1), background-color .45s ease, border-color .45s ease, box-shadow .55s ease;
 }
-.site-header .nav-link:is(:hover, :focus-visible) {
-  color: var(--purple);
-  background: var(--lavender);
+.site-header .nav-orb > svg {
+  position: absolute;
+  top: 13px;
+  left: calc(50% - 9px);
+  width: 18px;
+  height: 18px;
+  transform: translateX(var(--icon-shift));
+  transition: transform .6s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
 }
-.site-header .nav-link:is(:hover, :focus-visible)::after {
-  opacity: 1;
-  transform: translateY(0);
+.site-header .nav-text {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 13px);
+  display: flex;
+  align-items: center;
+  height: 44px;
+  white-space: nowrap;
+  opacity: var(--label-opacity);
+  transform: translateX(var(--label-shift));
+  pointer-events: none;
+  transition: opacity .4s ease, transform .6s cubic-bezier(.4, 0, .2, 1);
 }
-.site-header .nav-contact {
-  padding: 6px 7px 6px 20px;
-  margin-left: 9px;
-  min-height: 46px;
-  color: white;
-  background: var(--purple);
-  border: 1px solid #704cba;
-  box-shadow: inset 0 1px 0 #ffffff26, 0 3px 8px #7953c71a;
-  gap: 16px;
+.site-header .nav-orb:focus-visible {
+  --orb-width: 110px;
+  --orb-color: #fff;
+  --orb-background: var(--purple);
+  --orb-border: #704cba;
+  --orb-shadow: inset 0 1px 0 #ffffff26, 0 5px 14px #7953c724;
+  --icon-shift: -29px;
+  --label-opacity: 1;
+  --label-shift: 0px;
+  outline: none;
 }
-.site-header .nav-contact:is(:hover, :focus-visible) {
-  color: white;
-  background: #6741b3;
-  box-shadow: inset 0 1px 0 #ffffff26, 0 6px 14px #7953c72b;
-  transform: translateY(-2px);
-}
-.site-header nav > a:active {
-  transform: translateY(1px);
-  box-shadow: none;
-}
-.nav-arrow {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #ffffff20;
-  transition: background-color .2s;
-}
-.nav-arrow svg {
-  width: 15px;
-  height: 15px;
-  transition: transform .2s;
-}
-.nav-contact:is(:hover, :focus-visible) .nav-arrow {
-  background: #ffffff30;
-}
-.nav-contact:is(:hover, :focus-visible) .nav-arrow svg {
-  transform: translate(2px, -2px);
+.site-header .nav-orb:focus-visible::before { outline: 2px solid var(--purple); outline-offset: 4px; }
+.site-header .nav-orb:focus-visible .nav-text { transition-delay: .12s, 0s; }
+@media (hover: hover) and (pointer: fine) {
+  .site-header nav:not(:has(:focus-visible)) .nav-orb:hover {
+    --orb-width: 110px;
+    --orb-color: #fff;
+    --orb-background: var(--purple);
+    --orb-border: #704cba;
+    --orb-shadow: inset 0 1px 0 #ffffff26, 0 5px 14px #7953c724;
+    --icon-shift: -29px;
+    --label-opacity: 1;
+    --label-shift: 0px;
+  }
+  .site-header nav:not(:has(:focus-visible)) .nav-orb:hover .nav-text { transition-delay: .12s, 0s; }
 }
 .hero {
   min-height: 630px;
@@ -977,23 +978,6 @@ h2 {
   .wordmark > svg {
     width: 23px;
   }
-  .site-header nav {
-    gap: 2px;
-    font-size: 12px;
-  }
-  .site-header .nav-link {
-    padding-inline: 10px;
-  }
-  .site-header .nav-contact {
-    padding: 5px 6px 5px 13px;
-    margin-left: 4px;
-    gap: 7px;
-    min-height: 44px;
-  }
-  .nav-arrow {
-    width: 25px;
-    height: 25px;
-  }
   .hero {
     grid-template-columns: 1fr;
     padding-block: 52px 28px;
@@ -1125,44 +1109,10 @@ h2 {
     gap: 18px;
   }
 }
-@media (max-width: 480px) {
-  .site-header .nav-label {
-    flex-direction: column;
-    gap: 3px;
-    font-size: 10px;
-    line-height: 1.1;
-  }
-  .site-header .nav-icon {
-    width: 14px;
-    height: 14px;
-  }
-  .site-header .nav-link {
-    padding-inline: 12px;
-  }
-  .site-header .nav-contact {
-    padding: 6px 15px;
-  }
-  .site-header .nav-arrow {
-    display: none;
-  }
-}
+
 @media (max-width: 370px) {
   .wrap {
     width: calc(100% - 32px);
-  }
-  .site-header nav {
-    gap: 0;
-    font-size: 11px;
-  }
-  .site-header .nav-link {
-    padding-inline: 8px;
-  }
-  .site-header .nav-contact {
-    padding-inline: 12px;
-    margin-left: 3px;
-  }
-  .nav-arrow {
-    display: none;
   }
   h1 {
     font-size: 40px;
@@ -1185,6 +1135,32 @@ h2 {
   .visual-topline > .tiny-label {
     font-size: 6px;
   }
+}
+@media (max-width: 660px) {
+  .site-header { height: auto; flex-wrap: wrap; gap: 12px; padding-block: 14px 12px; }
+  .site-header nav { width: 100%; }
+}
+/* Touch menus keep captions visible and retain their circular backgrounds. */
+@media (hover: none), (max-width: 660px) {
+  .site-header nav { gap: 14px; padding-bottom: 20px; }
+  .site-header nav .nav-orb,
+  .site-header nav .nav-orb:focus-visible,
+  .site-header nav:not(:has(:focus-visible)) .nav-orb:hover { flex-basis: 44px; --orb-width: 44px; --icon-shift: 0px; }
+  .site-header .nav-text {
+    top: calc(100% + 6px);
+    left: 50%;
+    height: auto;
+    color: #68616f;
+    font-size: 10px;
+    line-height: 1.2;
+    opacity: 1;
+    transform: translateX(-50%);
+    transition: none;
+  }
+  .site-header .nav-orb:focus-visible .nav-text { color: var(--purple); }
+}
+@media (max-width: 370px) {
+  .site-header nav { gap: 12px; }
 }
 /* Scenes remain still until a pointer or keyboard user explores them.
    Individual transform properties preserve the original SVG and card angles. */
