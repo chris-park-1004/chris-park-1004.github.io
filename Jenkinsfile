@@ -68,11 +68,12 @@ pipeline {
                 script {
                     try {
                         bat 'npm ci'
+                        bat 'npm ci --prefix redesign'
                         publishChecks(
                             name: 'jenkins/install',
                             conclusion: 'SUCCESS',
                             summary: 'Dependencies installed',
-                            text: 'npm ci completed from package-lock.json'
+                            text: 'Root and React dependencies installed from lockfiles'
                         )
                     } catch (e) {
                         publishChecks(
@@ -92,7 +93,7 @@ pipeline {
                 publishChecks(
                     name: 'jenkins/build',
                     status: 'IN_PROGRESS',
-                    summary: 'Building Astro site...'
+                    summary: 'Building React home and existing detail pages...'
                 )
 
                 script {
@@ -102,7 +103,7 @@ pipeline {
                             name: 'jenkins/build',
                             conclusion: 'SUCCESS',
                             summary: 'Build succeeded',
-                            text: 'Astro site compiled to dist/'
+                            text: 'React home typechecked and prerendered; 19 existing pages preserved in dist/'
                         )
                     } catch (e) {
                         publishChecks(

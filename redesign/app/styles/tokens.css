@@ -1,0 +1,13 @@
+:root {
+  --paper: #f9f9f6;
+  --ink: #24252a;
+  --muted: #68696f;
+  --line: #deded9;
+  --purple: #7953c7;
+  --lavender: #eeebf6;
+  --green: #43623f;
+  --font: "Manrope", "Segoe UI", Arial, sans-serif;
+  --font-display: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+  --max-width: 1240px;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "chris-park-redesign",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev --host 127.0.0.1 --port 5173",
+    "build": "react-router build",
+    "typecheck": "react-router typegen && tsc --noEmit",
+    "verify": "node scripts/verify-build.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --outDir build/client"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router": "8.4.0",
+    "isbot": "^5"
+  },
+  "devDependencies": {
+    "@react-router/dev": "8.4.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.3.3"
+  }
+}
