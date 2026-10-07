@@ -1,0 +1,394 @@
+[
+  {
+    "url": "/career/",
+    "title": "Career — Chris (Honggyu) Park",
+    "description": "Chris (Honggyu) Park — DevOps Engineer based in Waterloo, ON. Mechanical-engineer turned software, building CI/CD pipelines on Azure.",
+    "textHash": "cf96f1cdce924d8c1e8e8525d1b277520cad249e3d002097cf4cee4b25018815",
+    "anchors": [],
+    "links": [
+      "https://setprojectday.ca/post/2026/loc8u/",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/cloudflare/access-gate/",
+    "title": "Cloudflare / Access Gate — CI/CD Pipeline",
+    "description": "OAuth-based authentication gate in front of the Jenkins UI; keeps Jenkins private while the metrics dashboard stays public.",
+    "textHash": "3272fd93b65edecd7c43294e0c745a4f105558fa8eb9befea7db3dfc1d42eb7c",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/cloudflare/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/cloudflare/",
+    "title": "Cloudflare — CI/CD Pipeline",
+    "description": "Cloudflare integration notes: Tunnel for outbound-only connectivity, Access gate for admin authentication.",
+    "textHash": "20d432526bb871025cd8a7b35fe940b92dc9d596bea30a2bbb1d8f80ded3ea9e",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/cloudflare/tunnel-setup",
+      "/projects/ci-cd/cloudflare/access-gate",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004",
+      "/projects/ci-cd/jenkins/",
+      "/projects/ci-cd/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/cloudflare/tunnel-setup/",
+    "title": "Cloudflare / Tunnel Setup — CI/CD Pipeline",
+    "description": "Setting up `cloudflared` on a Windows home PC to create an outbound-only tunnel to Cloudflare, with zero inbound ports.",
+    "textHash": "768e21a06cb59227d5e36bd105cd46d044b60ef8376055ae059d5dee0b5e60be",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/cloudflare/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/github/app-setup/",
+    "title": "GitHub / App Setup — CI/CD Pipeline",
+    "description": "Creating a GitHub App, setting permissions, installing on the repo, and converting the private key from PKCS#1 to PKCS#8 for Jenkins.",
+    "textHash": "28eeeefda9ee8e72b3792ce0e50fff943350a6b807fb6876fab1e83644d57e7e",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/github/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/github/",
+    "title": "GitHub — CI/CD Pipeline",
+    "description": "GitHub integration notes: App-based auth, webhook, and PR Checks API.",
+    "textHash": "48ca27b7da5495933455abaf6522f2f75f92cec4efe5ed76d39aa1bb89342a0c",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/github/app-setup",
+      "/projects/ci-cd/github/webhook",
+      "/projects/ci-cd/github/pr-checks",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004",
+      "/projects/ci-cd/jenkins/",
+      "/projects/ci-cd/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/github/pr-checks/",
+    "title": "GitHub / PR Checks — CI/CD Pipeline",
+    "description": "What the PR page actually shows when Jenkins publishes per-stage checks via the GitHub Checks API.",
+    "textHash": "6dc5030d4bacc511841d4f4070608b6a37ae8ff9952585838f277e08ca11ff0e",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/github/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/github/webhook/",
+    "title": "GitHub / Webhook — CI/CD Pipeline",
+    "description": "GitHub App webhook (vs. repo-level), HMAC-SHA256 signature verification, and how Jenkins consumes the events.",
+    "textHash": "f59210b478660ba813daf08e460656e8230fd775ebc5f38c13c311e1f774c9ee",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/github/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/grafana/",
+    "title": "Grafana — CI/CD Pipeline",
+    "description": "One Grafana Cloud dashboard over the Jenkins pipeline, split into two row groups (Jenkins Overview and Server Resources). Open a group to see every panel explained and linked to its Prometheus metric.",
+    "textHash": "22125b9080a7118c69b8f81663251700506bb7fa5fb681c6cc613575e7006aef",
+    "anchors": [],
+    "links": [
+      "https://chrispark1004.grafana.net/public-dashboards/2d066cd8728b4f5cb5b01ce7be2a505f",
+      "/projects/ci-cd/grafana/jenkins-overview",
+      "/projects/ci-cd/grafana/server-resources",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004",
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/jenkins/",
+      "/projects/ci-cd/"
+    ],
+    "images": [
+      {
+        "src": "/img/grafana/jenkins-overview.png",
+        "alt": "Jenkins Overview row group"
+      },
+      {
+        "src": "/img/grafana/server-resources.png",
+        "alt": "Server Resources row group"
+      }
+    ]
+  },
+  {
+    "url": "/projects/ci-cd/grafana/jenkins-overview/",
+    "title": "Grafana / Jenkins Overview — CI/CD Pipeline",
+    "description": "Panel-by-panel breakdown of the Jenkins Overview row group: controller status, build result tallies, registered pipelines, weekly build activity and stage durations.",
+    "textHash": "d02591dd0372a21a932780afcbd2ba2fd1786b98d86da9c150f6bb251bb6cb88",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/prometheus/#up",
+      "/projects/ci-cd/prometheus/#result-ordinal",
+      "/projects/ci-cd/prometheus/#health-score",
+      "/projects/ci-cd/prometheus/#result-ordinal",
+      "/projects/ci-cd/prometheus/#last-build-duration",
+      "/projects/ci-cd/prometheus/#last-build-start-time",
+      "/projects/ci-cd/prometheus/#duration-summary-count",
+      "/projects/ci-cd/prometheus/#stage-duration-summary",
+      "/projects/ci-cd/grafana/server-resources",
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/grafana/"
+    ],
+    "images": [
+      {
+        "src": "/img/grafana/jenkins-overview/jenkins-status.png",
+        "alt": "Jenkins Status panel"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview/builds.png",
+        "alt": "Build Result Tallies panel"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview/job-health.png",
+        "alt": "Jenkins Job Health panel"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview/registered-pipelines.png",
+        "alt": "Registered Pipelines panel"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview/weekly-build-activity.png",
+        "alt": "Weekly Build Activity by Pipeline × Result panel"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview/stage-avg-duration.png",
+        "alt": "Pipeline Stage Avg Duration panel"
+      }
+    ]
+  },
+  {
+    "url": "/projects/ci-cd/grafana/server-resources/",
+    "title": "Grafana / Server Resources — CI/CD Pipeline",
+    "description": "Panel-by-panel breakdown of the Server Resources row group: CPU, heap, JVM threads, garbage collection, file descriptors and deadlock detection for the Jenkins process.",
+    "textHash": "ec8319404019211fa3e7f1a20f7ef807f5125d38698188fc4dd300022d597494",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/prometheus/#cpu-load",
+      "/projects/ci-cd/prometheus/#heap-usage",
+      "/projects/ci-cd/prometheus/#threads-current-peak",
+      "/projects/ci-cd/prometheus/#file-descriptor",
+      "/projects/ci-cd/prometheus/#cpu-load",
+      "/projects/ci-cd/prometheus/#heap-used-max",
+      "/projects/ci-cd/prometheus/#non-heap-used",
+      "/projects/ci-cd/prometheus/#gc-collection",
+      "/projects/ci-cd/prometheus/#threads-state",
+      "/projects/ci-cd/prometheus/#threads-deadlocked",
+      "/projects/ci-cd/grafana/jenkins-overview",
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/grafana/"
+    ],
+    "images": [
+      {
+        "src": "/img/grafana/server-resources/cpu-load.png",
+        "alt": "CPU Load panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/heap-usage.png",
+        "alt": "Heap Memory Usage panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/jvm-threads.png",
+        "alt": "JVM Threads panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/file-descriptor.png",
+        "alt": "File Descriptor Usage panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/cpu-load-over-time.png",
+        "alt": "CPU Load Over Time panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/jvm-memory.png",
+        "alt": "JVM Memory panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/gc-pause.png",
+        "alt": "GC Pause Time / sec panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/jvm-thread-states.png",
+        "alt": "JVM Thread States panel"
+      },
+      {
+        "src": "/img/grafana/server-resources/deadlocked-threads.png",
+        "alt": "Deadlocked Threads panel"
+      }
+    ]
+  },
+  {
+    "url": "/projects/ci-cd/",
+    "title": "CI/CD Pipeline — Chris (Honggyu) Park",
+    "description": "Personal CI/CD pipeline project: Jenkins on home PC, Cloudflare Tunnel, GitHub App authentication, Prometheus metrics and a live public Grafana dashboard.",
+    "textHash": "1f03daaf6a9387e2180e429986b2e6d308ac0c71b539e7996f3644584130c00a",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/",
+      "/projects/ci-cd/github/",
+      "/projects/ci-cd/cloudflare/",
+      "/projects/ci-cd/prometheus/",
+      "/projects/ci-cd/grafana/",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004"
+    ],
+    "images": [
+      {
+        "src": "https://cdn.simpleicons.org/cloudflare/F38020",
+        "alt": "Cloudflare"
+      },
+      {
+        "src": "https://cdn.simpleicons.org/jenkins/D24939",
+        "alt": "Jenkins"
+      },
+      {
+        "src": "https://cdn.simpleicons.org/prometheus/E6522C",
+        "alt": "Prometheus"
+      },
+      {
+        "src": "https://cdn.simpleicons.org/grafana/F46800",
+        "alt": "Grafana"
+      },
+      {
+        "src": "/img/grafana/jenkins-overview.png",
+        "alt": "Grafana — jenkins-overview row group"
+      },
+      {
+        "src": "/img/grafana/server-resources.png",
+        "alt": "Grafana — server-resources row group"
+      }
+    ]
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/agents/",
+    "title": "Jenkins / Agents — CI/CD Pipeline",
+    "description": "Multi-agent architecture: orchestration controller + dedicated build executor.",
+    "textHash": "2a1b1bc9683e783d5529a4a32310a0f1c0b40bf885d00c8002e35ceaf5e4ed48",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/checks-api/",
+    "title": "Jenkins / Checks API — CI/CD Pipeline",
+    "description": "Per-stage check results pushed to GitHub PR via the Checks API: rich UI, beyond simple commit statuses.",
+    "textHash": "1d209fd06fc8fe598a8fa89897af8ca309a848baa96ba6f3f034cab93604049c",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/",
+    "title": "Jenkins — CI/CD Pipeline",
+    "description": "Jenkins setup notes: installation, dedicated service account, Multibranch Pipeline, GitHub Checks API integration, and multi-agent architecture.",
+    "textHash": "cbe30a4d15933ee77ff68b20450593e2f774f1d358edf89d77320f7349812400",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/installation",
+      "/projects/ci-cd/jenkins/service-account",
+      "/projects/ci-cd/jenkins/multibranch-pipeline",
+      "/projects/ci-cd/jenkins/checks-api",
+      "/projects/ci-cd/jenkins/agents",
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004",
+      "/projects/ci-cd/github/",
+      "/projects/ci-cd/cloudflare/",
+      "/projects/ci-cd/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/installation/",
+    "title": "Jenkins / Installation — CI/CD Pipeline",
+    "description": "Installing Jenkins LTS on Windows 11 Home with Java 25 LTS.",
+    "textHash": "7913e80b879089ba7a12808be0c5fed783de23ec4dff068fc64486e212f69817",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/multibranch-pipeline/",
+    "title": "Jenkins / Multibranch Pipeline — CI/CD Pipeline",
+    "description": "Auto-discover branches and PRs; build against the target-branch merge.",
+    "textHash": "318beb49a608a90cca516a0ad034bd89cdcfff9553743ff914bd087596a72a4f",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/jenkins/service-account/",
+    "title": "Jenkins / Service Account — CI/CD Pipeline",
+    "description": "Running Jenkins as a dedicated `jenkins` local user with the minimum required privileges on Windows 11 Home.",
+    "textHash": "98ee4e28758a99eb01837462160e2e81011e32dc7bc36a95ff493bf7a1e1786e",
+    "anchors": [],
+    "links": [
+      "/projects/ci-cd/jenkins/"
+    ],
+    "images": []
+  },
+  {
+    "url": "/projects/ci-cd/prometheus/",
+    "title": "Prometheus — CI/CD Pipeline",
+    "description": "What flows from Jenkins to Grafana Cloud: the metric catalog behind the Jenkins Overview and Server Resources dashboards, mapped to the panels that consume each series.",
+    "textHash": "13c7596882cb53ecc92b5eb736b9c455713ced49cf34461043f84172d9222b3d",
+    "anchors": [
+      "up",
+      "health-score",
+      "result-ordinal",
+      "last-build-duration",
+      "last-build-start-time",
+      "duration-summary-count",
+      "stage-duration-summary",
+      "cpu-load",
+      "heap-usage",
+      "heap-used-max",
+      "non-heap-used",
+      "threads-current-peak",
+      "threads-state",
+      "threads-deadlocked",
+      "gc-collection",
+      "file-descriptor"
+    ],
+    "links": [
+      "mailto:honggyupark1004@gmail.com",
+      "https://linkedin.com/in/honggyu-park-b68627249",
+      "https://github.com/chris-park-1004",
+      "/projects/ci-cd/grafana/",
+      "/projects/ci-cd/jenkins/",
+      "/projects/ci-cd/"
+    ],
+    "images": []
+  }
+]

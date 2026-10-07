@@ -68,12 +68,11 @@ pipeline {
                 script {
                     try {
                         bat 'npm ci'
-                        bat 'npm ci --prefix redesign'
                         publishChecks(
                             name: 'jenkins/install',
                             conclusion: 'SUCCESS',
                             summary: 'Dependencies installed',
-                            text: 'Root and React dependencies installed from lockfiles'
+                            text: 'React dependencies installed from package-lock.json'
                         )
                     } catch (e) {
                         publishChecks(
@@ -93,7 +92,7 @@ pipeline {
                 publishChecks(
                     name: 'jenkins/build',
                     status: 'IN_PROGRESS',
-                    summary: 'Building React home and existing detail pages...'
+                    summary: 'Typechecking and prerendering all React pages...'
                 )
 
                 script {
@@ -103,7 +102,7 @@ pipeline {
                             name: 'jenkins/build',
                             conclusion: 'SUCCESS',
                             summary: 'Build succeeded',
-                            text: 'React home typechecked and prerendered; 19 existing pages preserved in dist/'
+                            text: 'All 20 React pages prerendered and verified in build/client/'
                         )
                     } catch (e) {
                         publishChecks(
@@ -129,11 +128,11 @@ pipeline {
                 script {
                     try {
                         // Fail fast if the entry page is missing
-                        bat 'if not exist dist\\index.html exit 1'
+                        bat 'if not exist build\\client\\index.html exit 1'
 
                         // Count generated HTML pages for the check summary
                         def pages = bat(
-                            script: '@dir /b /s dist\\*.html | find /c ".html"',
+                            script: '@dir /b /s build\\client\\*.html | find /c ".html"',
                             returnStdout: true
                         ).trim().readLines()[-1].trim()
 
@@ -145,7 +144,7 @@ pipeline {
 ## Build Output
 | Check            | Result    |
 |------------------|-----------|
-| dist/index.html  | present   |
+| build/client/index.html | present |
 | HTML pages built | ${pages}  |
 """.trim()
                         )

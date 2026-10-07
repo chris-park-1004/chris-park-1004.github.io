@@ -15,18 +15,27 @@
 | [Self-Hosted CI/CD Infrastructure](https://chris-park-1004.github.io/projects/ci-cd/) | End-to-end pipeline on a home PC: multibranch Jenkins (controller + Windows agent), GitHub App auth, webhook-driven builds with PR checks, Prometheus → Grafana Cloud observability, secured by an outbound-only Cloudflare Tunnel | Jenkins · Docker · Prometheus · Grafana · Cloudflare |
 | [Handoff](https://github.com/chris-park-1004/Handoff) | ConHacks 2026 hackathon project — carries context across AI coding CLI sessions and agents (Claude Code ⇄ Codex) via a Supabase shared store, Node.js hook scripts, and git-diff-based summaries | Node.js · Supabase (Postgres/REST) · CLI hooks |
 | [Loc8U](https://chris-park-1004.github.io/) | Capstone (team of 5) — LoRa-based visitor safety system for areas without cellular coverage; I built the Python Meshtastic ↔ Apache Kafka bridge and owned the Azure DevOps CI pipeline with SonarCloud | Python · Kafka · LoRa/Meshtastic · Azure DevOps |
-| [Portfolio site](https://github.com/chris-park-1004/chris-park-1004.github.io) | Prerendered React homepage with existing career and project documentation, deployed on GitHub Pages | React · TypeScript · React Router · Astro |
+| [Portfolio site](https://github.com/chris-park-1004/chris-park-1004.github.io) | React website with prerendered career and project documentation | React · TypeScript · React Router · Vite |
 
 ## Website development and deployment
 
-Use Node.js 24. Install both dependency sets with `npm ci` and `npm ci --prefix redesign`.
+Use Node.js 24 and install dependencies with `npm ci`.
 
-- `npm run dev`: develop the React homepage at http://127.0.0.1:5173.
-- `npm run dev:legacy`: develop the existing Astro detail pages.
-- `npm run build`: build the existing pages, typecheck and prerender the React home, then combine them in `dist/`. Verification checks that all 19 detail pages remain byte-for-byte unchanged and all 20 page URLs are present.
+- `npm run dev`: develop all pages at http://127.0.0.1:5173.
+- `npm run typecheck`: generate route types and check TypeScript.
+- `npm run build`: typecheck, prerender all 20 React pages, and verify the output in `build/client/`.
+- `npm run verify`: check the built HTML against the preserved document content, metadata, links, images, and anchor contract.
 - `npm run preview`: preview the complete production site at http://127.0.0.1:4173 after building.
 
-GitHub Actions publishes `dist/` on pushes to `main`. Jenkins runs the same build and verification but does not deploy. The React home lives in `redesign/`; the remaining pages stay in `src/pages/` until migrated individually. The legacy homepage source is retained for reference but its generated HTML is replaced during the production build.
+All routes are native React TSX in `app/routes/`. Shared document components are in `app/documents/`, with a common header, footer, and document layout in `app/components/`. The application uses one dependency tree and one React Router build; no Astro build or runtime remains. Each URL is prerendered to its own HTML file, so direct links and document anchors work on static hosting. A generated `404.html` handles unknown paths.
+
+`scripts/page-contracts.json` records the pre-migration document text hashes, metadata, anchors, links, and images. Verification ignores whitespace differences but detects missing or changed authored content across all 19 detail pages. Draft documents remain explicitly marked as drafts.
+
+GitHub Actions publishes the complete React site from `build/client/` on pushes to `main`. Jenkins runs the same build and verification but does not deploy.
+
+## Design assets
+
+Space Grotesk, Manrope, and IBM Plex Mono are self-hosted in `public/fonts/`, with their SIL Open Font Licenses. The homepage's GitHub, Jenkins, and Grafana logos are in `public/brands/`. GitHub's mark uses the included MIT license; Jenkins artwork is credited in the footer under CC BY-SA 3.0. Tool logos identify the technologies used and do not imply endorsement.
 
 ## Tech I work with
 

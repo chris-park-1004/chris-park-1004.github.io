@@ -1,0 +1,22 @@
+import {index, route, type RouteConfig} from '@react-router/dev/routes';
+export default [index('routes/home.tsx'),
+route("career","routes/docs/career.tsx"),
+route("projects/ci-cd/cloudflare/access-gate","routes/docs/projects-ci-cd-cloudflare-access-gate.tsx"),
+route("projects/ci-cd/cloudflare","routes/docs/projects-ci-cd-cloudflare.tsx"),
+route("projects/ci-cd/cloudflare/tunnel-setup","routes/docs/projects-ci-cd-cloudflare-tunnel-setup.tsx"),
+route("projects/ci-cd/github/app-setup","routes/docs/projects-ci-cd-github-app-setup.tsx"),
+route("projects/ci-cd/github","routes/docs/projects-ci-cd-github.tsx"),
+route("projects/ci-cd/github/pr-checks","routes/docs/projects-ci-cd-github-pr-checks.tsx"),
+route("projects/ci-cd/github/webhook","routes/docs/projects-ci-cd-github-webhook.tsx"),
+route("projects/ci-cd/grafana","routes/docs/projects-ci-cd-grafana.tsx"),
+route("projects/ci-cd/grafana/jenkins-overview","routes/docs/projects-ci-cd-grafana-jenkins-overview.tsx"),
+route("projects/ci-cd/grafana/server-resources","routes/docs/projects-ci-cd-grafana-server-resources.tsx"),
+route("projects/ci-cd","routes/docs/projects-ci-cd.tsx"),
+route("projects/ci-cd/jenkins/agents","routes/docs/projects-ci-cd-jenkins-agents.tsx"),
+route("projects/ci-cd/jenkins/checks-api","routes/docs/projects-ci-cd-jenkins-checks-api.tsx"),
+route("projects/ci-cd/jenkins","routes/docs/projects-ci-cd-jenkins.tsx"),
+route("projects/ci-cd/jenkins/installation","routes/docs/projects-ci-cd-jenkins-installation.tsx"),
+route("projects/ci-cd/jenkins/multibranch-pipeline","routes/docs/projects-ci-cd-jenkins-multibranch-pipeline.tsx"),
+route("projects/ci-cd/jenkins/service-account","routes/docs/projects-ci-cd-jenkins-service-account.tsx"),
+route("projects/ci-cd/prometheus","routes/docs/projects-ci-cd-prometheus.tsx")
+] satisfies RouteConfig;
